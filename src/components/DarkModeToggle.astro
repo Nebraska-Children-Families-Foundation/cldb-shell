@@ -14,23 +14,40 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {
-    const themeToggle = document.getElementById("theme-toggle");
-    const htmlElement = document.documentElement;
-    const storedTheme = localStorage.getItem("theme");
+      const themeToggle = document.getElementById("theme-toggle");
+      const htmlElement = document.documentElement;
+      const storedTheme = localStorage.getItem("theme");
 
-    // Set theme on load
-    if (storedTheme === "dark" || (!storedTheme && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
-      htmlElement.classList.add("dark");
-      localStorage.setItem("theme", "dark");
-    } else {
-      htmlElement.classList.remove("dark");
-      localStorage.setItem("theme", "light");
-    }
+      const lightIcon = document.getElementById("theme-toggle-light");
+      const darkIcon = document.getElementById("theme-toggle-dark");
 
-    // Toggle theme on button click
-    themeToggle.addEventListener("click", () => {
-      const isDarkMode = htmlElement.classList.toggle("dark");
-      localStorage.setItem("theme", isDarkMode ? "dark" : "light");
-    });
+      function updateIcons(isDark) {
+          if (isDark) {
+              lightIcon.classList.remove("hidden");
+              darkIcon.classList.add("hidden");
+          } else {
+              lightIcon.classList.add("hidden");
+              darkIcon.classList.remove("hidden");
+          }
+      }
+
+      // Set theme on load
+      const prefersDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      if (storedTheme === "dark" || (!storedTheme && prefersDarkMode)) {
+          htmlElement.classList.add("dark");
+          localStorage.setItem("theme", "dark");
+          updateIcons(true);
+      } else {
+          htmlElement.classList.remove("dark");
+          localStorage.setItem("theme", "light");
+          updateIcons(false);
+      }
+
+      // Toggle theme on button click
+      themeToggle.addEventListener("click", () => {
+          const isDarkMode = htmlElement.classList.toggle("dark");
+          localStorage.setItem("theme", isDarkMode ? "dark" : "light");
+          updateIcons(isDarkMode);
+      });
   });
 </script>
