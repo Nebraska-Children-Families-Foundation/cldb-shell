@@ -1,0 +1,27 @@
+---
+import { onMount } from "solid-js";
+import "leaflet/dist/leaflet.css";
+
+const loadMap = () => {
+  if (typeof window !== "undefined") {
+    import("leaflet").then(L => {
+      console.log("Leaflet loaded", L);
+
+      const map = L.map("map").setView([41.2565, -95.9345], 10);
+
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution: "&copy; OpenStreetMap contributors"
+      }).addTo(map);
+
+      L.marker([41.2565, -95.9345]).addTo(map)
+        .bindPopup("Hello from Omaha!")
+        .openPopup();
+    }).catch(err => console.error("Error loading Leaflet:", err));
+  }
+};
+
+onMount(loadMap);
+---
+
+<!-- Map Container -->
+<div id="map" class="absolute inset-0"></div>
