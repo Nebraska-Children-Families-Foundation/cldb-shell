@@ -1,32 +1,28 @@
 ---
-import ReportsSubNav from "../components/ReportsSubNav.astro";
-import DarkModeToggle from "../components/DarkModeToggle.astro";
-import MainNavbar from "../components/MainNavbar.astro";
+import ReportsNavbar from "../components/ReportsNavbar.astro";
 ---
 
 <!doctype html>
 <html lang="en">
-    <head>
-       <meta charset="UTF-8" />
-       <meta name="viewport" content="width=device-width" />
-       <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-       <meta name="generator" content={Astro.generator} />
+<head>
+   <meta charset="UTF-8" />
+   <meta name="viewport" content="width=device-width" />
+   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+   <meta name="generator" content={Astro.generator} />
 
-       <!-- Flowbite -->
-       <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
+   <!-- Flowbite -->
+   <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
 
-       <title>Community Lens Database</title>
+   <title>Community Lens Database</title>
     </head>
     <body>
        <div class="antialiased bg-gray-50 dark:bg-gray-900">
-          <MainNavbar />
-          <ReportsSubNav />
-          <!-- #######  Bring in the Components ####### -->
-          <div class="container mx-auto pt-[110px] px-4 min-h-screen bg-white dark:bg-gray-900">
+          <ReportsNavbar />
+          <div class="container mx-auto pt-[108px] px-4 min-h-screen bg-white dark:bg-gray-900">
              <slot />
           </div>
        </div>
        <!-- Flowbite JS -->
        <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
     </body>
-</html>
+    </html>
