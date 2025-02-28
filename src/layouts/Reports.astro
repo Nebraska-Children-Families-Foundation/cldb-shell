@@ -1,36 +1,75 @@
 ---
-
+// src/layouts/Reports.astro
 import ReportsSubNav from "../components/ReportsSubNav.astro";
-import DarkModeToggle from "../components/DarkModeToggle.astro";
 import MainNavbar from "../components/MainNavbar.astro";
 
+interface Props {
+  title?: string;
+  activeSubnavItem?: string;
+}
+
+const {
+  title = "Community Lens Database",
+  activeSubnavItem = "Report Home"
+} = Astro.props;
+
+// Use the exact height measurements
+const mainNavHeight = "65px"; // Updated from 60px to actual 65px
+const subNavHeight = "48px";
+const totalNavHeight = "113px"; // 65px + 48px = 113px
 ---
 
 <!doctype html>
-import DarkModeToggle from "../components/DarkModeToggle.astro";
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
 
-		<!-- Flowbite -->
-		<link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
+    <!-- Flowbite -->
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
 
-		<title>Community Lens Database</title>
-	</head>
-	<body>
-		<div class="antialiased bg-gray-50 dark:bg-gray-900">
-			<MainNavbar />
-            <ReportsSubNav />
-			<!-- #######  Bring in the Components ####### -->
-			<div class="flex">
-				<div class="flex-auto">
-					<slot />
-				</div>
-			</div>
+    <title>{title}</title>
+
+    <!-- Add global styles to fix navbar positioning with exact heights -->
+    <style is:global define:vars={{ mainNavHeight, subNavHeight, totalNavHeight }}>
+      /* Ensure content is properly positioned below both navbars */
+      body {
+        padding-top: var(--totalNavHeight); /* 65px main + 48px sub = 113px */
+      }
+
+      /* Set main navbar height and positioning */
+      nav.main-navbar {
+        height: var(--mainNavHeight);
+      }
+
+      /* Set subnav height and positioning */
+      .reports-subnav {
+        height: var(--subNavHeight);
+        top: var(--mainNavHeight); /* Position exactly at bottom of main navbar */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="antialiased bg-gray-50 dark:bg-gray-900 min-h-screen">
+      <!-- Main navbar -->
+      <MainNavbar />
+
+      <!-- Reports sub navbar - positioned exactly below the main navbar -->
+      <ReportsSubNav activeItem={activeSubnavItem} />
+
+      <!-- Main content wrapper with appropriate padding -->
+      <main class="pt-4 px-4">
+        <div class="flex">
+          <div class="flex-auto">
+            <slot />
+          </div>
         </div>
-	<!-- Flowbite JS -->
-	<script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
-	</body>
+      </main>
+    </div>
+
+    <!-- Flowbite JS -->
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+  </body>
+</html>
