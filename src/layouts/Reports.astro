@@ -20,7 +20,7 @@ const totalNavHeight = "113px"; // 65px + 48px = 113px
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class="h-full">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
@@ -34,6 +34,11 @@ const totalNavHeight = "113px"; // 65px + 48px = 113px
 
     <!-- Add global styles to fix navbar positioning with exact heights -->
     <style is:global define:vars={{ mainNavHeight, subNavHeight, totalNavHeight }}>
+      /* Ensure html and body take full height */
+      html, body {
+        height: 100%;
+      }
+
       /* Ensure content is properly positioned below both navbars */
       body {
         padding-top: var(--totalNavHeight); /* 65px main + 48px sub = 113px */
@@ -51,8 +56,8 @@ const totalNavHeight = "113px"; // 65px + 48px = 113px
       }
     </style>
   </head>
-  <body>
-    <div class="antialiased bg-gray-50 dark:bg-gray-900 min-h-screen">
+  <body class="h-full">
+    <div class="antialiased bg-gray-50 dark:bg-gray-900 min-h-screen flex flex-col h-full">
       <!-- Main navbar -->
       <MainNavbar />
 
@@ -60,8 +65,8 @@ const totalNavHeight = "113px"; // 65px + 48px = 113px
       <ReportsSubNav activeItem={activeSubnavItem} />
 
       <!-- Main content wrapper with appropriate padding -->
-      <main class="pt-4 px-4">
-        <div class="flex">
+      <main class="pt-4 px-4 flex-grow">
+        <div class="flex h-full">
           <div class="flex-auto">
             <slot />
           </div>
