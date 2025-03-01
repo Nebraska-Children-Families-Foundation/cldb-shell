@@ -1,32 +1,44 @@
-<nav
-  class="bg-gray-900 border-b border-gray-700 px-4 py-3 fixed left-0 right-0 top-[65px] z-40 w-full"
->
-  <div class="max-w-7xl mx-auto">
-    <ul class="flex justify-center space-x-8">
-      <li>
-        <a href="/report-home"
-          class="relative px-4 py-2 text-gray-300 hover:text-lime-400 transition-colors
-                after:content-[''] after:absolute after:left-0 after:right-0 after:bottom-0 after:h-[2px] after:bg-lime-400 after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300"
-        >
-          Report Home
-        </a>
-      </li>
-      <li>
-        <a href="/create-report"
-          class="relative px-4 py-2 text-gray-300 hover:text-lime-400 transition-colors
-                after:content-[''] after:absolute after:left-0 after:right-0 after:bottom-0 after:h-[2px] after:bg-lime-400 after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300"
-        >
-          Create New Report
-        </a>
-      </li>
-      <li>
-        <a href="/past-reports"
-          class="relative px-4 py-2 text-gray-300 hover:text-lime-400 transition-colors
-                after:content-[''] after:absolute after:left-0 after:right-0 after:bottom-0 after:h-[2px] after:bg-lime-400 after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300"
-        >
-          View Past Reports
-        </a>
-      </li>
+---
+// src/components/ReportsSubNav.astro
+
+// Use Astro.url to determine current path
+const currentPath = Astro.url.pathname;
+
+// Define navigation items with their paths and labels
+const navItems = [
+  { path: "/reports", label: "Report Home" },
+  { path: "/reports/create-report", label: "Create New Report" },
+  { path: "/reports/my-reports", label: "View My Reports" }
+];
+
+// Determine which item is active based on the current path
+function isActive(itemPath) {
+  // For the home item, check for exact match to avoid matching subpaths
+  if (itemPath === "/reports") {
+    return currentPath === "/reports" || currentPath === "/reports/";
+  }
+  // For other items, check if current path starts with the item path
+  return currentPath.startsWith(itemPath);
+}
+---
+
+<div class="reports-subnav bg-gray-700 border-b border-gray-600 px-4 py-2 fixed left-0 right-0 z-40">
+  <div class="container mx-auto flex justify-center items-center h-full">
+    <ul class="flex flex-wrap space-x-8">
+      {navItems.map(item => (
+        <li>
+          <a
+            href={item.path}
+            class={`inline-block py-2 px-3 text-white border-b-2 ${
+              isActive(item.path) 
+                ? 'border-white font-medium' 
+                : 'border-transparent hover:border-gray-300'
+            } transition-all duration-200`}
+          >
+            {item.label}
+          </a>
+        </li>
+      ))}
     </ul>
   </div>
-</nav>
+</div>
