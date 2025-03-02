@@ -45,12 +45,9 @@ const locationData = [
 <DashboardLayout>
   <main>
     <div class="p-4">
-      <p class="mb-4 text-white">
-        Explore our Community Collaboratives and Sixpence sites across Nebraska.
-      </p>
 
-      <!-- Map Component - Important: client:only ensures full client-side rendering -->
-      <div class="w-full h-[600px] bg-gray-900 border border-gray-700 rounded-lg overflow-hidden">
+      <!-- Map Component with position adjustments -->
+      <div class="w-full h-[600px] bg-gray-900 border border-gray-700 rounded-lg overflow-hidden relative z-10">
         <LeafletMap client:only="vue" locations={locationData} />
       </div>
 

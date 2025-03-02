@@ -24,11 +24,18 @@ import MapSidebar from "../components/MapSidebar.astro";
     </head>
     <body>
        <div class="antialiased bg-gray-50 dark:bg-gray-900" style="min-height: 100vh;">
-          <MainNavbar />
-          <MapSidebar />
+          <!-- Fixed position navbar with high z-index -->
+          <div class="fixed top-0 left-0 right-0 z-50">
+             <MainNavbar />
+          </div>
 
-          <!-- Component Container -->
-          <div class="flex">
+          <!-- Sidebar with appropriate positioning -->
+          <div class="fixed top-16 left-0 bottom-0 z-40">
+             <MapSidebar />
+          </div>
+
+          <!-- Component Container with padding to account for navbar -->
+          <div class="flex pt-16"> <!-- 16 = 4rem = ~64px navbar height -->
              <div class="w-64 hidden md:block flex-none"></div><!-- creates space for the sidebar -->
              <div class="flex-auto">
                 <slot />
