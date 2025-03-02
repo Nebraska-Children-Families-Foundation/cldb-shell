@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "name": "Sixpence Early Learning Center",
+    "community": "York",
+    "coordinates": [40.8678, -97.5928]
+  },
+  {
+    "id": 2,
+    "name": "Sixpence Family Resource Center",
+    "community": "Lincoln",
+    "coordinates": [40.8136, -96.6080]
+  },
+  {
+    "id": 3,
+    "name": "Sixpence Child Development",
+    "community": "Hastings",
+    "coordinates": [40.5862, -98.3898]
+  }
+]

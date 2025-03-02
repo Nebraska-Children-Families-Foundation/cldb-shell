@@ -2,42 +2,161 @@
 import DashboardLayout from "../layouts/DashboardLayout.astro";
 import LeafletMap from '../components/LeafletMap.vue';
 
-// Nebraska location data
+// Nebraska Community Collaboratives location data
 const locationData = [
   {
-    name: "Omaha Collaborative",
+    name: "Better Together Collaborative",
+    type: "Collaborative",
+    lat: 40.6781,
+    lng: -95.8593,
+    address: "Nebraska City, NE"
+  },
+  {
+    name: "Bridge Family Resource Connector Network",
     type: "Collaborative",
     lat: 41.2565,
     lng: -95.9345,
     address: "Omaha, NE"
   },
   {
-    name: "Lincoln Sixpence Site",
-    type: "Sixpence",
-    lat: 40.8136,
-    lng: -96.7026,
-    address: "Lincoln, NE"
+    name: "Buffalo County Wellbeing Collaborative",
+    type: "Collaborative",
+    lat: 40.6993,
+    lng: -99.0812,
+    address: "Kearney, NE"
   },
   {
-    name: "Grand Island Collaborative",
+    name: "Community and Family Partnership",
+    type: "Collaborative",
+    lat: 41.4305,
+    lng: -97.3571,
+    address: "Columbus, NE"
+  },
+  {
+    name: "Community Impact Network of Adams, Clay, Webster, Nuckolls",
+    type: "Collaborative",
+    lat: 40.5862,
+    lng: -98.3889,
+    address: "Hastings, NE"
+  },
+  {
+    name: "Dawson County Family Partners",
+    type: "Collaborative",
+    lat: 40.7777,
+    lng: -99.7415,
+    address: "Lexington, NE"
+  },
+  {
+    name: "Families 1st Partnership",
+    type: "Collaborative",
+    lat: 41.1403,
+    lng: -100.7601,
+    address: "North Platte, NE"
+  },
+  {
+    name: "Four Counties Collaborative",
+    type: "Collaborative",
+    lat: 40.3888,
+    lng: -95.8421,
+    address: "Auburn, NE"
+  },
+  {
+    name: "Fremont Family Coalition",
+    type: "Collaborative",
+    lat: 41.4350,
+    lng: -96.4867,
+    address: "Fremont, NE"
+  },
+  {
+    name: "Growing Community Connections",
+    type: "Collaborative",
+    lat: 42.4649,
+    lng: -96.4132,
+    address: "South Sioux City, NE"
+  },
+  {
+    name: "Hall County Community Collaborative",
     type: "Collaborative",
     lat: 40.9264,
     lng: -98.3420,
     address: "Grand Island, NE"
   },
   {
-    name: "Kearney Sixpence Site",
-    type: "Sixpence",
-    lat: 40.6993,
-    lng: -99.0812,
-    address: "Kearney, NE"
+    name: "Lancaster Connected",
+    type: "Collaborative",
+    lat: 40.8136,
+    lng: -96.7026,
+    address: "Lincoln, NE"
   },
   {
-    name: "North Platte Collaborative",
+    name: "Lift Up Sarpy",
     type: "Collaborative",
-    lat: 41.1403,
-    lng: -100.7601,
-    address: "North Platte, NE"
+    lat: 41.1619,
+    lng: -95.9343,
+    address: "Bellevue, NE"
+  },
+  {
+    name: "Norfolk Family Coalition",
+    type: "Collaborative",
+    lat: 42.0283,
+    lng: -97.4172,
+    address: "Norfolk, NE"
+  },
+  {
+    name: "Panhandle Partnership",
+    type: "Collaborative",
+    lat: 41.8672,
+    lng: -103.6614,
+    address: "Scottsbluff, NE"
+  },
+  {
+    name: "Sandhills Community Collaborative",
+    type: "Collaborative",
+    lat: 41.4043,
+    lng: -99.6424,
+    address: "Broken Bow, NE"
+  },
+  {
+    name: "Saunders County Active Community Team",
+    type: "Collaborative",
+    lat: 41.2156,
+    lng: -96.6208,
+    address: "Wahoo, NE"
+  },
+  {
+    name: "Valentine Children and Families Coalition",
+    type: "Collaborative",
+    lat: 42.8729,
+    lng: -100.5515,
+    address: "Valentine, NE"
+  },
+  {
+    name: "York County Community Coalition",
+    type: "Collaborative",
+    lat: 40.8666,
+    lng: -97.5958,
+    address: "York, NE"
+  },
+  {
+    name: "Building Courageous Families",
+    type: "Collaborative",
+    lat: 42.2377,
+    lng: -96.4718,
+    address: "Winnebago, NE"
+  },
+  {
+    name: "Omaha Tribe of Nebraska",
+    type: "Collaborative",
+    lat: 42.1142,
+    lng: -96.3568,
+    address: "Macy, NE"
+  },
+  {
+    name: "Society of Care Santee-Sioux Nation",
+    type: "Collaborative",
+    lat: 42.8306,
+    lng: -97.8584,
+    address: "Santee, NE"
   }
 ];
 ---
@@ -51,18 +170,26 @@ const locationData = [
         <LeafletMap client:only="vue" locations={locationData} />
       </div>
 
-      <!-- Map Legend -->
+      <!-- Collaboratives Table -->
       <div class="mt-4 p-4 bg-gray-900 border border-gray-700 rounded-lg">
-        <h3 class="text-lg font-semibold mb-2 text-white">Legend</h3>
-        <div class="flex items-center space-x-6">
-          <div class="flex items-center">
-            <span class="inline-block w-4 h-4 mr-2 bg-blue-600 rounded-full"></span>
-            <span class="text-white">Community Collaborative</span>
-          </div>
-          <div class="flex items-center">
-            <span class="inline-block w-4 h-4 mr-2 bg-pink-600 rounded-full"></span>
-            <span class="text-white">Sixpence Site</span>
-          </div>
+        <h3 class="text-lg font-semibold mb-2 text-white">Community Collaboratives</h3>
+        <div class="overflow-x-auto">
+          <table class="min-w-full divide-y divide-gray-700">
+            <thead>
+              <tr>
+                <th class="px-4 py-2 text-left text-sm font-medium text-gray-300">Collaborative</th>
+                <th class="px-4 py-2 text-left text-sm font-medium text-gray-300">City</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-700">
+              {locationData.map((location) => (
+                <tr>
+                  <td class="px-4 py-2 text-sm text-white">{location.name}</td>
+                  <td class="px-4 py-2 text-sm text-white">{location.address}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
