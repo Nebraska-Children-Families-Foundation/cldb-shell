@@ -5,36 +5,38 @@ import MapSidebar from "../components/MapSidebar.astro";
 ---
 
 <!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
+<html lang="en" class="dark">
+    <head>
+       <meta charset="UTF-8" />
+       <meta name="viewport" content="width=device-width" />
+       <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+       <meta name="generator" content={Astro.generator} />
 
-		<!-- Flowbite -->
-		<link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
+       <!-- Leaflet CSS -->
+       <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+             integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+             crossorigin=""/>
 
-		<title>Community Lens Database</title>
-	</head>
-	<body>
-		<div class="antialiased bg-gray-50 dark:bg-gray-900">
-			<MainNavbar />
-			<MapSidebar />
+       <!-- Flowbite -->
+       <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
 
-			<!-- #######  Bring in the Components ####### -->
-			<div class="flex">
-				<div class="w-64 flex-none"></div><!-- creates space for the sidebar -->
-				<div class="flex-auto">
-					<slot />
-				</div>
-			</div>
-		</div>
-	<!-- Flowbite JS -->
-	<script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
-	</body>
+       <title>Community Lens Database</title>
+    </head>
+    <body>
+       <div class="antialiased bg-gray-50 dark:bg-gray-900" style="min-height: 100vh;">
+          <MainNavbar />
+          <MapSidebar />
 
+          <!-- Component Container -->
+          <div class="flex">
+             <div class="w-64 hidden md:block flex-none"></div><!-- creates space for the sidebar -->
+             <div class="flex-auto">
+                <slot />
+             </div>
+          </div>
+       </div>
 
+       <!-- Flowbite JS -->
+       <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+    </body>
 </html>
-
-

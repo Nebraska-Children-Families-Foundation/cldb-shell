@@ -1,13 +1,73 @@
 ---
-import Containers from '../components/Containers.astro';
-import Layout from '../layouts/Layout.astro';
-import Dashboard from '../layouts/Dashboard.astro';
-import Map from "../components/Map.astro";
+import DashboardLayout from "../layouts/DashboardLayout.astro";
+import LeafletMap from '../components/LeafletMap.vue';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+// Nebraska location data
+const locationData = [
+  {
+    name: "Omaha Collaborative",
+    type: "Collaborative",
+    lat: 41.2565,
+    lng: -95.9345,
+    address: "Omaha, NE"
+  },
+  {
+    name: "Lincoln Sixpence Site",
+    type: "Sixpence",
+    lat: 40.8136,
+    lng: -96.7026,
+    address: "Lincoln, NE"
+  },
+  {
+    name: "Grand Island Collaborative",
+    type: "Collaborative",
+    lat: 40.9264,
+    lng: -98.3420,
+    address: "Grand Island, NE"
+  },
+  {
+    name: "Kearney Sixpence Site",
+    type: "Sixpence",
+    lat: 40.6993,
+    lng: -99.0812,
+    address: "Kearney, NE"
+  },
+  {
+    name: "North Platte Collaborative",
+    type: "Collaborative",
+    lat: 41.1403,
+    lng: -100.7601,
+    address: "North Platte, NE"
+  }
+];
 ---
 
-<Dashboard>
-	<Containers />
-</Dashboard>
+<DashboardLayout>
+  <main>
+    <div class="p-4">
+      <p class="mb-4 text-white">
+        Explore our Community Collaboratives and Sixpence sites across Nebraska.
+      </p>
+
+      <!-- Map Component - Important: client:only ensures full client-side rendering -->
+      <div class="w-full h-[600px] bg-gray-900 border border-gray-700 rounded-lg overflow-hidden">
+        <LeafletMap client:only="vue" locations={locationData} />
+      </div>
+
+      <!-- Map Legend -->
+      <div class="mt-4 p-4 bg-gray-900 border border-gray-700 rounded-lg">
+        <h3 class="text-lg font-semibold mb-2 text-white">Legend</h3>
+        <div class="flex items-center space-x-6">
+          <div class="flex items-center">
+            <span class="inline-block w-4 h-4 mr-2 bg-blue-600 rounded-full"></span>
+            <span class="text-white">Community Collaborative</span>
+          </div>
+          <div class="flex items-center">
+            <span class="inline-block w-4 h-4 mr-2 bg-pink-600 rounded-full"></span>
+            <span class="text-white">Sixpence Site</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</DashboardLayout>
