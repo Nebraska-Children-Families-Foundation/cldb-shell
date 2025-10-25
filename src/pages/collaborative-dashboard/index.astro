@@ -1,0 +1,106 @@
+---
+// src/pages/collaborative-dashboard/index.astro
+import CollaborativeDashboard from "../../layouts/CollaborativeDashboard.astro";
+---
+
+<CollaborativeDashboard title="Collaborative Dashboard - Overview | Community Lens Database" activeSubnavItem="Overview">
+  <div class="max-w-7xl mx-auto">
+    <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-6">Collaborative Dashboard - Overview</h1>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+      <!-- Stats Card 1 -->
+      <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
+        <div class="flex items-center">
+          <div class="flex-shrink-0">
+            <svg class="w-12 h-12 text-blue-600 dark:text-blue-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path>
+            </svg>
+          </div>
+          <div class="ml-4">
+            <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Active Collaboratives</p>
+            <p class="text-2xl font-semibold text-gray-900 dark:text-white">24</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stats Card 2 -->
+      <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
+        <div class="flex items-center">
+          <div class="flex-shrink-0">
+            <svg class="w-12 h-12 text-green-600 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path>
+            </svg>
+          </div>
+          <div class="ml-4">
+            <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Total Referrals</p>
+            <p class="text-2xl font-semibold text-gray-900 dark:text-white">1,247</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stats Card 3 -->
+      <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
+        <div class="flex items-center">
+          <div class="flex-shrink-0">
+            <svg class="w-12 h-12 text-purple-600 dark:text-purple-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"></path>
+              <path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd"></path>
+            </svg>
+          </div>
+          <div class="ml-4">
+            <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Surveys Completed</p>
+            <p class="text-2xl font-semibold text-gray-900 dark:text-white">892</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent Activity -->
+    <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6 mb-6">
+      <h2 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">Recent Activity</h2>
+
+      <div class="space-y-4">
+        <div class="border-l-4 border-blue-500 pl-4 py-2">
+          <p class="text-sm font-medium text-gray-900 dark:text-white">New collaborative formed in Lancaster County</p>
+          <p class="text-xs text-gray-500 dark:text-gray-400">2 hours ago</p>
+        </div>
+        <div class="border-l-4 border-green-500 pl-4 py-2">
+          <p class="text-sm font-medium text-gray-900 dark:text-white">45 new referrals processed</p>
+          <p class="text-xs text-gray-500 dark:text-gray-400">5 hours ago</p>
+        </div>
+        <div class="border-l-4 border-purple-500 pl-4 py-2">
+          <p class="text-sm font-medium text-gray-900 dark:text-white">Quarterly survey responses received</p>
+          <p class="text-xs text-gray-500 dark:text-gray-400">1 day ago</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Links -->
+    <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
+      <h2 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">Quick Links</h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <a href="/collaborative-dashboard/central-navigation" class="flex flex-col items-center p-4 bg-gray-50 rounded-lg hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 transition-all">
+          <svg class="w-8 h-8 text-gray-500 dark:text-gray-400 mb-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M11.906 1.994a8.002 8.002 0 018.09 8.421 7.996 7.996 0 01-1.297 3.957.996.996 0 01-.133.204l-.108.129c-.178.243-.37.477-.573.699l-5.112 6.224a1 1 0 01-1.545 0L5.982 15.26l-.002-.002a18.146 18.146 0 01-.309-.38l-.133-.163a.999.999 0 01-.13-.202 7.995 7.995 0 016.498-12.518zM15 9.997a3 3 0 11-5.999 0 3 3 0 015.999 0z" clip-rule="evenodd"></path>
+          </svg>
+          <span class="text-gray-900 dark:text-white">Central Navigation</span>
+        </a>
+
+        <a href="/collaborative-dashboard/coaching" class="flex flex-col items-center p-4 bg-gray-50 rounded-lg hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 transition-all">
+          <svg class="w-8 h-8 text-gray-500 dark:text-gray-400 mb-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"></path>
+          </svg>
+          <span class="text-gray-900 dark:text-white">Coaching</span>
+        </a>
+
+        <a href="/collaborative-dashboard/referrals" class="flex flex-col items-center p-4 bg-gray-50 rounded-lg hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 transition-all">
+          <svg class="w-8 h-8 text-gray-500 dark:text-gray-400 mb-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 5a1 1 0 100 2h5.586l-1.293 1.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L13.586 5H8zM12 15a1 1 0 100-2H6.414l1.293-1.293a1 1 0 10-1.414-1.414l-3 3a1 1 0 000 1.414l3 3a1 1 0 001.414-1.414L6.414 15H12z"></path>
+          </svg>
+          <span class="text-gray-900 dark:text-white">Referrals</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</CollaborativeDashboard>

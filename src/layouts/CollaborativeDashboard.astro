@@ -1,0 +1,99 @@
+---
+// src/layouts/CollaborativeDashboard.astro
+import CollaborativeDashboardSubNav from "../components/CollaborativeDashboardSubNav.astro";
+import MainNavbar from "../components/MainNavbar.astro";
+
+interface Props {
+  title?: string;
+  activeSubnavItem?: string;
+}
+
+const {
+  title = "Community Lens Database",
+  activeSubnavItem = "Overview"
+} = Astro.props;
+
+// Use the exact height measurements
+const mainNavHeight = "65px"; // Updated from 60px to actual 65px
+const subNavHeight = "48px";
+const totalNavHeight = "113px"; // 65px + 48px = 113px
+---
+
+<!doctype html>
+<html lang="en" class="h-full">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Theme initialization script - must run before page renders -->
+    <script is:inline>
+      // Immediately set theme to prevent FOUC (Flash of Unstyled Content)
+      (function() {
+        const storedTheme = localStorage.getItem("theme");
+        const prefersDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+        if (storedTheme === "dark" || (!storedTheme && prefersDarkMode)) {
+          document.documentElement.classList.add("dark");
+        }
+      })();
+    </script>
+
+    <!-- Flowbite -->
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
+
+    <title>{title}</title>
+
+    <!-- Add global styles to fix navbar positioning with exact heights -->
+    <style is:global define:vars={{ mainNavHeight, subNavHeight, totalNavHeight }}>
+      /* Ensure html and body take full height and apply theme colors */
+      html {
+        height: 100%;
+        min-height: 100%;
+      }
+
+      html.dark {
+        background-color: #111827; /* dark:bg-gray-900 equivalent */
+      }
+
+      body {
+        min-height: 100%;
+        padding-top: var(--totalNavHeight); /* 65px main + 48px sub = 113px */
+        background-color: inherit; /* Inherit from html to maintain theme */
+      }
+
+      /* Set main navbar height and positioning */
+      nav.main-navbar {
+        height: var(--mainNavHeight);
+      }
+
+      /* Set subnav height and positioning */
+      .collaborative-dashboard-subnav {
+        height: var(--subNavHeight);
+        top: var(--mainNavHeight); /* Position exactly at bottom of main navbar */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="antialiased bg-gray-50 dark:bg-gray-900 min-h-screen flex flex-col">
+      <!-- Main navbar -->
+      <MainNavbar />
+
+      <!-- Collaborative Dashboard sub navbar - positioned exactly below the main navbar -->
+      <CollaborativeDashboardSubNav activeItem={activeSubnavItem} />
+
+      <!-- Main content wrapper with appropriate padding -->
+      <main class="pt-4 px-4 flex-grow">
+        <div class="flex flex-col">
+          <div class="flex-auto">
+            <slot />
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- Flowbite JS -->
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+  </body>
+</html>

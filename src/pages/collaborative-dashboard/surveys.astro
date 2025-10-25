@@ -1,0 +1,157 @@
+---
+// src/pages/collaborative-dashboard/surveys.astro
+import CollaborativeDashboard from "../../layouts/CollaborativeDashboard.astro";
+---
+
+<CollaborativeDashboard title="Surveys | Community Lens Database" activeSubnavItem="Surveys">
+  <div class="max-w-7xl mx-auto">
+    <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-6">Survey Management</h1>
+
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+      <!-- Survey Stats -->
+      <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
+        <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Active Surveys</p>
+        <p class="text-2xl font-semibold text-blue-600 dark:text-blue-400">7</p>
+      </div>
+
+      <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
+        <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Total Responses</p>
+        <p class="text-2xl font-semibold text-gray-900 dark:text-white">892</p>
+      </div>
+
+      <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
+        <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Avg Response Rate</p>
+        <p class="text-2xl font-semibold text-green-600 dark:text-green-400">74%</p>
+      </div>
+
+      <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
+        <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Pending Review</p>
+        <p class="text-2xl font-semibold text-yellow-600 dark:text-yellow-400">23</p>
+      </div>
+    </div>
+
+    <!-- Active Surveys -->
+    <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6 mb-6">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-xl font-semibold text-gray-800 dark:text-white">Active Surveys</h2>
+        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+          Create Survey
+        </button>
+      </div>
+
+      <div class="overflow-x-auto relative">
+        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+          <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+              <th scope="col" class="py-3 px-6">Survey Name</th>
+              <th scope="col" class="py-3 px-6">Type</th>
+              <th scope="col" class="py-3 px-6">Start Date</th>
+              <th scope="col" class="py-3 px-6">End Date</th>
+              <th scope="col" class="py-3 px-6">Responses</th>
+              <th scope="col" class="py-3 px-6">Status</th>
+              <th scope="col" class="py-3 px-6">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+              <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                Q4 2025 Client Satisfaction
+              </th>
+              <td class="py-4 px-6">Client Feedback</td>
+              <td class="py-4 px-6">Oct 1, 2025</td>
+              <td class="py-4 px-6">Oct 31, 2025</td>
+              <td class="py-4 px-6">234 / 320</td>
+              <td class="py-4 px-6">
+                <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">
+                  Active
+                </span>
+              </td>
+              <td class="py-4 px-6">
+                <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View Results</a>
+              </td>
+            </tr>
+            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+              <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                Service Needs Assessment
+              </th>
+              <td class="py-4 px-6">Community Needs</td>
+              <td class="py-4 px-6">Oct 15, 2025</td>
+              <td class="py-4 px-6">Nov 15, 2025</td>
+              <td class="py-4 px-6">89 / 200</td>
+              <td class="py-4 px-6">
+                <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">
+                  Active
+                </span>
+              </td>
+              <td class="py-4 px-6">
+                <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View Results</a>
+              </td>
+            </tr>
+            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+              <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                Partner Organization Feedback
+              </th>
+              <td class="py-4 px-6">Partner Engagement</td>
+              <td class="py-4 px-6">Oct 20, 2025</td>
+              <td class="py-4 px-6">Nov 30, 2025</td>
+              <td class="py-4 px-6">45 / 75</td>
+              <td class="py-4 px-6">
+                <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">
+                  Active
+                </span>
+              </td>
+              <td class="py-4 px-6">
+                <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View Results</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Survey Types -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
+        <h2 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">Survey Categories</h2>
+
+        <div class="space-y-3">
+          <div class="flex justify-between items-center">
+            <span class="text-gray-600 dark:text-gray-400">Client Satisfaction</span>
+            <span class="font-semibold text-gray-900 dark:text-white">342</span>
+          </div>
+          <div class="flex justify-between items-center">
+            <span class="text-gray-600 dark:text-gray-400">Service Needs</span>
+            <span class="font-semibold text-gray-900 dark:text-white">198</span>
+          </div>
+          <div class="flex justify-between items-center">
+            <span class="text-gray-600 dark:text-gray-400">Partner Feedback</span>
+            <span class="font-semibold text-gray-900 dark:text-white">156</span>
+          </div>
+          <div class="flex justify-between items-center">
+            <span class="text-gray-600 dark:text-gray-400">Program Evaluation</span>
+            <span class="font-semibold text-gray-900 dark:text-white">196</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
+        <h2 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">Recent Completions</h2>
+
+        <div class="space-y-3">
+          <div class="border-l-4 border-green-500 pl-4 py-2">
+            <p class="text-sm font-medium text-gray-900 dark:text-white">Q3 Client Satisfaction Survey</p>
+            <p class="text-xs text-gray-500 dark:text-gray-400">Completed Sept 30, 2025 - 312 responses</p>
+          </div>
+          <div class="border-l-4 border-green-500 pl-4 py-2">
+            <p class="text-sm font-medium text-gray-900 dark:text-white">Summer Program Assessment</p>
+            <p class="text-xs text-gray-500 dark:text-gray-400">Completed Aug 31, 2025 - 245 responses</p>
+          </div>
+          <div class="border-l-4 border-green-500 pl-4 py-2">
+            <p class="text-sm font-medium text-gray-900 dark:text-white">Annual Partner Survey</p>
+            <p class="text-xs text-gray-500 dark:text-gray-400">Completed July 15, 2025 - 87 responses</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</CollaborativeDashboard>

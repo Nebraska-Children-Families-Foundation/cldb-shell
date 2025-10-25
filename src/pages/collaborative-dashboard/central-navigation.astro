@@ -1,0 +1,99 @@
+---
+// src/pages/collaborative-dashboard/central-navigation.astro
+import CollaborativeDashboard from "../../layouts/CollaborativeDashboard.astro";
+---
+
+<CollaborativeDashboard title="Central Navigation | Community Lens Database" activeSubnavItem="Central Navigation">
+  <div class="max-w-7xl mx-auto">
+    <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-6">Central Navigation</h1>
+
+    <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6 mb-6">
+      <h2 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">Central Navigators</h2>
+
+      <div class="overflow-x-auto relative">
+        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+          <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+              <th scope="col" class="py-3 px-6">Navigator Name</th>
+              <th scope="col" class="py-3 px-6">Collaborative</th>
+              <th scope="col" class="py-3 px-6">County</th>
+              <th scope="col" class="py-3 px-6">Active Cases</th>
+              <th scope="col" class="py-3 px-6">Status</th>
+              <th scope="col" class="py-3 px-6">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+              <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                Sarah Johnson
+              </th>
+              <td class="py-4 px-6">Lincoln Collaborative</td>
+              <td class="py-4 px-6">Lancaster</td>
+              <td class="py-4 px-6">23</td>
+              <td class="py-4 px-6">
+                <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">
+                  Active
+                </span>
+              </td>
+              <td class="py-4 px-6">
+                <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View Details</a>
+              </td>
+            </tr>
+            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+              <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                Michael Chen
+              </th>
+              <td class="py-4 px-6">Omaha Metro</td>
+              <td class="py-4 px-6">Douglas</td>
+              <td class="py-4 px-6">31</td>
+              <td class="py-4 px-6">
+                <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">
+                  Active
+                </span>
+              </td>
+              <td class="py-4 px-6">
+                <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View Details</a>
+              </td>
+            </tr>
+            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+              <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                Emily Rodriguez
+              </th>
+              <td class="py-4 px-6">Grand Island Alliance</td>
+              <td class="py-4 px-6">Hall</td>
+              <td class="py-4 px-6">18</td>
+              <td class="py-4 px-6">
+                <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">
+                  Active
+                </span>
+              </td>
+              <td class="py-4 px-6">
+                <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View Details</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Navigator Performance Metrics -->
+    <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
+      <h2 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">Performance Metrics</h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="p-4 bg-gray-50 rounded-lg dark:bg-gray-700">
+          <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Average Response Time</p>
+          <p class="text-2xl font-semibold text-gray-900 dark:text-white">2.4 hours</p>
+        </div>
+        <div class="p-4 bg-gray-50 rounded-lg dark:bg-gray-700">
+          <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Case Resolution Rate</p>
+          <p class="text-2xl font-semibold text-gray-900 dark:text-white">87%</p>
+        </div>
+        <div class="p-4 bg-gray-50 rounded-lg dark:bg-gray-700">
+          <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Client Satisfaction</p>
+          <p class="text-2xl font-semibold text-gray-900 dark:text-white">4.6/5.0</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</CollaborativeDashboard>
