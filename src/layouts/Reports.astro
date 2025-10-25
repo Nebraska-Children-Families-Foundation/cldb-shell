@@ -27,6 +27,19 @@ const totalNavHeight = "113px"; // 65px + 48px = 113px
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
 
+    <!-- Theme initialization script - must run before page renders -->
+    <script is:inline>
+      // Immediately set theme to prevent FOUC (Flash of Unstyled Content)
+      (function() {
+        const storedTheme = localStorage.getItem("theme");
+        const prefersDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+        if (storedTheme === "dark" || (!storedTheme && prefersDarkMode)) {
+          document.documentElement.classList.add("dark");
+        }
+      })();
+    </script>
+
     <!-- Flowbite -->
     <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
 

@@ -1,0 +1,670 @@
+---
+import DashboardLayout from "../../layouts/DashboardLayout.astro";
+
+// People data extracted from collaboratives.md
+const peopleData = [
+  // Better Together Collaborative
+  {
+    name: "Lisa Chaney",
+    role: "Coordinator",
+    phone: "402-713-5270",
+    email: "partners4oc@gmail.com",
+    collaborative: "Better Together Collaborative",
+    county: "Otoe"
+  },
+  // Bridge Family Resource Connector Network
+  {
+    name: "Nikia Gunn-Abdulai",
+    role: "Central Navigator",
+    phone: "531-301-3021",
+    email: "nikia@bridgefamilynetwork.org",
+    collaborative: "Bridge Family Resource Connector Network",
+    county: "Douglas"
+  },
+  {
+    name: "Marian Fey",
+    role: "Coordinator",
+    phone: "",
+    email: "marian@bridgefamilynetwork.org",
+    collaborative: "Bridge Family Resource Connector Network",
+    county: "Douglas"
+  },
+  // Buffalo County Wellbeing Collaborative
+  {
+    name: "Wanda Fedorchik",
+    role: "Central Navigator",
+    phone: "308-865-2284",
+    email: "wfedorchik@bcchp.org",
+    collaborative: "Buffalo County Wellbeing Collaborative",
+    county: "Buffalo"
+  },
+  {
+    name: "Tana Miller",
+    role: "Coordinator",
+    phone: "308-865-2284",
+    email: "tmiller@bcchp.org",
+    collaborative: "Buffalo County Wellbeing Collaborative",
+    county: "Buffalo"
+  },
+  {
+    name: "Martha Marfileno",
+    role: "Bilingual Contact",
+    phone: "308-865-2284",
+    email: "mmarfileno@bcchp.org",
+    collaborative: "Buffalo County Wellbeing Collaborative",
+    county: "Buffalo"
+  },
+  // Community and Family Partnership
+  {
+    name: "Tammy Bichlmeier",
+    role: "Central Navigator",
+    phone: "402-366-5615",
+    email: "tbichlmeier@columbusunitedway.com",
+    collaborative: "Community and Family Partnership",
+    county: "Boone, Colfax, Nance, Platte"
+  },
+  {
+    name: "Roberta Miksch",
+    role: "Coordinator",
+    phone: "402-809-3297",
+    email: "rmiksch@columbusunitedway.com",
+    collaborative: "Community and Family Partnership",
+    county: "Boone, Colfax, Nance, Platte"
+  },
+  // Community Impact Network
+  {
+    name: "Erin Trausch",
+    role: "Central Navigator",
+    phone: "402-461-8418",
+    email: "navigator@unitedwayscne.org",
+    collaborative: "Community Impact Network of Adams, Clay, Webster, Nuckolls",
+    county: "Adams, Clay, Nuckolls, Webster"
+  },
+  {
+    name: "Brady Rhodes",
+    role: "Coordinator",
+    phone: "402-461-8418",
+    email: "coordinator@unitedwayscne.org",
+    collaborative: "Community Impact Network of Adams, Clay, Webster, Nuckolls",
+    county: "Adams, Clay, Nuckolls, Webster"
+  },
+  // Dawson County Family Partners
+  {
+    name: "Pam Reicks",
+    role: "Central Navigator",
+    phone: "308-784-2804",
+    email: "cfcozad@cozadtel.net",
+    collaborative: "Dawson County Family Partners",
+    county: "Dawson"
+  },
+  {
+    name: "Nichole Hetz",
+    role: "Central Navigator",
+    phone: "308-529-8784",
+    email: "GECLC.coordinator@gmail.com",
+    collaborative: "Dawson County Family Partners",
+    county: "Dawson"
+  },
+  {
+    name: "Jackie Chandler",
+    role: "Central Navigator",
+    phone: "308-212-2488",
+    email: "jchandler@central-plains.org",
+    collaborative: "Dawson County Family Partners",
+    county: "Dawson"
+  },
+  {
+    name: "Amanda Woolley",
+    role: "Coordinator",
+    phone: "308-325-3476",
+    email: "DCFPcoordinator@gmail.com",
+    collaborative: "Dawson County Family Partners",
+    county: "Dawson"
+  },
+  {
+    name: "Ana Laguna-Sanchez",
+    role: "Bilingual Contact",
+    phone: "308-746-3685",
+    email: "",
+    collaborative: "Dawson County Family Partners",
+    county: "Dawson"
+  },
+  // Families 1st Partnership
+  {
+    name: "Delicia Mata",
+    role: "Central Navigator",
+    phone: "308-520-3743",
+    email: "info@fam-1st.org",
+    collaborative: "Families 1st Partnership",
+    county: "Arthur, Keith, Lincoln, Perkins, Blaine, Custer, Garfield, Greeley, Loup, Sherman, Valley, Wheeler"
+  },
+  {
+    name: "Jessica Vogt",
+    role: "Coordinator",
+    phone: "308-520-0608",
+    email: "f1pcomcord@fam-1st.org",
+    collaborative: "Families 1st Partnership",
+    county: "Arthur, Keith, Lincoln, Perkins, Blaine, Custer, Garfield, Greeley, Loup, Sherman, Valley, Wheeler"
+  },
+  // Fremont Family Coalition
+  {
+    name: "Amanda Schwanke",
+    role: "Central Navigator",
+    phone: "402-721-4157",
+    email: "referrals@fremontunitedway.org",
+    collaborative: "Fremont Family Coalition",
+    county: "Dodge, Washington"
+  },
+  {
+    name: "Mandy Montante-Gonzalez",
+    role: "Coordinator",
+    phone: "402-719-8828",
+    email: "mandy@fremontunitedway.org",
+    collaborative: "Fremont Family Coalition",
+    county: "Dodge, Washington"
+  },
+  // Growing Community Connections
+  {
+    name: "Karen Ramos",
+    role: "Central Navigator",
+    phone: "712-535-9096",
+    email: "kramos@siouxlandship.org",
+    collaborative: "Growing Community Connections",
+    county: "Dakota"
+  },
+  {
+    name: "JoAnn Gieselman",
+    role: "Coordinator",
+    phone: "712-223-9614",
+    email: "jgieselman@siouxlandship.org",
+    collaborative: "Growing Community Connections",
+    county: "Dakota"
+  },
+  // Hall County Community Collaborative (H3C)
+  {
+    name: "Dodi Ouderkirk",
+    role: "Central Navigator",
+    phone: "308-385-5175",
+    email: "douderkirk@cdhd.ne.gov",
+    collaborative: "Hall County Community Collaborative (H3C)",
+    county: "Franklin, Hall, Hamilton, Harlan, Howard, Kearney, Merrick, Phelps"
+  },
+  // Holt Boyd Community Connections
+  {
+    name: "Nancy Turpin",
+    role: "Central Navigator",
+    phone: "402-336-2406",
+    email: "nancy@ncdhd.ne.gov",
+    collaborative: "Holt Boyd Community Connections",
+    county: "Holt, Boyd"
+  },
+  {
+    name: "Amy Shane",
+    role: "Coordinator",
+    phone: "402-340-2232",
+    email: "amyshane81@gmail.com",
+    collaborative: "Holt Boyd Community Connections",
+    county: "Holt, Boyd"
+  },
+  // Lancaster Connected
+  {
+    name: "Stephanie Morales",
+    role: "Central Navigator",
+    phone: "402-434-5437",
+    email: "smorales@uwmidlands.org",
+    collaborative: "Lancaster Connected",
+    county: "Lancaster"
+  },
+  {
+    name: "Kristen Derr",
+    role: "Coordinator",
+    phone: "402-441-6070",
+    email: "kderr@unitedwaylincoln.org",
+    collaborative: "Lancaster Connected",
+    county: "Lancaster"
+  },
+  // Lift Up Sarpy
+  {
+    name: "Elci Warnell",
+    role: "Central Navigator",
+    phone: "402-293-3842",
+    email: "ewarnell@liftupsarpycounty.org",
+    collaborative: "Lift Up Sarpy",
+    county: "Sarpy"
+  },
+  {
+    name: "Tanya Gifford",
+    role: "Coordinator",
+    phone: "402-306-3749",
+    email: "tgifford@liftupsarpycounty.org",
+    collaborative: "Lift Up Sarpy",
+    county: "Sarpy"
+  },
+  {
+    name: "Sandy Diaz",
+    role: "Bilingual Contact",
+    phone: "",
+    email: "",
+    collaborative: "Lift Up Sarpy",
+    county: "Sarpy"
+  },
+  // Norfolk Family Coalition
+  {
+    name: "Jamie Bouslaugh",
+    role: "Central Navigator",
+    phone: "402-640-2409",
+    email: "centralnavigator@norfolkfamilycoalition.org",
+    collaborative: "Norfolk Family Coalition",
+    county: "Madison, Pierce, Stanton, Wayne"
+  },
+  {
+    name: "Merisa Anderson",
+    role: "Coordinator",
+    phone: "",
+    email: "director@norfolkfamilycoalition.org",
+    collaborative: "Norfolk Family Coalition",
+    county: "Madison, Pierce, Stanton, Wayne"
+  },
+  // Panhandle Partnership
+  {
+    name: "Carmen Trevino",
+    role: "Central Navigator",
+    phone: "308-633-3236",
+    email: "ctrevino@capwn.org",
+    collaborative: "Panhandle Partnership",
+    county: "Banner, Box Butte, Cheyenne, Dawes, Deuel, Garden, Kimball, Morrill, Scotts Bluff, Sheridan, Sioux"
+  },
+  {
+    name: "Faith Mills",
+    role: "Coordinator",
+    phone: "308-262-5940",
+    email: "faith.mills@panhandlepartnership.com",
+    collaborative: "Panhandle Partnership",
+    county: "Banner, Box Butte, Cheyenne, Dawes, Deuel, Garden, Kimball, Morrill, Scotts Bluff, Sheridan, Sioux"
+  },
+  // Project Everlast
+  {
+    name: "Lindsay Drake",
+    role: "Central Navigator",
+    phone: "402-580-9247",
+    email: "ldrake@hublincoln.org",
+    collaborative: "Project Everlast",
+    county: "Lancaster"
+  },
+  // Saunders County Active Community Team (ACT)
+  {
+    name: "Amber Pelan",
+    role: "Central Navigator",
+    phone: "402-367-8456",
+    email: "apelan@saunderscounty.ne.gov",
+    collaborative: "Saunders County Active Community Team (ACT)",
+    county: "Saunders"
+  },
+  {
+    name: "Michelle Libal",
+    role: "Coordinator",
+    phone: "402-429-8933",
+    email: "mlibal@saunderscounty.ne.gov",
+    collaborative: "Saunders County Active Community Team (ACT)",
+    county: "Saunders"
+  },
+  // Southeast Nebraska Collaborative
+  {
+    name: "Collena Laschanzky",
+    role: "Central Navigator",
+    phone: "402-395-4440",
+    email: "collena@sncollaborative.org",
+    collaborative: "Southeast Nebraska Collaborative",
+    county: "Butler, Cass, Fillmore, Gage, Jefferson, Otoe, Polk, Saline, Seward, Thayer, York"
+  },
+  // Valentine Children and Families Coalition
+  {
+    name: "Jill Austin",
+    role: "Central Navigator",
+    phone: "308-645-7909",
+    email: "vcfcoalition@gmail.com",
+    collaborative: "Valentine Children and Families Coalition",
+    county: "Cherry"
+  },
+  // York County Community Coalition
+  {
+    name: "Rachel Kloke",
+    role: "Central Navigator",
+    phone: "402-363-9946",
+    email: "info@yc3york.com",
+    collaborative: "York County Community Coalition",
+    county: "York"
+  },
+  {
+    name: "Avery Blum",
+    role: "Coordinator",
+    phone: "402-745-6604",
+    email: "avery.blum@yc3york.com",
+    collaborative: "York County Community Coalition",
+    county: "York"
+  },
+  // Building Courageous Families
+  {
+    name: "Angie Walker",
+    role: "Central Navigator",
+    phone: "402-257-5586 ext. 1220",
+    email: "angie.walker@winnebagotribe.com",
+    collaborative: "Building Courageous Families",
+    county: "Thurston"
+  },
+  {
+    name: "Michelle Parker",
+    role: "Coordinator",
+    phone: "402-878-2192",
+    email: "mparker@hccdc.org",
+    collaborative: "Building Courageous Families",
+    county: "Thurston"
+  },
+  // Omaha Tribe of Nebraska
+  {
+    name: "Joe Fleming",
+    role: "Central Navigator",
+    phone: "402-837-5331",
+    email: "joe.fleming@theomahatribe.com",
+    collaborative: "Omaha Tribe of Nebraska",
+    county: "Thurston"
+  },
+  {
+    name: "Greg Donovan",
+    role: "Coordinator",
+    phone: "402-580-4837",
+    email: "gdonovan@societyofcare.org",
+    collaborative: "Omaha Tribe of Nebraska",
+    county: "Thurston"
+  },
+  // Society of Care Western Nebraska
+  {
+    name: "Edison Red Nest III",
+    role: "Central Navigator",
+    phone: "308-458-7795",
+    email: "wahohpiluta@yahoo.com",
+    collaborative: "Society of Care Western Nebraska",
+    county: "Panhandle/Western NE"
+  },
+  // Society of Care Santee-Sioux Nation
+  {
+    name: "Dylan LaPointe",
+    role: "Central Navigator",
+    phone: "402-857-2741",
+    email: "dlapointe@societyofcare.org",
+    collaborative: "Society of Care Santee-Sioux Nation",
+    county: "Knox"
+  },
+  {
+    name: "Yvonne Bickerstaff",
+    role: "Coordinator",
+    phone: "402-857-2741",
+    email: "ybickerstaff@societyofcare.org",
+    collaborative: "Society of Care Santee-Sioux Nation",
+    county: "Knox"
+  }
+];
+
+// Get unique values for filters
+const roles = [...new Set(peopleData.map(p => p.role))].sort();
+const counties = [...new Set(peopleData.flatMap(p => p.county.split(', ')))].sort();
+const collaboratives = [...new Set(peopleData.map(p => p.collaborative))].sort();
+---
+
+<DashboardLayout>
+  <main>
+    <div class="p-4">
+      <!-- Command Bar with Filters and Views -->
+      <div class="mb-4 flex items-center justify-between bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
+        <!-- Left: Filters -->
+        <div class="flex items-center gap-4">
+          <!-- Role Filter -->
+          <div>
+            <button id="roleDropdownButton" data-dropdown-toggle="roleDropdown" class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700 inline-flex items-center" type="button">
+              <span id="roleButtonText">Role</span>
+              <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+              </svg>
+            </button>
+            <!-- Dropdown menu -->
+            <div id="roleDropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+              <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="roleDropdownButton">
+                <li><a href="#" class="filter-option block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" data-filter-type="role" data-filter-value="">All Roles</a></li>
+                {roles.map(role => (
+                  <li><a href="#" class="filter-option block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" data-filter-type="role" data-filter-value={role}>{role}</a></li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          <!-- County Filter -->
+          <div>
+            <button id="countyDropdownButton" data-dropdown-toggle="countyDropdown" class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700 inline-flex items-center" type="button">
+              <span id="countyButtonText">County</span>
+              <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+              </svg>
+            </button>
+            <!-- Dropdown menu -->
+            <div id="countyDropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 max-h-60 overflow-y-auto">
+              <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="countyDropdownButton">
+                <li><a href="#" class="filter-option block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" data-filter-type="county" data-filter-value="">All Counties</a></li>
+                {counties.map(county => (
+                  <li><a href="#" class="filter-option block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" data-filter-type="county" data-filter-value={county}>{county}</a></li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          <!-- Collaborative Filter -->
+          <div>
+            <button id="collaborativeDropdownButton" data-dropdown-toggle="collaborativeDropdown" class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700 inline-flex items-center" type="button">
+              <span id="collaborativeButtonText">Collaborative</span>
+              <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+              </svg>
+            </button>
+            <!-- Dropdown menu -->
+            <div id="collaborativeDropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-64 dark:bg-gray-700 max-h-60 overflow-y-auto">
+              <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="collaborativeDropdownButton">
+                <li><a href="#" class="filter-option block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" data-filter-type="collaborative" data-filter-value="">All Collaboratives</a></li>
+                {collaboratives.map(collab => (
+                  <li><a href="#" class="filter-option block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" data-filter-type="collaborative" data-filter-value={collab}>{collab}</a></li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          <!-- Clear Filters Button -->
+          <button id="clearFiltersBtn" type="button" class="text-gray-700 bg-gray-100 border border-gray-300 focus:outline-none hover:bg-gray-200 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-gray-600 dark:text-gray-200 dark:border-gray-500 dark:hover:bg-gray-500 dark:focus:ring-gray-700 inline-flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+            Clear Filters
+          </button>
+        </div>
+
+        <!-- Right: View Toggles -->
+        <div class="flex items-center gap-2">
+          <button type="button" class="p-2 text-gray-500 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700" title="Card View">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M5 3a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2H5Zm0 12a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2v-2a2 2 0 0 0-2-2H5Zm10 0a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2v-2a2 2 0 0 0-2-2h-4Zm0-12a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-4Z"/>
+            </svg>
+          </button>
+          <button type="button" class="p-2 text-gray-900 bg-gray-100 rounded-lg dark:text-white dark:bg-gray-700" title="Table View">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M5 3a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2H5Zm1.293 3.707a1 1 0 0 1 1.414 0l2 2a1 1 0 0 1 0 1.414l-2 2a1 1 0 0 1-1.414-1.414L7.586 9.5 6.293 8.207a1 1 0 0 1 0-1.414ZM13 9a1 1 0 1 0 0 2h5a1 1 0 1 0 0-2h-5Zm0 4a1 1 0 1 0 0 2h5a1 1 0 1 0 0-2h-5Z" clip-rule="evenodd"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- People Table -->
+      <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+            <thead class="bg-gray-50 dark:bg-gray-700">
+              <tr>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                  Name
+                </th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                  Role
+                </th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                  Phone
+                </th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                  Email
+                </th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                  Collaborative
+                </th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                  County
+                </th>
+              </tr>
+            </thead>
+            <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700" id="peopleTableBody">
+              {peopleData.map((person) => (
+                <tr class="person-row hover:bg-gray-50 dark:hover:bg-gray-700" data-role={person.role} data-county={person.county} data-collaborative={person.collaborative}>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
+                    {person.name}
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
+                    {person.role}
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
+                    {person.phone || '—'}
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
+                    {person.email ? (
+                      <a href={`mailto:${person.email}`} class="text-blue-600 dark:text-blue-400 hover:underline">
+                        {person.email}
+                      </a>
+                    ) : '—'}
+                  </td>
+                  <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">
+                    {person.collaborative}
+                  </td>
+                  <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">
+                    {person.county}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Stats Summary -->
+      <div class="mt-4 text-sm text-gray-500 dark:text-gray-400">
+        Showing <span id="peopleCount">{peopleData.length}</span> people
+      </div>
+    </div>
+  </main>
+</DashboardLayout>
+
+<script>
+  // Filter state
+  const filters = {
+    role: '',
+    county: '',
+    collaborative: ''
+  };
+
+  // Get all filter options
+  const filterOptions = document.querySelectorAll('.filter-option');
+
+  // Add click handlers to all filter options
+  filterOptions.forEach(option => {
+    option.addEventListener('click', (e) => {
+      e.preventDefault();
+
+      const filterType = option.getAttribute('data-filter-type');
+      const filterValue = option.getAttribute('data-filter-value');
+
+      // Update filter state
+      filters[filterType] = filterValue;
+
+      // Update button text
+      updateButtonText(filterType, option.textContent);
+
+      // Apply filters
+      applyFilters();
+    });
+  });
+
+  // Clear Filters button handler
+  const clearFiltersBtn = document.getElementById('clearFiltersBtn');
+  if (clearFiltersBtn) {
+    clearFiltersBtn.addEventListener('click', () => {
+      // Reset all filters
+      filters.role = '';
+      filters.county = '';
+      filters.collaborative = '';
+
+      // Reset button texts
+      document.getElementById('roleButtonText').textContent = 'Role';
+      document.getElementById('countyButtonText').textContent = 'County';
+      document.getElementById('collaborativeButtonText').textContent = 'Collaborative';
+
+      // Apply filters (which will show all rows)
+      applyFilters();
+    });
+  }
+
+  function updateButtonText(filterType, text) {
+    const buttonTextMap = {
+      'role': 'roleButtonText',
+      'county': 'countyButtonText',
+      'collaborative': 'collaborativeButtonText'
+    };
+
+    const buttonTextElement = document.getElementById(buttonTextMap[filterType]);
+    if (buttonTextElement) {
+      buttonTextElement.textContent = text.trim();
+    }
+  }
+
+  function applyFilters() {
+    const rows = document.querySelectorAll('.person-row');
+    let visibleCount = 0;
+
+    rows.forEach(row => {
+      let shouldShow = true;
+
+      // Check role filter
+      if (filters.role && row.getAttribute('data-role') !== filters.role) {
+        shouldShow = false;
+      }
+
+      // Check county filter - handle multiple counties
+      if (filters.county) {
+        const rowCounties = row.getAttribute('data-county');
+        if (!rowCounties.includes(filters.county)) {
+          shouldShow = false;
+        }
+      }
+
+      // Check collaborative filter
+      if (filters.collaborative && row.getAttribute('data-collaborative') !== filters.collaborative) {
+        shouldShow = false;
+      }
+
+      // Show or hide row
+      if (shouldShow) {
+        row.style.display = '';
+        visibleCount++;
+      } else {
+        row.style.display = 'none';
+      }
+    });
+
+    // Update count
+    const countElement = document.getElementById('peopleCount');
+    if (countElement) {
+      countElement.textContent = visibleCount.toString();
+    }
+  }
+</script>
