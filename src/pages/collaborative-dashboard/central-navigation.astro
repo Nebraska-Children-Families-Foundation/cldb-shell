@@ -5,94 +5,163 @@ import CollaborativeDashboard from "../../layouts/CollaborativeDashboard.astro";
 
 <CollaborativeDashboard title="Central Navigation | Community Lens Database" activeSubnavItem="Central Navigation">
   <div class="max-w-7xl mx-auto">
-    <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-6">Central Navigation</h1>
+    <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-6">The Impact of Central Navigation</h1>
 
+    <!-- Key Metrics -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+      <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
+        <p class="text-5xl font-bold text-gray-900 dark:text-white mb-2">6,883</p>
+        <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Number of Intake Forms Completed</p>
+      </div>
+
+      <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
+        <p class="text-5xl font-bold text-gray-900 dark:text-white mb-2">20,039</p>
+        <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Total Number of Referrals Made</p>
+      </div>
+
+      <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
+        <p class="text-5xl font-bold text-gray-900 dark:text-white mb-2">6,479</p>
+        <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Number of Help-Seekers Referred</p>
+      </div>
+    </div>
+
+    <!-- Information about Families Served -->
+    <div class="mb-6">
+      <h2 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">Information about Families Served</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
+          <p class="text-5xl font-bold text-gray-900 dark:text-white mb-2">8,667</p>
+          <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Number of Adults Served</p>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
+          <p class="text-5xl font-bold text-gray-900 dark:text-white mb-2">10,048</p>
+          <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Number of Children Served</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Demographics -->
+    <div class="mb-6">
+      <h2 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">Demographics</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Sex of Help Seekers -->
+        <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
+          <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">Sex of Help Seekers</h3>
+          <div class="space-y-3">
+            <div class="flex justify-between items-center">
+              <span class="text-gray-600 dark:text-gray-400">Woman</span>
+              <span class="font-semibold text-gray-900 dark:text-white">60.0%</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-gray-600 dark:text-gray-400">Not Specified</span>
+              <span class="font-semibold text-gray-900 dark:text-white">20.4%</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-gray-600 dark:text-gray-400">Man</span>
+              <span class="font-semibold text-gray-900 dark:text-white">18.2%</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-gray-600 dark:text-gray-400">Other</span>
+              <span class="font-semibold text-gray-900 dark:text-white">1.4%</span>
+            </div>
+          </div>
+          <div class="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+            <p class="text-center text-lg font-semibold text-gray-700 dark:text-gray-300">Total: 6,886</p>
+          </div>
+        </div>
+
+        <!-- Race/Ethnicity of Help-Seekers -->
+        <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
+          <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">Race/Ethnicity of Help-Seekers</h3>
+          <div class="space-y-3">
+            <div class="flex justify-between items-center">
+              <span class="text-gray-600 dark:text-gray-400">White</span>
+              <span class="font-semibold text-gray-900 dark:text-white">53.5%</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-gray-600 dark:text-gray-400">Hispanic or Latino</span>
+              <span class="font-semibold text-gray-900 dark:text-white">17.5%</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-gray-600 dark:text-gray-400">Black or African American</span>
+              <span class="font-semibold text-gray-900 dark:text-white">9.6%</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-gray-600 dark:text-gray-400">Not Specified</span>
+              <span class="font-semibold text-gray-900 dark:text-white">9.6%</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-gray-600 dark:text-gray-400">Prefer not to say</span>
+              <span class="font-semibold text-gray-900 dark:text-white">5.6%</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-gray-600 dark:text-gray-400">Native American</span>
+              <span class="font-semibold text-gray-900 dark:text-white">2.7%</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-gray-600 dark:text-gray-400">Other</span>
+              <span class="font-semibold text-gray-900 dark:text-white">1.5%</span>
+            </div>
+          </div>
+          <div class="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+            <p class="text-center text-lg font-semibold text-gray-700 dark:text-gray-300">Total: 6,886</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Strength of Our Network -->
     <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6 mb-6">
-      <h2 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">Central Navigators</h2>
+      <h2 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">Strength of Our Network</h2>
+      <p class="text-6xl font-bold text-blue-600 dark:text-blue-400 text-center mb-2">893</p>
+      <p class="text-center text-sm font-medium text-gray-500 dark:text-gray-400">Number of Programs & Services that Received Referrals</p>
+      <p class="text-center text-xs text-gray-400 dark:text-gray-500 mt-4 italic">Additional metrics will be coming late in Q2 2025.</p>
+    </div>
+
+    <!-- Central Navigation Participation By Age -->
+    <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
+      <h2 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">Central Navigation Participation By Age</h2>
 
       <div class="overflow-x-auto relative">
         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
           <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
-              <th scope="col" class="py-3 px-6">Navigator Name</th>
-              <th scope="col" class="py-3 px-6">Collaborative</th>
-              <th scope="col" class="py-3 px-6">County</th>
-              <th scope="col" class="py-3 px-6">Active Cases</th>
-              <th scope="col" class="py-3 px-6">Status</th>
-              <th scope="col" class="py-3 px-6">Actions</th>
+              <th scope="col" class="py-3 px-6">Age Range</th>
+              <th scope="col" class="py-3 px-6">Number of Participants</th>
             </tr>
           </thead>
           <tbody>
             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-              <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                Sarah Johnson
-              </th>
-              <td class="py-4 px-6">Lincoln Collaborative</td>
-              <td class="py-4 px-6">Lancaster</td>
-              <td class="py-4 px-6">23</td>
-              <td class="py-4 px-6">
-                <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">
-                  Active
-                </span>
-              </td>
-              <td class="py-4 px-6">
-                <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View Details</a>
-              </td>
+              <td class="py-4 px-6">Under 14</td>
+              <td class="py-4 px-6 font-semibold">58</td>
             </tr>
             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-              <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                Michael Chen
-              </th>
-              <td class="py-4 px-6">Omaha Metro</td>
-              <td class="py-4 px-6">Douglas</td>
-              <td class="py-4 px-6">31</td>
-              <td class="py-4 px-6">
-                <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">
-                  Active
-                </span>
-              </td>
-              <td class="py-4 px-6">
-                <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View Details</a>
-              </td>
+              <td class="py-4 px-6">14-18</td>
+              <td class="py-4 px-6 font-semibold">217</td>
             </tr>
             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-              <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                Emily Rodriguez
-              </th>
-              <td class="py-4 px-6">Grand Island Alliance</td>
-              <td class="py-4 px-6">Hall</td>
-              <td class="py-4 px-6">18</td>
-              <td class="py-4 px-6">
-                <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">
-                  Active
-                </span>
-              </td>
-              <td class="py-4 px-6">
-                <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View Details</a>
-              </td>
+              <td class="py-4 px-6">19-26</td>
+              <td class="py-4 px-6 font-semibold">1,504</td>
+            </tr>
+            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+              <td class="py-4 px-6">27-40</td>
+              <td class="py-4 px-6 font-semibold">2,885</td>
+            </tr>
+            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+              <td class="py-4 px-6">41-60</td>
+              <td class="py-4 px-6 font-semibold">1,780</td>
+            </tr>
+            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+              <td class="py-4 px-6">61+</td>
+              <td class="py-4 px-6 font-semibold">438</td>
+            </tr>
+            <tr class="bg-white dark:bg-gray-800">
+              <td class="py-4 px-6">Not Reported/Missing</td>
+              <td class="py-4 px-6 font-semibold">4</td>
             </tr>
           </tbody>
         </table>
-      </div>
-    </div>
-
-    <!-- Navigator Performance Metrics -->
-    <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
-      <h2 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">Performance Metrics</h2>
-
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div class="p-4 bg-gray-50 rounded-lg dark:bg-gray-700">
-          <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Average Response Time</p>
-          <p class="text-2xl font-semibold text-gray-900 dark:text-white">2.4 hours</p>
-        </div>
-        <div class="p-4 bg-gray-50 rounded-lg dark:bg-gray-700">
-          <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Case Resolution Rate</p>
-          <p class="text-2xl font-semibold text-gray-900 dark:text-white">87%</p>
-        </div>
-        <div class="p-4 bg-gray-50 rounded-lg dark:bg-gray-700">
-          <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Client Satisfaction</p>
-          <p class="text-2xl font-semibold text-gray-900 dark:text-white">4.6/5.0</p>
-        </div>
       </div>
     </div>
   </div>

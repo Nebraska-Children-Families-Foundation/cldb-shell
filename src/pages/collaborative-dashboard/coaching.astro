@@ -5,126 +5,258 @@ import CollaborativeDashboard from "../../layouts/CollaborativeDashboard.astro";
 
 <CollaborativeDashboard title="Coaching | Community Lens Database" activeSubnavItem="Coaching">
   <div class="max-w-7xl mx-auto">
-    <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-6">Coaching Programs</h1>
+    <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-6">Number of Referrals/Services Provided for Coaching</h1>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-      <!-- Coaching Stats -->
+    <!-- Key Metrics -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
       <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
-        <h2 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">Active Coaching Sessions</h2>
-        <div class="space-y-3">
-          <div class="flex justify-between items-center">
-            <span class="text-gray-600 dark:text-gray-400">Individual Sessions</span>
-            <span class="font-semibold text-gray-900 dark:text-white">42</span>
-          </div>
-          <div class="flex justify-between items-center">
-            <span class="text-gray-600 dark:text-gray-400">Group Sessions</span>
-            <span class="font-semibold text-gray-900 dark:text-white">18</span>
-          </div>
-          <div class="flex justify-between items-center">
-            <span class="text-gray-600 dark:text-gray-400">Total Participants</span>
-            <span class="font-semibold text-gray-900 dark:text-white">127</span>
-          </div>
-        </div>
+        <p class="text-5xl font-bold text-gray-900 dark:text-white mb-2">2,222</p>
+        <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Referrals Made to Coaching</p>
       </div>
 
-      <!-- Program Outcomes -->
       <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
-        <h2 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">Program Outcomes</h2>
-        <div class="space-y-3">
-          <div class="flex justify-between items-center">
-            <span class="text-gray-600 dark:text-gray-400">Completion Rate</span>
-            <span class="font-semibold text-green-600 dark:text-green-400">92%</span>
+        <p class="text-5xl font-bold text-gray-900 dark:text-white mb-2">1,433</p>
+        <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Number of Individuals Served</p>
+      </div>
+
+      <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
+        <p class="text-5xl font-bold text-gray-900 dark:text-white mb-2">197</p>
+        <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Coaching Referrals (Ages 14 - 26)</p>
+      </div>
+    </div>
+
+    <!-- Referral Status -->
+    <div class="mb-6">
+      <h2 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">Referral Status</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Status of Coaching Referral -->
+        <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
+          <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">Status of Coaching Referral</h3>
+          <div class="space-y-3">
+            <div class="flex justify-between items-center">
+              <span class="text-gray-600 dark:text-gray-400">Got Help</span>
+              <span class="font-semibold text-gray-900 dark:text-white">52.57%</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-gray-600 dark:text-gray-400">Not Updated</span>
+              <span class="font-semibold text-gray-900 dark:text-white">12.78%</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-gray-600 dark:text-gray-400">Eligible</span>
+              <span class="font-semibold text-gray-900 dark:text-white">12.11%</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-gray-600 dark:text-gray-400">No longer interested</span>
+              <span class="font-semibold text-gray-900 dark:text-white">8.96%</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-gray-600 dark:text-gray-400">Pending</span>
+              <span class="font-semibold text-gray-900 dark:text-white">3.47%</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-gray-600 dark:text-gray-400">Couldn't contact</span>
+              <span class="font-semibold text-gray-900 dark:text-white">2.70%</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-gray-600 dark:text-gray-400">Other</span>
+              <span class="font-semibold text-gray-900 dark:text-white">7.43%</span>
+            </div>
           </div>
-          <div class="flex justify-between items-center">
-            <span class="text-gray-600 dark:text-gray-400">Average Duration</span>
-            <span class="font-semibold text-gray-900 dark:text-white">6 months</span>
+          <div class="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+            <p class="text-center text-lg font-semibold text-gray-700 dark:text-gray-300">Total: 2,222</p>
           </div>
-          <div class="flex justify-between items-center">
-            <span class="text-gray-600 dark:text-gray-400">Follow-up Rate</span>
-            <span class="font-semibold text-blue-600 dark:text-blue-400">85%</span>
+        </div>
+
+        <!-- Closed Loop vs. In Progress -->
+        <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
+          <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">Referral Status: Closed vs. In Progress</h3>
+          <div class="space-y-4">
+            <div>
+              <div class="flex justify-between mb-2">
+                <span class="text-gray-600 dark:text-gray-400">Closed Loop</span>
+                <span class="font-semibold text-gray-900 dark:text-white">70.7%</span>
+              </div>
+              <div class="w-full bg-gray-200 rounded-full h-4 dark:bg-gray-700">
+                <div class="bg-blue-600 h-4 rounded-full" style="width: 70.7%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between mb-2">
+                <span class="text-gray-600 dark:text-gray-400">In Progress</span>
+                <span class="font-semibold text-gray-900 dark:text-white">29.3%</span>
+              </div>
+              <div class="w-full bg-gray-200 rounded-full h-4 dark:bg-gray-700">
+                <div class="bg-green-600 h-4 rounded-full" style="width: 29.3%"></div>
+              </div>
+            </div>
+          </div>
+          <div class="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+            <p class="text-center text-lg font-semibold text-gray-700 dark:text-gray-300">Total: 2,222</p>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Upcoming Sessions -->
-    <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6 mb-6">
-      <h2 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">Upcoming Sessions</h2>
+    <!-- Demographics -->
+    <div class="mb-6">
+      <h2 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">Demographics</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Sex -->
+        <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
+          <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">Sex</h3>
+          <div class="space-y-3">
+            <div class="flex justify-between items-center">
+              <span class="text-gray-600 dark:text-gray-400">Woman</span>
+              <span class="font-semibold text-gray-900 dark:text-white">44.382%</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-gray-600 dark:text-gray-400">No Intake Record</span>
+              <span class="font-semibold text-gray-900 dark:text-white">32.938%</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-gray-600 dark:text-gray-400">Man</span>
+              <span class="font-semibold text-gray-900 dark:text-white">11.445%</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-gray-600 dark:text-gray-400">Not Specified</span>
+              <span class="font-semibold text-gray-900 dark:text-white">11.026%</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-gray-600 dark:text-gray-400">Other</span>
+              <span class="font-semibold text-gray-900 dark:text-white">0.209%</span>
+            </div>
+          </div>
+          <div class="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+            <p class="text-center text-lg font-semibold text-gray-700 dark:text-gray-300">Total: 1,433</p>
+          </div>
+        </div>
 
-      <div class="overflow-x-auto relative">
-        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-          <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-            <tr>
-              <th scope="col" class="py-3 px-6">Date</th>
-              <th scope="col" class="py-3 px-6">Time</th>
-              <th scope="col" class="py-3 px-6">Coach</th>
-              <th scope="col" class="py-3 px-6">Type</th>
-              <th scope="col" class="py-3 px-6">Participants</th>
-              <th scope="col" class="py-3 px-6">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-              <td class="py-4 px-6">Oct 26, 2025</td>
-              <td class="py-4 px-6">10:00 AM</td>
-              <td class="py-4 px-6">Dr. Lisa Martinez</td>
-              <td class="py-4 px-6">Group</td>
-              <td class="py-4 px-6">8</td>
-              <td class="py-4 px-6">
-                <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View</a>
-              </td>
-            </tr>
-            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-              <td class="py-4 px-6">Oct 27, 2025</td>
-              <td class="py-4 px-6">2:00 PM</td>
-              <td class="py-4 px-6">James Wilson</td>
-              <td class="py-4 px-6">Individual</td>
-              <td class="py-4 px-6">1</td>
-              <td class="py-4 px-6">
-                <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View</a>
-              </td>
-            </tr>
-            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-              <td class="py-4 px-6">Oct 28, 2025</td>
-              <td class="py-4 px-6">9:00 AM</td>
-              <td class="py-4 px-6">Dr. Lisa Martinez</td>
-              <td class="py-4 px-6">Group</td>
-              <td class="py-4 px-6">12</td>
-              <td class="py-4 px-6">
-                <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View</a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <!-- Race/Ethnicity -->
+        <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
+          <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">Race/Ethnicity</h3>
+          <div class="space-y-3">
+            <div class="flex justify-between items-center">
+              <span class="text-gray-600 dark:text-gray-400">White</span>
+              <span class="font-semibold text-gray-900 dark:text-white">45.15%</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-gray-600 dark:text-gray-400">No Intake Record</span>
+              <span class="font-semibold text-gray-900 dark:text-white">32.94%</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-gray-600 dark:text-gray-400">Hispanic or Latino</span>
+              <span class="font-semibold text-gray-900 dark:text-white">13.05%</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-gray-600 dark:text-gray-400">Black or African American</span>
+              <span class="font-semibold text-gray-900 dark:text-white">3.49%</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-gray-600 dark:text-gray-400">Other</span>
+              <span class="font-semibold text-gray-900 dark:text-white">5.37%</span>
+            </div>
+          </div>
+          <div class="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+            <p class="text-center text-lg font-semibold text-gray-700 dark:text-gray-300">Total: 1,433</p>
+          </div>
+        </div>
       </div>
     </div>
 
-    <!-- Quick Actions -->
+    <!-- Coaching Participation by Age -->
     <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
-      <h2 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">Quick Actions</h2>
+      <h2 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">Coaching Participation by Age</h2>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <a href="#" class="flex flex-col items-center p-4 bg-gray-50 rounded-lg hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 transition-all">
-          <svg class="w-8 h-8 text-gray-500 dark:text-gray-400 mb-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path>
-          </svg>
-          <span class="text-gray-900 dark:text-white">Schedule Session</span>
-        </a>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- General Coaching -->
+        <div>
+          <h3 class="text-md font-semibold text-gray-700 dark:text-gray-300 mb-3">Coaching Participation By Age</h3>
+          <div class="overflow-x-auto relative">
+            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+              <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                  <th scope="col" class="py-3 px-6">Age Range</th>
+                  <th scope="col" class="py-3 px-6">Participants</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                  <td class="py-4 px-6">Under 14</td>
+                  <td class="py-4 px-6 font-semibold">6</td>
+                </tr>
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                  <td class="py-4 px-6">14-18</td>
+                  <td class="py-4 px-6 font-semibold">2</td>
+                </tr>
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                  <td class="py-4 px-6">19-26</td>
+                  <td class="py-4 px-6 font-semibold">74</td>
+                </tr>
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                  <td class="py-4 px-6">27-40</td>
+                  <td class="py-4 px-6 font-semibold">357</td>
+                </tr>
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                  <td class="py-4 px-6">41-60</td>
+                  <td class="py-4 px-6 font-semibold">166</td>
+                </tr>
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                  <td class="py-4 px-6">61+</td>
+                  <td class="py-4 px-6 font-semibold">3</td>
+                </tr>
+                <tr class="bg-white dark:bg-gray-800">
+                  <td class="py-4 px-6">Not Reported/Missing</td>
+                  <td class="py-4 px-6 font-semibold">75</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
 
-        <a href="#" class="flex flex-col items-center p-4 bg-gray-50 rounded-lg hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 transition-all">
-          <svg class="w-8 h-8 text-gray-500 dark:text-gray-400 mb-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-            <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"></path>
-            <path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd"></path>
-          </svg>
-          <span class="text-gray-900 dark:text-white">View Reports</span>
-        </a>
-
-        <a href="#" class="flex flex-col items-center p-4 bg-gray-50 rounded-lg hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 transition-all">
-          <svg class="w-8 h-8 text-gray-500 dark:text-gray-400 mb-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd"></path>
-          </svg>
-          <span class="text-gray-900 dark:text-white">Manage Coaches</span>
-        </a>
+        <!-- CYI Coaching -->
+        <div>
+          <h3 class="text-md font-semibold text-gray-700 dark:text-gray-300 mb-3">CYI Coaching Participation by Age</h3>
+          <div class="overflow-x-auto relative">
+            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+              <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                  <th scope="col" class="py-3 px-6">Age Range</th>
+                  <th scope="col" class="py-3 px-6">Participants</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                  <td class="py-4 px-6">Under 14</td>
+                  <td class="py-4 px-6 font-semibold">0</td>
+                </tr>
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                  <td class="py-4 px-6">14-18</td>
+                  <td class="py-4 px-6 font-semibold">31</td>
+                </tr>
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                  <td class="py-4 px-6">19-26</td>
+                  <td class="py-4 px-6 font-semibold">63</td>
+                </tr>
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                  <td class="py-4 px-6">27-40</td>
+                  <td class="py-4 px-6 font-semibold">0</td>
+                </tr>
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                  <td class="py-4 px-6">41-60</td>
+                  <td class="py-4 px-6 font-semibold">1</td>
+                </tr>
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                  <td class="py-4 px-6">61+</td>
+                  <td class="py-4 px-6 font-semibold">5</td>
+                </tr>
+                <tr class="bg-white dark:bg-gray-800">
+                  <td class="py-4 px-6">Not Reported/Missing</td>
+                  <td class="py-4 px-6 font-semibold">413</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
   </div>

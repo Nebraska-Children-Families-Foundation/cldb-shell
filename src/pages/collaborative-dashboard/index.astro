@@ -5,73 +5,120 @@ import CollaborativeDashboard from "../../layouts/CollaborativeDashboard.astro";
 
 <CollaborativeDashboard title="Collaborative Dashboard - Overview | Community Lens Database" activeSubnavItem="Overview">
   <div class="max-w-7xl mx-auto">
-    <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-6">Collaborative Dashboard - Overview</h1>
+    <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-6">Community Insights Dashboard - Statewide Dashboard</h1>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
-      <!-- Stats Card 1 -->
-      <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
-        <div class="flex items-center">
-          <div class="flex-shrink-0">
-            <svg class="w-12 h-12 text-blue-600 dark:text-blue-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path>
-            </svg>
-          </div>
-          <div class="ml-4">
-            <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Active Collaboratives</p>
-            <p class="text-2xl font-semibold text-gray-900 dark:text-white">24</p>
-          </div>
+    <!-- Central Navigation Metrics -->
+    <div class="mb-6">
+      <h2 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">Number of Referrals/Services Provided for Central Navigation</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
+          <p class="text-4xl font-bold text-gray-900 dark:text-white mb-2">6,883</p>
+          <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Intakes: Total Central Navigation Intakes</p>
         </div>
-      </div>
 
-      <!-- Stats Card 2 -->
-      <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
-        <div class="flex items-center">
-          <div class="flex-shrink-0">
-            <svg class="w-12 h-12 text-green-600 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path>
-            </svg>
-          </div>
-          <div class="ml-4">
-            <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Total Referrals</p>
-            <p class="text-2xl font-semibold text-gray-900 dark:text-white">1,247</p>
-          </div>
+        <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
+          <p class="text-4xl font-bold text-gray-900 dark:text-white mb-2">20,039</p>
+          <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Referrals: Total Number of Referrals Made</p>
         </div>
-      </div>
 
-      <!-- Stats Card 3 -->
-      <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
-        <div class="flex items-center">
-          <div class="flex-shrink-0">
-            <svg class="w-12 h-12 text-purple-600 dark:text-purple-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-              <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"></path>
-              <path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd"></path>
-            </svg>
-          </div>
-          <div class="ml-4">
-            <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Surveys Completed</p>
-            <p class="text-2xl font-semibold text-gray-900 dark:text-white">892</p>
-          </div>
+        <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
+          <p class="text-4xl font-bold text-gray-900 dark:text-white mb-2">6,479</p>
+          <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Referrals: Individual Help-Seekers Referred</p>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
+          <p class="text-4xl font-bold text-gray-900 dark:text-white mb-2">10,048</p>
+          <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Support: Number of Children Served</p>
         </div>
       </div>
     </div>
 
-    <!-- Recent Activity -->
-    <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6 mb-6">
-      <h2 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">Recent Activity</h2>
+    <!-- Coaching Metrics -->
+    <div class="mb-6">
+      <h2 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">Number of Referrals/Services Provided for Coaching</h2>
+      <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
+        <p class="text-5xl font-bold text-gray-900 dark:text-white mb-2">2,222</p>
+        <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Number of Referrals/Services provided for Coaching</p>
+      </div>
+    </div>
 
-      <div class="space-y-4">
-        <div class="border-l-4 border-blue-500 pl-4 py-2">
-          <p class="text-sm font-medium text-gray-900 dark:text-white">New collaborative formed in Lancaster County</p>
-          <p class="text-xs text-gray-500 dark:text-gray-400">2 hours ago</p>
+    <!-- Stabilization Funding -->
+    <div class="mb-6">
+      <h2 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">Stabilization Funding</h2>
+
+      <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6 mb-4">
+        <p class="text-5xl font-bold text-green-600 dark:text-green-400 mb-2">$1,183,421.95</p>
+        <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Total Support Stabilization Funds distributed</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
+          <p class="text-4xl font-bold text-gray-900 dark:text-white mb-2">2,036</p>
+          <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Individuals who received stabilization support funding</p>
         </div>
-        <div class="border-l-4 border-green-500 pl-4 py-2">
-          <p class="text-sm font-medium text-gray-900 dark:text-white">45 new referrals processed</p>
-          <p class="text-xs text-gray-500 dark:text-gray-400">5 hours ago</p>
+
+        <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
+          <p class="text-4xl font-bold text-gray-900 dark:text-white mb-2">3,251</p>
+          <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Number of stabilization support fund requests submitted by help-seekers</p>
         </div>
-        <div class="border-l-4 border-purple-500 pl-4 py-2">
-          <p class="text-sm font-medium text-gray-900 dark:text-white">Quarterly survey responses received</p>
-          <p class="text-xs text-gray-500 dark:text-gray-400">1 day ago</p>
+      </div>
+    </div>
+
+    <!-- Help-Seekers by Category -->
+    <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6 mb-6">
+      <h2 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">Number of help-seekers receiving assistance by category</h2>
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+        <div class="text-center p-3 bg-gray-50 rounded-lg dark:bg-gray-700">
+          <p class="text-2xl font-semibold text-gray-900 dark:text-white">916</p>
+          <p class="text-xs text-gray-600 dark:text-gray-400">Housing</p>
         </div>
+        <div class="text-center p-3 bg-gray-50 rounded-lg dark:bg-gray-700">
+          <p class="text-2xl font-semibold text-gray-900 dark:text-white">682</p>
+          <p class="text-xs text-gray-600 dark:text-gray-400">Utilities</p>
+        </div>
+        <div class="text-center p-3 bg-gray-50 rounded-lg dark:bg-gray-700">
+          <p class="text-2xl font-semibold text-gray-900 dark:text-white">246</p>
+          <p class="text-xs text-gray-600 dark:text-gray-400">Transportation</p>
+        </div>
+        <div class="text-center p-3 bg-gray-50 rounded-lg dark:bg-gray-700">
+          <p class="text-2xl font-semibold text-gray-900 dark:text-white">168</p>
+          <p class="text-xs text-gray-600 dark:text-gray-400">Daily Living</p>
+        </div>
+        <div class="text-center p-3 bg-gray-50 rounded-lg dark:bg-gray-700">
+          <p class="text-2xl font-semibold text-gray-900 dark:text-white">75</p>
+          <p class="text-xs text-gray-600 dark:text-gray-400">Mental Health</p>
+        </div>
+        <div class="text-center p-3 bg-gray-50 rounded-lg dark:bg-gray-700">
+          <p class="text-2xl font-semibold text-gray-900 dark:text-white">76</p>
+          <p class="text-xs text-gray-600 dark:text-gray-400">Parenting</p>
+        </div>
+        <div class="text-center p-3 bg-gray-50 rounded-lg dark:bg-gray-700">
+          <p class="text-2xl font-semibold text-gray-900 dark:text-white">62</p>
+          <p class="text-xs text-gray-600 dark:text-gray-400">Education</p>
+        </div>
+        <div class="text-center p-3 bg-gray-50 rounded-lg dark:bg-gray-700">
+          <p class="text-2xl font-semibold text-gray-900 dark:text-white">45</p>
+          <p class="text-xs text-gray-600 dark:text-gray-400">Coaching</p>
+        </div>
+        <div class="text-center p-3 bg-gray-50 rounded-lg dark:bg-gray-700">
+          <p class="text-2xl font-semibold text-gray-900 dark:text-white">12</p>
+          <p class="text-xs text-gray-600 dark:text-gray-400">Employment</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Additional Metrics -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+      <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
+        <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-3">Family Presentations with Identified Needs</h3>
+        <p class="text-5xl font-bold text-blue-600 dark:text-blue-400 mb-2">25,165</p>
+        <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Times a family presents with an identified need</p>
+      </div>
+
+      <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
+        <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-3">Family Self-Reporting Improvements</h3>
+        <p class="text-5xl font-bold text-purple-600 dark:text-purple-400 mb-2">62</p>
+        <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Number of help-seekers who reported an improvement in their promotive/protective factors</p>
       </div>
     </div>
 
