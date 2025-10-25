@@ -1,6 +1,7 @@
 ---
 // src/layouts/CollaborativeDashboard.astro
 import CollaborativeDashboardSubNav from "../components/CollaborativeDashboardSubNav.astro";
+import CollaborativeDashboardFilters from "../components/CollaborativeDashboardFilters.astro";
 import MainNavbar from "../components/MainNavbar.astro";
 
 interface Props {
@@ -82,6 +83,9 @@ const totalNavHeight = "113px"; // 65px + 48px = 113px
 
       <!-- Collaborative Dashboard sub navbar - positioned exactly below the main navbar -->
       <CollaborativeDashboardSubNav activeItem={activeSubnavItem} />
+
+      <!-- Collaborative Dashboard Filters - positioned below the sub navbar -->
+      <CollaborativeDashboardFilters />
 
       <!-- Main content wrapper with appropriate padding -->
       <main class="pt-4 px-4 flex-grow">
