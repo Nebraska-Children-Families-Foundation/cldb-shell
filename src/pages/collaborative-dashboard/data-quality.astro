@@ -2,22 +2,18 @@
 // src/pages/collaborative-dashboard/data-quality.astro
 import CollaborativeDashboard from "../../layouts/CollaborativeDashboard.astro";
 ---
-
 <CollaborativeDashboard title="Data Quality | Community Lens Database" activeSubnavItem="Data Quality">
-  <div class="max-w-7xl mx-auto">
+  
     <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-6">Data Quality Dashboard</h1>
-
     <!-- Overall Quality Score -->
     <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6 mb-6">
       <h2 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">Overall Data Quality Score</h2>
-
       <div class="flex items-center justify-center">
         <div class="text-center">
           <div class="text-6xl font-bold text-green-600 dark:text-green-400">87%</div>
           <p class="text-gray-600 dark:text-gray-400 mt-2">Overall Quality</p>
         </div>
       </div>
-
       <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mt-6">
         <div class="text-center p-4 bg-gray-50 rounded-lg dark:bg-gray-700">
           <p class="text-sm text-gray-500 dark:text-gray-400">Completeness</p>
@@ -37,7 +33,6 @@ import CollaborativeDashboard from "../../layouts/CollaborativeDashboard.astro";
         </div>
       </div>
     </div>
-
     <!-- Data Issues -->
     <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6 mb-6">
       <div class="flex justify-between items-center mb-4">
@@ -46,7 +41,6 @@ import CollaborativeDashboard from "../../layouts/CollaborativeDashboard.astro";
           12 Issues Found
         </span>
       </div>
-
       <div class="overflow-x-auto relative">
         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
           <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -106,13 +100,11 @@ import CollaborativeDashboard from "../../layouts/CollaborativeDashboard.astro";
         </table>
       </div>
     </div>
-
     <!-- Data Quality Trends & Validation Rules -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
       <!-- Trends -->
       <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
         <h2 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">Quality Trends</h2>
-
         <div class="space-y-4">
           <div>
             <div class="flex justify-between mb-1">
@@ -123,7 +115,6 @@ import CollaborativeDashboard from "../../layouts/CollaborativeDashboard.astro";
               <div class="bg-blue-600 h-2.5 rounded-full" style="width: 85%"></div>
             </div>
           </div>
-
           <div>
             <div class="flex justify-between mb-1">
               <span class="text-sm font-medium text-gray-700 dark:text-gray-300">This Month</span>
@@ -133,7 +124,6 @@ import CollaborativeDashboard from "../../layouts/CollaborativeDashboard.astro";
               <div class="bg-green-600 h-2.5 rounded-full" style="width: 87%"></div>
             </div>
           </div>
-
           <div class="mt-4 p-4 bg-green-50 dark:bg-green-900/20 rounded-lg">
             <p class="text-sm text-green-800 dark:text-green-300">
               <span class="font-semibold">Improvement:</span> Data quality has improved by 2% this month
@@ -141,11 +131,9 @@ import CollaborativeDashboard from "../../layouts/CollaborativeDashboard.astro";
           </div>
         </div>
       </div>
-
       <!-- Validation Rules -->
       <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
         <h2 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">Active Validation Rules</h2>
-
         <div class="space-y-3">
           <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg dark:bg-gray-700">
             <span class="text-sm text-gray-900 dark:text-white">Required Fields Check</span>
@@ -166,5 +154,4 @@ import CollaborativeDashboard from "../../layouts/CollaborativeDashboard.astro";
         </div>
       </div>
     </div>
-  </div>
 </CollaborativeDashboard>

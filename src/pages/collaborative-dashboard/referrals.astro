@@ -2,11 +2,9 @@
 // src/pages/collaborative-dashboard/referrals.astro
 import CollaborativeDashboard from "../../layouts/CollaborativeDashboard.astro";
 ---
-
 <CollaborativeDashboard title="Referrals | Community Lens Database" activeSubnavItem="Referrals">
-  <div class="max-w-7xl mx-auto">
+  
     <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-6">Status of Referrals to Partners</h1>
-
     <!-- Referral Status Overview -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
       <!-- Referral Status by Category -->
@@ -42,7 +40,6 @@ import CollaborativeDashboard from "../../layouts/CollaborativeDashboard.astro";
           <p class="text-center text-lg font-semibold text-gray-700 dark:text-gray-300">Total: 11,345</p>
         </div>
       </div>
-
       <!-- How long since referral entered "Not Updated" status -->
       <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
         <h2 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">Time in "Not Updated" Status</h2>
@@ -69,7 +66,6 @@ import CollaborativeDashboard from "../../layouts/CollaborativeDashboard.astro";
         </div>
       </div>
     </div>
-
     <!-- Closing The Loop -->
     <div class="mb-6">
       <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Closing The Loop</h2>
@@ -101,7 +97,6 @@ import CollaborativeDashboard from "../../layouts/CollaborativeDashboard.astro";
             <p class="text-center text-sm font-semibold text-gray-700 dark:text-gray-300">Total: 11,345</p>
           </div>
         </div>
-
         <!-- Days to Close the Loop -->
         <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
           <h3 class="text-md font-semibold text-gray-800 dark:text-white mb-3">Days to Close the Loop</h3>
@@ -135,7 +130,6 @@ import CollaborativeDashboard from "../../layouts/CollaborativeDashboard.astro";
             <p class="text-center text-sm font-semibold text-gray-700 dark:text-gray-300">Total: 3,667</p>
           </div>
         </div>
-
         <!-- Received Help vs. Did Not -->
         <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
           <h3 class="text-md font-semibold text-gray-800 dark:text-white mb-3">Received Help vs. Did Not</h3>
@@ -163,7 +157,6 @@ import CollaborativeDashboard from "../../layouts/CollaborativeDashboard.astro";
             <p class="text-center text-sm font-semibold text-gray-700 dark:text-gray-300">Total: 3,667</p>
           </div>
         </div>
-
         <!-- Reason for Not Getting Help -->
         <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
           <h3 class="text-md font-semibold text-gray-800 dark:text-white mb-3">Reason for Not Getting Help</h3>
@@ -195,7 +188,6 @@ import CollaborativeDashboard from "../../layouts/CollaborativeDashboard.astro";
         </div>
       </div>
     </div>
-
     <!-- Summary Note -->
     <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-6">
       <div class="flex">
@@ -212,5 +204,4 @@ import CollaborativeDashboard from "../../layouts/CollaborativeDashboard.astro";
         </div>
       </div>
     </div>
-  </div>
 </CollaborativeDashboard>

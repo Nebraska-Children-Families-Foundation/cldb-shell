@@ -84,14 +84,16 @@ const totalNavHeight = "113px"; // 65px + 48px = 113px
       <!-- Collaborative Dashboard sub navbar - positioned exactly below the main navbar -->
       <CollaborativeDashboardSubNav activeItem={activeSubnavItem} />
 
-      <!-- Collaborative Dashboard Filters - positioned below the sub navbar -->
-      <CollaborativeDashboardFilters />
-
       <!-- Main content wrapper with appropriate padding -->
       <main class="pt-4 px-4 flex-grow">
-        <div class="flex flex-col">
-          <div class="flex-auto">
-            <slot />
+        <div class="max-w-7xl mx-auto">
+          <!-- Collaborative Dashboard Filters -->
+          <CollaborativeDashboardFilters />
+
+          <div class="flex flex-col">
+            <div class="flex-auto">
+              <slot />
+            </div>
           </div>
         </div>
       </main>
