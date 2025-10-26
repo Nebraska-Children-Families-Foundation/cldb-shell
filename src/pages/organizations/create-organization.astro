@@ -1,0 +1,418 @@
+---
+// src/pages/organizations/create-organization.astro
+import Organizations from "../../layouts/Organizations.astro";
+---
+
+<Organizations title="Create Organization | Community Lens Database" activeSubnavItem="My Dashboard">
+  <div class="max-w-4xl mx-auto">
+    <div class="flex justify-between items-center mb-6">
+      <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Create New Organization</h1>
+      <a href="/organizations" class="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500 flex items-center">
+        <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+        </svg>
+        Back to Organizations
+      </a>
+    </div>
+
+    <div class="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6 mb-6">
+      <!-- Basic Information Section -->
+      <div class="mb-6 pb-6 border-b border-gray-200 dark:border-gray-700">
+        <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Basic Information</h2>
+
+        <!-- Organization Name -->
+        <div class="mb-4">
+          <label for="org-name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            Organization Name <span class="text-red-500">*</span>
+          </label>
+          <input type="text" id="org-name" required
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Enter organization name">
+        </div>
+
+        <!-- Organization Description -->
+        <div class="mb-4">
+          <label for="org-description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            Organization Description
+          </label>
+          <textarea id="org-description" rows="4" maxlength="2000"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Describe the organization's purpose and mission"></textarea>
+          <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Maximum 2000 characters</p>
+        </div>
+
+        <!-- Primary Contact Person -->
+        <div class="mb-4">
+          <label for="contact-person" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            Primary Contact Person <span class="text-red-500">*</span>
+          </label>
+          <div class="flex">
+            <input type="text" id="contact-person" disabled required
+              class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Select a contact person">
+            <button type="button" id="select-contact"
+              class="ml-2 px-3 py-2 text-sm font-medium text-blue-600 bg-white border border-blue-600 rounded-lg hover:bg-blue-50 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-gray-800 dark:text-blue-500 dark:border-blue-500 dark:hover:bg-gray-700 dark:focus:ring-blue-800"
+              data-modal-target="people-search-modal" data-modal-toggle="people-search-modal">
+              Select
+            </button>
+          </div>
+          <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Select the main contact person for this organization</p>
+        </div>
+
+        <!-- Organization Active Status -->
+        <div class="mb-4">
+          <div class="flex items-center">
+            <input id="org-active" type="checkbox" checked
+              class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+            <label for="org-active" class="ml-2 text-sm font-medium text-gray-900 dark:text-white">
+              Organization is Currently Active
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact Information Section -->
+      <div class="mb-6 pb-6 border-b border-gray-200 dark:border-gray-700">
+        <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Contact Information</h2>
+
+        <!-- Public Phone -->
+        <div class="mb-4">
+          <label for="org-phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            Public Phone Number
+          </label>
+          <input type="tel" id="org-phone" maxlength="15"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="(402) 555-0123">
+        </div>
+
+        <!-- Public Email -->
+        <div class="mb-4">
+          <label for="org-email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            Public Email Address
+          </label>
+          <input type="email" id="org-email"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="contact@organization.org">
+        </div>
+
+        <!-- Website -->
+        <div class="mb-4">
+          <label for="org-website" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            Website URL
+          </label>
+          <input type="url" id="org-website"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="https://www.organization.org">
+        </div>
+      </div>
+
+      <!-- Address Information Section -->
+      <div class="mb-6 pb-6 border-b border-gray-200 dark:border-gray-700">
+        <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Address Information</h2>
+
+        <!-- Physical Address -->
+        <div class="mb-4">
+          <label for="physical-address" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            Physical Address
+          </label>
+          <div class="flex">
+            <input type="text" id="physical-address" disabled
+              class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Select or enter physical address">
+            <button type="button" id="select-physical-address"
+              class="ml-2 px-3 py-2 text-sm font-medium text-blue-600 bg-white border border-blue-600 rounded-lg hover:bg-blue-50 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-gray-800 dark:text-blue-500 dark:border-blue-500 dark:hover:bg-gray-700 dark:focus:ring-blue-800"
+              data-modal-target="address-modal" data-modal-toggle="address-modal">
+              Select
+            </button>
+          </div>
+        </div>
+
+        <!-- Same as Physical Address Checkbox -->
+        <div class="mb-4">
+          <div class="flex items-center">
+            <input id="same-address" type="checkbox"
+              class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+            <label for="same-address" class="ml-2 text-sm font-medium text-gray-900 dark:text-white">
+              Mailing address is the same as physical address
+            </label>
+          </div>
+        </div>
+
+        <!-- Mailing Address -->
+        <div class="mb-4" id="mailing-address-container">
+          <label for="mailing-address" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            Mailing Address
+          </label>
+          <div class="flex">
+            <input type="text" id="mailing-address" disabled
+              class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Select or enter mailing address">
+            <button type="button" id="select-mailing-address"
+              class="ml-2 px-3 py-2 text-sm font-medium text-blue-600 bg-white border border-blue-600 rounded-lg hover:bg-blue-50 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-gray-800 dark:text-blue-500 dark:border-blue-500 dark:hover:bg-gray-700 dark:focus:ring-blue-800"
+              data-modal-target="address-modal" data-modal-toggle="address-modal">
+              Select
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Collaborative Information Section -->
+      <div class="mb-6 pb-6 border-b border-gray-200 dark:border-gray-700">
+        <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Collaborative Information</h2>
+
+        <!-- Is Community Collaborative -->
+        <div class="mb-4">
+          <div class="flex items-center">
+            <input id="is-community-collab" type="checkbox"
+              class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+            <label for="is-community-collab" class="ml-2 text-sm font-medium text-gray-900 dark:text-white">
+              This organization is a Community Collaborative
+            </label>
+          </div>
+          <p class="mt-1 ml-6 text-sm text-gray-500 dark:text-gray-400">Check this if the organization is part of the Community Collaborative Initiative</p>
+        </div>
+
+        <!-- Collaborative Funding (shown if is_community_collab is checked) -->
+        <div id="collab-funding-container" class="mb-4 hidden">
+          <label for="collab-funding" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            Collaborative Funding Source
+          </label>
+          <div class="flex">
+            <select id="collab-funding" disabled
+              class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+              <option selected>Select a funding source</option>
+              <option>Federal Grant</option>
+              <option>State Grant</option>
+              <option>Private Foundation</option>
+              <option>Corporate Sponsorship</option>
+            </select>
+            <button type="button" id="change-funding"
+              class="ml-2 px-3 py-2 text-sm font-medium text-blue-600 bg-white border border-blue-600 rounded-lg hover:bg-blue-50 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-gray-800 dark:text-blue-500 dark:border-blue-500 dark:hover:bg-gray-700 dark:focus:ring-blue-800">
+              Change
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Service Information Section -->
+      <div class="mb-6">
+        <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Service Information</h2>
+
+        <!-- Provides Service -->
+        <div class="mb-4">
+          <div class="flex items-center">
+            <input id="provides-service" type="checkbox"
+              class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+            <label for="provides-service" class="ml-2 text-sm font-medium text-gray-900 dark:text-white">
+              This organization provides services
+            </label>
+          </div>
+        </div>
+
+        <!-- Services Provided (shown if provides_service is checked) -->
+        <div id="services-container" class="mb-4 hidden">
+          <label for="services-provided" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            Services Provided
+          </label>
+          <div class="flex">
+            <select id="services-provided" multiple disabled
+              class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              size="5">
+              <option>Early Childhood Education</option>
+              <option>Family Support Services</option>
+              <option>Health & Wellness Programs</option>
+              <option>Mental Health Services</option>
+              <option>After-School Programs</option>
+              <option>Parent Education</option>
+              <option>Nutrition Services</option>
+            </select>
+            <button type="button" id="change-services"
+              class="ml-2 px-3 py-2 text-sm font-medium text-blue-600 bg-white border border-blue-600 rounded-lg hover:bg-blue-50 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-gray-800 dark:text-blue-500 dark:border-blue-500 dark:hover:bg-gray-700 dark:focus:ring-blue-800">
+              Change
+            </button>
+          </div>
+          <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Hold Ctrl (Windows) or Cmd (Mac) to select multiple services</p>
+        </div>
+      </div>
+
+      <!-- Submit Buttons -->
+      <div class="flex justify-end space-x-4">
+        <button type="button"
+          class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700">
+          Save as Draft
+        </button>
+        <button type="submit"
+          class="px-4 py-2 text-sm font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+          Create Organization
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- People Search Modal -->
+  <div id="people-search-modal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div class="relative w-full max-w-4xl max-h-full">
+      <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+        <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
+          <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+            Search People
+          </h3>
+          <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="people-search-modal">
+            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+            </svg>
+            <span class="sr-only">Close modal</span>
+          </button>
+        </div>
+
+        <div class="p-6 space-y-6">
+          <div class="mb-4">
+            <label for="search-people" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Search by name</label>
+            <div class="relative">
+              <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                </svg>
+              </div>
+              <input type="search" id="search-people" class="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search people...">
+            </div>
+          </div>
+
+          <div class="h-64 overflow-y-auto border border-gray-200 rounded-lg dark:border-gray-700">
+            <ul class="divide-y divide-gray-200 dark:divide-gray-700">
+              <li class="p-3 hover:bg-gray-100 dark:hover:bg-gray-600 cursor-pointer">
+                <div class="flex items-center space-x-4">
+                  <div class="flex-shrink-0">
+                    <img class="w-8 h-8 rounded-full" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/michael-gough.png" alt="Person image">
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <p class="text-sm font-medium text-gray-900 truncate dark:text-white">John Smith</p>
+                    <p class="text-sm text-gray-500 truncate dark:text-gray-400">Program Director</p>
+                  </div>
+                </div>
+              </li>
+              <li class="p-3 hover:bg-gray-100 dark:hover:bg-gray-600 cursor-pointer">
+                <div class="flex items-center space-x-4">
+                  <div class="flex-shrink-0">
+                    <img class="w-8 h-8 rounded-full" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/bonnie-green.png" alt="Person image">
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <p class="text-sm font-medium text-gray-900 truncate dark:text-white">Susan Doe</p>
+                    <p class="text-sm text-gray-500 truncate dark:text-gray-400">Executive Director</p>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="pt-4 border-t border-gray-200 dark:border-gray-600">
+            <button type="button" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+              <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path>
+              </svg>
+              Add New Person
+            </button>
+          </div>
+        </div>
+
+        <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+          <button data-modal-hide="people-search-modal" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Select</button>
+          <button data-modal-hide="people-search-modal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Address Modal (placeholder) -->
+  <div id="address-modal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div class="relative w-full max-w-2xl max-h-full">
+      <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+        <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
+          <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+            Select or Enter Address
+          </h3>
+          <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="address-modal">
+            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+            </svg>
+            <span class="sr-only">Close modal</span>
+          </button>
+        </div>
+
+        <div class="p-6 space-y-6">
+          <p class="text-sm text-gray-500 dark:text-gray-400">Address input functionality would be implemented here.</p>
+        </div>
+
+        <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+          <button data-modal-hide="address-modal" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
+          <button data-modal-hide="address-modal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript for form interactivity -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Same as Physical Address checkbox
+      const sameAddressCheckbox = document.getElementById('same-address');
+      const mailingAddressContainer = document.getElementById('mailing-address-container');
+      const mailingAddress = document.getElementById('mailing-address');
+      const physicalAddress = document.getElementById('physical-address');
+
+      sameAddressCheckbox.addEventListener('change', function() {
+        if (this.checked) {
+          mailingAddressContainer.classList.add('hidden');
+          mailingAddress.value = physicalAddress.value;
+        } else {
+          mailingAddressContainer.classList.remove('hidden');
+          mailingAddress.value = '';
+        }
+      });
+
+      // Community Collaborative checkbox
+      const isCollabCheckbox = document.getElementById('is-community-collab');
+      const collabFundingContainer = document.getElementById('collab-funding-container');
+      const collabFundingSelect = document.getElementById('collab-funding');
+
+      isCollabCheckbox.addEventListener('change', function() {
+        if (this.checked) {
+          collabFundingContainer.classList.remove('hidden');
+        } else {
+          collabFundingContainer.classList.add('hidden');
+        }
+      });
+
+      // Change funding button
+      const changeFundingBtn = document.getElementById('change-funding');
+      changeFundingBtn.addEventListener('click', function() {
+        collabFundingSelect.disabled = false;
+        collabFundingSelect.classList.remove('bg-gray-100');
+        collabFundingSelect.classList.add('bg-gray-50');
+        collabFundingSelect.focus();
+      });
+
+      // Provides Service checkbox
+      const providesServiceCheckbox = document.getElementById('provides-service');
+      const servicesContainer = document.getElementById('services-container');
+      const servicesSelect = document.getElementById('services-provided');
+
+      providesServiceCheckbox.addEventListener('change', function() {
+        if (this.checked) {
+          servicesContainer.classList.remove('hidden');
+        } else {
+          servicesContainer.classList.add('hidden');
+        }
+      });
+
+      // Change services button
+      const changeServicesBtn = document.getElementById('change-services');
+      changeServicesBtn.addEventListener('click', function() {
+        servicesSelect.disabled = false;
+        servicesSelect.classList.remove('bg-gray-100');
+        servicesSelect.classList.add('bg-gray-50');
+        servicesSelect.focus();
+      });
+    });
+  </script>
+</Organizations>
