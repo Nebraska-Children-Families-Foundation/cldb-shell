@@ -1,0 +1,656 @@
+---
+/**
+ * All Action Steps View
+ * Displays merged NC + Community action steps (391 records) with comprehensive filtering
+ */
+
+import Layout from '../../../layouts/Layout.astro';
+import {
+  getAllActionSteps,
+  getAllGoals,
+  getAllObjectives,
+  getAllStrategies,
+  getGoalById,
+  getObjectiveById,
+  getStrategyById,
+  formatCompletionDate,
+  getUniqueStatuses,
+  getUniqueYears,
+  getUniqueQuarters
+} from '../../../utils/statewide-plan.js';
+
+const actionSteps = getAllActionSteps();
+const goals = getAllGoals();
+const objectives = getAllObjectives();
+const strategies = getAllStrategies();
+const statuses = getUniqueStatuses('action_steps');
+const years = getUniqueYears('action_steps');
+const quarters = getUniqueQuarters('action_steps');
+---
+
+<Layout title="All Action Steps - Statewide Plan">
+  <div class="min-h-screen bg-white dark:bg-gray-900">
+  <div class="container mx-auto px-4 py-8">
+    <!-- Header -->
+    <div class="mb-8">
+      <nav class="flex mb-4" aria-label="Breadcrumb">
+        <ol class="inline-flex items-center space-x-1 md:space-x-3">
+          <li class="inline-flex items-center">
+            <a href="/statewide-plan" class="inline-flex items-center gap-2 text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
+              <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                <path d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z"/>
+              </svg>
+              Statewide Plan
+            </a>
+          </li>
+          <li aria-current="page">
+            <div class="flex items-center">
+              <svg class="w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+              </svg>
+              <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">All Action Steps</span>
+            </div>
+          </li>
+        </ol>
+      </nav>
+
+      <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+        All Action Steps
+      </h1>
+      <p class="text-gray-600 dark:text-gray-400">
+        Browse and filter all {actionSteps.length} action steps from NC Staff and Community Collaboratives
+      </p>
+    </div>
+
+    <!-- Filters Section -->
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-6">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-lg font-semibold text-gray-900 dark:text-white">
+          Filter Action Steps
+        </h2>
+        <button
+          type="button"
+          id="clearFilters"
+          class="text-sm text-blue-700 hover:text-blue-800 dark:text-blue-500 dark:hover:text-blue-400 font-medium"
+        >
+          Clear All Filters
+        </button>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <!-- Search by Name/Details -->
+        <div class="lg:col-span-2">
+          <label for="searchInput" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            Search by Name or Details
+          </label>
+          <input
+            type="text"
+            id="searchInput"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Search action steps..."
+          />
+        </div>
+
+        <!-- Filter by Goal -->
+        <div>
+          <label for="goalFilter" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            Filter by Goal
+          </label>
+          <select
+            id="goalFilter"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          >
+            <option value="">All Goals</option>
+            {goals.map(goal => (
+              <option value={goal.goal_id}>
+                Goal {goal.goal_number}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <!-- Filter by Objective -->
+        <div>
+          <label for="objectiveFilter" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            Filter by Objective
+          </label>
+          <select
+            id="objectiveFilter"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          >
+            <option value="">All Objectives</option>
+            {objectives.map(objective => (
+              <option value={objective.objective_id} data-goal-id={objective.related_goal_id}>
+                Obj {objective.objective_number}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <!-- Filter by Strategy -->
+        <div class="lg:col-span-2">
+          <label for="strategyFilter" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            Filter by Strategy
+          </label>
+          <select
+            id="strategyFilter"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          >
+            <option value="">All Strategies</option>
+            {strategies.map(strategy => (
+              <option value={strategy.strategy_id} data-objective-id={strategy.related_objective_id} data-goal-id={strategy.related_goal_id}>
+                {strategy.strategy_number}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <!-- Filter by Owner Type -->
+        <div>
+          <label for="ownerTypeFilter" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            Owner Type
+          </label>
+          <select
+            id="ownerTypeFilter"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          >
+            <option value="">All Types</option>
+            <option value="NC Staff">NC Staff</option>
+            <option value="Community Collaborative">Community Collaborative</option>
+          </select>
+        </div>
+
+        <!-- Filter by Status -->
+        <div>
+          <label for="statusFilter" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            Status
+          </label>
+          <select
+            id="statusFilter"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          >
+            <option value="">All Statuses</option>
+            {statuses.map(status => (
+              <option value={status}>{status}</option>
+            ))}
+          </select>
+        </div>
+
+        <!-- Filter by Year -->
+        <div>
+          <label for="yearFilter" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            Completion Year
+          </label>
+          <select
+            id="yearFilter"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          >
+            <option value="">All Years</option>
+            {years.map(year => (
+              <option value={year}>{year}</option>
+            ))}
+          </select>
+        </div>
+
+        <!-- Filter by Quarter -->
+        <div>
+          <label for="quarterFilter" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            Completion Quarter
+          </label>
+          <select
+            id="quarterFilter"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          >
+            <option value="">All Quarters</option>
+            {quarters.map(quarter => (
+              <option value={quarter}>{quarter}</option>
+            ))}
+          </select>
+        </div>
+
+        <!-- Filter by Priority (NC only) -->
+        <div class="lg:col-span-2">
+          <label class="flex items-center cursor-pointer">
+            <input
+              type="checkbox"
+              id="priorityFilter"
+              class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+            />
+            <span class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+              Show only NC Priority action steps
+            </span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Results Count & Pagination Controls -->
+      <div class="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div class="flex items-center gap-4">
+          <p class="text-sm text-gray-600 dark:text-gray-400">
+            Showing <strong id="pageStart" class="text-gray-900 dark:text-white">1</strong>-<strong id="pageEnd" class="text-gray-900 dark:text-white">25</strong> of <strong id="totalResults" class="text-gray-900 dark:text-white">{actionSteps.length}</strong> action steps
+          </p>
+        </div>
+        <div class="flex items-center gap-2">
+          <label for="perPageSelect" class="text-sm text-gray-600 dark:text-gray-400">Items per page:</label>
+          <select
+            id="perPageSelect"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+          >
+            <option value="25">25</option>
+            <option value="50" selected>50</option>
+            <option value="100">100</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Action Steps Table -->
+    <div id="actionStepsTableContainer" class="relative overflow-x-auto shadow-md sm:rounded-lg bg-white dark:bg-gray-800">
+      <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+          <tr>
+            <th scope="col" class="px-6 py-3">Activity Number</th>
+            <th scope="col" class="px-6 py-3">Activity Name</th>
+            <th scope="col" class="px-4 py-3">Strategy</th>
+            <th scope="col" class="px-4 py-3">Objective</th>
+            <th scope="col" class="px-4 py-3">Goal</th>
+            <th scope="col" class="px-4 py-3">Lead</th>
+            <th scope="col" class="px-4 py-3">Type</th>
+            <th scope="col" class="px-4 py-3">Status</th>
+            <th scope="col" class="px-4 py-3">Due</th>
+            <th scope="col" class="px-4 py-3">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="actionStepsTableBody">
+          <!-- Populated by JavaScript -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Pagination Controls -->
+    <div class="mt-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="text-sm text-gray-700 dark:text-gray-400">
+        Page <strong id="currentPage">1</strong> of <strong id="totalPages">1</strong>
+      </div>
+      <nav aria-label="Page navigation">
+        <ul class="inline-flex -space-x-px text-sm">
+          <li>
+            <button
+              id="prevPage"
+              class="flex items-center justify-center px-3 h-8 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              Previous
+            </button>
+          </li>
+          <li id="pageNumbers" class="flex">
+            <!-- Page numbers inserted here -->
+          </li>
+          <li>
+            <button
+              id="nextPage"
+              class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              Next
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <!-- No Results Message -->
+    <div id="noResults" class="hidden text-center py-12 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+      <svg class="mx-auto h-12 w-12 text-gray-400 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+      <h3 class="mt-2 text-sm font-medium text-gray-900 dark:text-white">No action steps found</h3>
+      <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Try adjusting your filters or search term.</p>
+      <div class="mt-6">
+        <button
+          type="button"
+          id="noResultsClear"
+          class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        >
+          Clear all filters
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    import { formatCompletionDate } from '../../../utils/statewide-plan.js';
+
+    // Serialize data from server-side
+    const allActionSteps = JSON.parse(document.getElementById('actionStepsData')?.textContent || '[]');
+    const goalsMap = JSON.parse(document.getElementById('goalsData')?.textContent || '{}');
+    const objectivesMap = JSON.parse(document.getElementById('objectivesData')?.textContent || '{}');
+    const strategiesMap = JSON.parse(document.getElementById('strategiesData')?.textContent || '{}');
+
+    let filteredActionSteps = [...allActionSteps];
+    let currentPage = 1;
+    let itemsPerPage = 50;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Initialize event listeners
+      document.getElementById('searchInput')?.addEventListener('input', applyFiltersAndRender);
+      document.getElementById('goalFilter')?.addEventListener('change', handleGoalChange);
+      document.getElementById('objectiveFilter')?.addEventListener('change', handleObjectiveChange);
+      document.getElementById('strategyFilter')?.addEventListener('change', applyFiltersAndRender);
+      document.getElementById('ownerTypeFilter')?.addEventListener('change', applyFiltersAndRender);
+      document.getElementById('statusFilter')?.addEventListener('change', applyFiltersAndRender);
+      document.getElementById('yearFilter')?.addEventListener('change', applyFiltersAndRender);
+      document.getElementById('quarterFilter')?.addEventListener('change', applyFiltersAndRender);
+      document.getElementById('priorityFilter')?.addEventListener('change', applyFiltersAndRender);
+      document.getElementById('perPageSelect')?.addEventListener('change', handlePerPageChange);
+      document.getElementById('clearFilters')?.addEventListener('click', resetFilters);
+      document.getElementById('noResultsClear')?.addEventListener('click', resetFilters);
+      document.getElementById('prevPage')?.addEventListener('click', () => changePage(-1));
+      document.getElementById('nextPage')?.addEventListener('click', () => changePage(1));
+
+      // Initial render
+      applyFiltersAndRender();
+    });
+
+    function handleGoalChange() {
+      const goalFilter = document.getElementById('goalFilter') as HTMLSelectElement;
+      const objectiveFilter = document.getElementById('objectiveFilter') as HTMLSelectElement;
+      const strategyFilter = document.getElementById('strategyFilter') as HTMLSelectElement;
+      const selectedGoalId = goalFilter?.value;
+
+      // Update objective dropdown
+      updateCascadingDropdown(objectiveFilter, 'data-goal-id', selectedGoalId);
+
+      // Update strategy dropdown based on goal
+      updateCascadingDropdown(strategyFilter, 'data-goal-id', selectedGoalId);
+
+      applyFiltersAndRender();
+    }
+
+    function handleObjectiveChange() {
+      const objectiveFilter = document.getElementById('objectiveFilter') as HTMLSelectElement;
+      const strategyFilter = document.getElementById('strategyFilter') as HTMLSelectElement;
+      const selectedObjectiveId = objectiveFilter?.value;
+
+      // Update strategy dropdown based on objective
+      updateCascadingDropdown(strategyFilter, 'data-objective-id', selectedObjectiveId);
+
+      applyFiltersAndRender();
+    }
+
+    function updateCascadingDropdown(dropdown: HTMLSelectElement | null, attribute: string, value: string) {
+      if (!dropdown) return;
+
+      const options = Array.from(dropdown.options);
+      options.forEach(option => {
+        if (option.value === '') {
+          option.style.display = 'block';
+        } else {
+          const attrValue = option.getAttribute(attribute);
+          if (value === '' || attrValue === value) {
+            option.style.display = 'block';
+          } else {
+            option.style.display = 'none';
+          }
+        }
+      });
+
+      // Reset if current selection is hidden
+      const currentOption = dropdown.options[dropdown.selectedIndex];
+      if (currentOption && currentOption.style.display === 'none') {
+        dropdown.value = '';
+      }
+    }
+
+    function applyFiltersAndRender() {
+      const searchInput = document.getElementById('searchInput') as HTMLInputElement;
+      const goalFilter = document.getElementById('goalFilter') as HTMLSelectElement;
+      const objectiveFilter = document.getElementById('objectiveFilter') as HTMLSelectElement;
+      const strategyFilter = document.getElementById('strategyFilter') as HTMLSelectElement;
+      const ownerTypeFilter = document.getElementById('ownerTypeFilter') as HTMLSelectElement;
+      const statusFilter = document.getElementById('statusFilter') as HTMLSelectElement;
+      const yearFilter = document.getElementById('yearFilter') as HTMLSelectElement;
+      const quarterFilter = document.getElementById('quarterFilter') as HTMLSelectElement;
+      const priorityFilter = document.getElementById('priorityFilter') as HTMLInputElement;
+
+      const searchTerm = searchInput?.value.toLowerCase() || '';
+      const selectedGoalId = goalFilter?.value || '';
+      const selectedObjectiveId = objectiveFilter?.value || '';
+      const selectedStrategyId = strategyFilter?.value || '';
+      const selectedOwnerType = ownerTypeFilter?.value || '';
+      const selectedStatus = statusFilter?.value || '';
+      const selectedYear = yearFilter?.value || '';
+      const selectedQuarter = quarterFilter?.value || '';
+      const priorityOnly = priorityFilter?.checked || false;
+
+      // Apply filters
+      filteredActionSteps = allActionSteps.filter(step => {
+        // Search filter
+        if (searchTerm) {
+          const matchName = step.activity_name?.toLowerCase().includes(searchTerm);
+          const matchDetails = step.activity_details?.toLowerCase().includes(searchTerm);
+          const matchNumber = step.activity_number?.toLowerCase().includes(searchTerm);
+          if (!matchName && !matchDetails && !matchNumber) return false;
+        }
+
+        // Goal filter
+        if (selectedGoalId && step.related_goal_id !== selectedGoalId) return false;
+
+        // Objective filter
+        if (selectedObjectiveId && step.related_objective_id !== selectedObjectiveId) return false;
+
+        // Strategy filter
+        if (selectedStrategyId && step.related_strategy_id !== selectedStrategyId) return false;
+
+        // Owner type filter
+        if (selectedOwnerType && step.source_type !== selectedOwnerType) return false;
+
+        // Status filter
+        if (selectedStatus && step.activity_status !== selectedStatus) return false;
+
+        // Year filter
+        if (selectedYear && step.completedby_year !== selectedYear) return false;
+
+        // Quarter filter
+        if (selectedQuarter && step.completedby_quarter !== selectedQuarter) return false;
+
+        // Priority filter (NC only)
+        if (priorityOnly && (step.source_type !== 'NC Staff' || !step.activity_priority)) return false;
+
+        return true;
+      });
+
+      // Reset to first page
+      currentPage = 1;
+      renderTable();
+      updatePagination();
+    }
+
+    function renderTable() {
+      const tableBody = document.getElementById('actionStepsTableBody');
+      const tableContainer = document.getElementById('actionStepsTableContainer');
+      const noResults = document.getElementById('noResults');
+
+      if (!tableBody || !tableContainer || !noResults) return;
+
+      // Calculate pagination
+      const startIndex = (currentPage - 1) * itemsPerPage;
+      const endIndex = Math.min(startIndex + itemsPerPage, filteredActionSteps.length);
+      const pageItems = filteredActionSteps.slice(startIndex, endIndex);
+
+      // Show/hide table or no results
+      if (filteredActionSteps.length === 0) {
+        tableContainer.style.display = 'none';
+        noResults.classList.remove('hidden');
+        return;
+      } else {
+        tableContainer.style.display = 'block';
+        noResults.classList.add('hidden');
+      }
+
+      // Render table rows
+      tableBody.innerHTML = pageItems.map(step => {
+        const strategy = strategiesMap[step.related_strategy_id];
+        const objective = objectivesMap[step.related_objective_id];
+        const goal = goalsMap[step.related_goal_id];
+
+        const typeColor = step.source_type === 'NC Staff' ? 'bg-blue-100 text-blue-800' : 'bg-green-100 text-green-800';
+        const priorityBadge = step.source_type === 'NC Staff' && step.activity_priority
+          ? '<span class="ml-2 inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-red-100 text-red-800">Priority</span>'
+          : '';
+
+        return `
+          <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+            <td class="px-6 py-4 font-medium text-gray-900 dark:text-white">
+              ${step.activity_number || '-'}
+            </td>
+            <td class="px-6 py-4">
+              <div class="flex items-start">
+                <span class="line-clamp-2">${step.activity_name || '-'}</span>
+                ${priorityBadge}
+              </div>
+            </td>
+            <td class="px-4 py-4 text-xs">
+              ${strategy?.strategy_number || '-'}
+            </td>
+            <td class="px-4 py-4 text-xs">
+              ${objective ? `Obj ${objective.objective_number}` : '-'}
+            </td>
+            <td class="px-4 py-4 text-xs">
+              ${goal ? `Goal ${goal.goal_number}` : '-'}
+            </td>
+            <td class="px-4 py-4 text-xs">
+              ${step.activity_lead || '-'}
+            </td>
+            <td class="px-4 py-4">
+              <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${typeColor}">
+                ${step.source_type}
+              </span>
+            </td>
+            <td class="px-4 py-4">
+              <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300">
+                ${step.activity_status || 'Not set'}
+              </span>
+            </td>
+            <td class="px-4 py-4 text-xs whitespace-nowrap">
+              ${formatCompletionDate(step.completedby_quarter, step.completedby_year)}
+            </td>
+            <td class="px-4 py-4">
+              <a
+                href="/statewide-plan/action-steps/${step.activity_id}"
+                class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+              >
+                View
+              </a>
+            </td>
+          </tr>
+        `;
+      }).join('');
+
+      // Update results count
+      document.getElementById('totalResults')!.textContent = filteredActionSteps.length.toString();
+      document.getElementById('pageStart')!.textContent = filteredActionSteps.length > 0 ? (startIndex + 1).toString() : '0';
+      document.getElementById('pageEnd')!.textContent = endIndex.toString();
+    }
+
+    function updatePagination() {
+      const totalPages = Math.ceil(filteredActionSteps.length / itemsPerPage);
+      const prevBtn = document.getElementById('prevPage') as HTMLButtonElement;
+      const nextBtn = document.getElementById('nextPage') as HTMLButtonElement;
+      const pageNumbers = document.getElementById('pageNumbers');
+
+      // Update page info
+      document.getElementById('currentPage')!.textContent = currentPage.toString();
+      document.getElementById('totalPages')!.textContent = totalPages.toString();
+
+      // Update button states
+      if (prevBtn) prevBtn.disabled = currentPage === 1;
+      if (nextBtn) nextBtn.disabled = currentPage === totalPages || totalPages === 0;
+
+      // Generate page number buttons (show max 5 pages)
+      if (pageNumbers) {
+        const maxButtons = 5;
+        let startPage = Math.max(1, currentPage - Math.floor(maxButtons / 2));
+        let endPage = Math.min(totalPages, startPage + maxButtons - 1);
+
+        if (endPage - startPage < maxButtons - 1) {
+          startPage = Math.max(1, endPage - maxButtons + 1);
+        }
+
+        const buttons = [];
+        for (let i = startPage; i <= endPage; i++) {
+          const isActive = i === currentPage;
+          buttons.push(`
+            <button
+              class="flex items-center justify-center px-3 h-8 leading-tight ${
+                isActive
+                  ? 'text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white'
+                  : 'text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white'
+              }"
+              data-page="${i}"
+            >
+              ${i}
+            </button>
+          `);
+        }
+        pageNumbers.innerHTML = buttons.join('');
+
+        // Add event listeners to page buttons
+        pageNumbers.querySelectorAll('button').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            const page = parseInt((e.target as HTMLElement).dataset.page || '1');
+            currentPage = page;
+            renderTable();
+            updatePagination();
+          });
+        });
+      }
+    }
+
+    function changePage(delta: number) {
+      const totalPages = Math.ceil(filteredActionSteps.length / itemsPerPage);
+      currentPage = Math.max(1, Math.min(totalPages, currentPage + delta));
+      renderTable();
+      updatePagination();
+    }
+
+    function handlePerPageChange() {
+      const select = document.getElementById('perPageSelect') as HTMLSelectElement;
+      itemsPerPage = parseInt(select?.value || '50');
+      currentPage = 1;
+      renderTable();
+      updatePagination();
+    }
+
+    function resetFilters() {
+      (document.getElementById('searchInput') as HTMLInputElement).value = '';
+      (document.getElementById('goalFilter') as HTMLSelectElement).value = '';
+      (document.getElementById('objectiveFilter') as HTMLSelectElement).value = '';
+      (document.getElementById('strategyFilter') as HTMLSelectElement).value = '';
+      (document.getElementById('ownerTypeFilter') as HTMLSelectElement).value = '';
+      (document.getElementById('statusFilter') as HTMLSelectElement).value = '';
+      (document.getElementById('yearFilter') as HTMLSelectElement).value = '';
+      (document.getElementById('quarterFilter') as HTMLSelectElement).value = '';
+      (document.getElementById('priorityFilter') as HTMLInputElement).checked = false;
+
+      // Reset cascading dropdown visibility
+      const objectiveFilter = document.getElementById('objectiveFilter') as HTMLSelectElement;
+      const strategyFilter = document.getElementById('strategyFilter') as HTMLSelectElement;
+
+      [objectiveFilter, strategyFilter].forEach(dropdown => {
+        if (dropdown) {
+          Array.from(dropdown.options).forEach(option => {
+            option.style.display = 'block';
+          });
+        }
+      });
+
+      applyFiltersAndRender();
+    }
+  </script>
+
+  <!-- Hidden data for client-side JavaScript -->
+  <script id="actionStepsData" type="application/json" set:html={JSON.stringify(actionSteps)} />
+  <script id="goalsData" type="application/json" set:html={JSON.stringify(Object.fromEntries(goals.map(g => [g.goal_id, g])))} />
+  <script id="objectivesData" type="application/json" set:html={JSON.stringify(Object.fromEntries(objectives.map(o => [o.objective_id, o])))} />
+  <script id="strategiesData" type="application/json" set:html={JSON.stringify(Object.fromEntries(strategies.map(s => [s.strategy_id, s])))} />
+  </div>
+</Layout>

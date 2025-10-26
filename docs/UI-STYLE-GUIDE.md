@@ -1047,6 +1047,57 @@ Always include dark mode variants for:
    - Use `overflow-x-auto` for tables
    - Test on mobile devices
 
+### Spacing & Alignment
+
+1. **Icon-to-text spacing in navigation elements**
+   - Use `gap-2` (flexbox gap) instead of `mr-*` for better spacing between icons and text
+   - Icon size should be `w-4 h-4` for breadcrumb icons to match text size
+   - Example:
+   ```html
+   <!-- Good: Uses gap and proper icon size -->
+   <a href="..." class="inline-flex items-center gap-2">
+     <svg class="w-4 h-4">...</svg>
+     Text Label
+   </a>
+
+   <!-- Avoid: Uses margin and small icon -->
+   <a href="..." class="inline-flex items-center">
+     <svg class="w-3 h-3 mr-2.5">...</svg>
+     Text Label
+   </a>
+   ```
+
+2. **Timeline and hierarchical displays**
+   - Add left margin to timeline container (`ms-4`) to prevent icons from crowding card edges
+   - Use `ms-6` on list items to create proper clearance for timeline icons
+   - Increase icon size to `w-8 h-8` for better visibility
+   - Remove ring styles (`ring-8`) in dark mode to avoid white circles around icons
+   - Example:
+   ```html
+   <ol class="relative border-s border-gray-200 dark:border-gray-700 ms-4">
+     <li class="mb-6 ms-6">
+       <span class="absolute flex items-center justify-center w-8 h-8 bg-blue-100 rounded-full -start-4 dark:bg-blue-900">
+         <svg class="w-2.5 h-2.5">...</svg>
+       </span>
+       <h3 class="flex items-start mb-1 text-base">
+         <span class="font-semibold mr-2">Label:</span>
+         <span class="flex-1">Content</span>
+       </h3>
+     </li>
+   </ol>
+   ```
+
+3. **Typography in hierarchical elements**
+   - Use `flex items-start` for proper alignment of multi-line content
+   - Only bold the label portion, keep content regular weight
+   - Use `text-base` instead of `text-lg` for better readability
+   - Wrap content in `flex-1` span for proper text flow
+
+4. **Card content spacing**
+   - Maintain consistent padding inside cards (typically `p-6`)
+   - Use margin utilities on nested elements rather than increasing card padding
+   - Ensure icons and content have breathing room from card edges
+
 ### Performance
 
 1. **Icon usage**

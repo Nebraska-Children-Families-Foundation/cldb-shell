@@ -1,0 +1,102 @@
+---
+/**
+ * Commitment Table Component
+ * Displays system partner commitments in a Flowbite table format
+ */
+
+import { getGoalById, getObjectiveById, getStrategyById, formatCompletionDate } from '../../utils/statewide-plan.js';
+
+interface Props {
+  commitments: any[];
+  showHierarchy?: boolean;
+  compact?: boolean;
+}
+
+const { commitments, showHierarchy = true, compact = false } = Astro.props;
+---
+
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+  <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+      <tr>
+        <th scope="col" class="px-6 py-3">Commitment Number</th>
+        <th scope="col" class="px-6 py-3">Commitment Name</th>
+        {showHierarchy && (
+          <>
+            <th scope="col" class="px-4 py-3">Strategy</th>
+            <th scope="col" class="px-4 py-3">Objective</th>
+            <th scope="col" class="px-4 py-3">Goal</th>
+          </>
+        )}
+        <th scope="col" class="px-4 py-3">Partner/Lead</th>
+        <th scope="col" class="px-4 py-3">Status</th>
+        <th scope="col" class="px-4 py-3">Due</th>
+        <th scope="col" class="px-4 py-3">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {commitments.length === 0 ? (
+        <tr class="bg-white dark:bg-gray-800">
+          <td colspan={showHierarchy ? "9" : "6"} class="px-6 py-8 text-center text-gray-500 dark:text-gray-400">
+            No commitments found
+          </td>
+        </tr>
+      ) : (
+        commitments.map(commitment => {
+          const strategy = getStrategyById(commitment.related_strategy_id);
+          const objective = getObjectiveById(commitment.related_objective_id);
+          const goal = getGoalById(commitment.related_goal_id);
+
+          return (
+            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+              <td class="px-6 py-4 font-medium text-gray-900 dark:text-white">
+                {commitment.commitment_number || '-'}
+              </td>
+              <td class="px-6 py-4">
+                <span class={compact ? 'line-clamp-2' : ''}>{commitment.commitment_name}</span>
+              </td>
+              {showHierarchy && (
+                <>
+                  <td class="px-4 py-4 text-xs">
+                    {strategy ? strategy.strategy_number : '-'}
+                  </td>
+                  <td class="px-4 py-4 text-xs">
+                    {objective ? `Obj ${objective.objective_number}` : '-'}
+                  </td>
+                  <td class="px-4 py-4 text-xs">
+                    {goal ? `Goal ${goal.goal_number}` : '-'}
+                  </td>
+                </>
+              )}
+              <td class="px-4 py-4 text-xs">
+                {commitment.commitment_lead || '-'}
+              </td>
+              <td class="px-4 py-4">
+                <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300">
+                  {commitment.commitment_status || 'Not set'}
+                </span>
+              </td>
+              <td class="px-4 py-4 text-xs whitespace-nowrap">
+                {formatCompletionDate(commitment.completedby_quarter, commitment.completedby_year)}
+              </td>
+              <td class="px-4 py-4">
+                <a
+                  href={`/statewide-plan/commitments/${commitment.commitment_id}`}
+                  class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                >
+                  View
+                </a>
+              </td>
+            </tr>
+          );
+        })
+      )}
+    </tbody>
+  </table>
+</div>
+
+{commitments.length > 0 && (
+  <div class="mt-4 text-sm text-gray-700 dark:text-gray-400">
+    Showing {commitments.length} commitment{commitments.length !== 1 ? 's' : ''}
+  </div>
+)}

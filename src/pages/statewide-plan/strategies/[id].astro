@@ -1,0 +1,394 @@
+---
+/**
+ * Strategy Detail Page
+ * Shows detailed information about a strategy including hierarchy, priorities, and related action steps/commitments
+ */
+
+import Layout from '../../../layouts/Layout.astro';
+import ActionStepTable from '../../../components/statewide-plan/ActionStepTable.astro';
+import CommitmentTable from '../../../components/statewide-plan/CommitmentTable.astro';
+import {
+  getAllStrategies,
+  getStrategyById,
+  getHierarchyForStrategy,
+  getStrategyPriorities,
+  getActionStepsByStrategyId,
+  getCommitmentsByStrategyId
+} from '../../../utils/statewide-plan.js';
+
+export async function getStaticPaths() {
+  const strategies = getAllStrategies();
+
+  return strategies.map(strategy => ({
+    params: { id: strategy.strategy_id },
+    props: { strategy }
+  }));
+}
+
+const { id } = Astro.params;
+const strategy = getStrategyById(id);
+
+if (!strategy) {
+  return Astro.redirect('/404');
+}
+
+const hierarchy = getHierarchyForStrategy(id);
+const priorities = getStrategyPriorities(id);
+
+// Get action steps by type
+const allActionSteps = getActionStepsByStrategyId(id);
+const ncActionSteps = allActionSteps.filter(a => a.source_type === 'NC Staff');
+const communityActionSteps = allActionSteps.filter(a => a.source_type === 'Community Collaborative');
+
+// Get commitments
+const commitments = getCommitmentsByStrategyId(id);
+
+const pageTitle = `${strategy.strategy_number}: ${strategy.strategy_name}`;
+---
+
+<Layout title={pageTitle}>
+  <div class="min-h-screen bg-white dark:bg-gray-900">
+  <div class="container mx-auto px-4 py-8">
+    <!-- Breadcrumb Navigation -->
+    <div class="mb-6">
+      <nav class="flex mb-4" aria-label="Breadcrumb">
+        <ol class="inline-flex items-center space-x-1 md:space-x-3">
+          <li class="inline-flex items-center">
+            <a href="/statewide-plan" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
+              <svg class="w-3 h-3 mr-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                <path d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z"/>
+              </svg>
+              Statewide Plan
+            </a>
+          </li>
+          {hierarchy.goal && (
+            <li class="inline-flex items-center">
+              <svg class="w-3 h-3 text-gray-400 mx-1 dark:text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+              </svg>
+              <a href={`/statewide-plan/goals/${hierarchy.goal.goal_id}`} class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
+                Goal {hierarchy.goal.goal_number}
+              </a>
+            </li>
+          )}
+          {hierarchy.objective && (
+            <li class="inline-flex items-center">
+              <svg class="w-3 h-3 text-gray-400 mx-1 dark:text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+              </svg>
+              <span class="inline-flex items-center text-sm font-medium text-gray-700 dark:text-gray-400">
+                Objective {hierarchy.objective.objective_number}
+              </span>
+            </li>
+          )}
+          <li aria-current="page">
+            <div class="flex items-center">
+              <svg class="w-3 h-3 text-gray-400 mx-1 dark:text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+              </svg>
+              <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">Strategy {strategy.strategy_number}</span>
+            </div>
+          </li>
+        </ol>
+      </nav>
+    </div>
+
+    <!-- Header -->
+    <div class="mb-8">
+      <div class="flex items-start justify-between">
+        <div>
+          <span class="text-sm font-semibold text-gray-600 dark:text-gray-400 mb-2 block">
+            {strategy.strategy_number}
+          </span>
+          <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+            {strategy.strategy_name}
+          </h1>
+        </div>
+      </div>
+    </div>
+
+    <!-- Priority Information Section -->
+    {(priorities.isNcffPriority || priorities.isCollabPriority || priorities.isPartnerPriority) && (
+      <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-6">
+        <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">
+          Priority Information
+        </h2>
+
+        <div class="space-y-4">
+          {/* NCFF Priority */}
+          {priorities.isNcffPriority && priorities.ncffTeams && priorities.ncffTeams.length > 0 && (
+            <div class="flex items-start gap-3">
+              <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300 flex-shrink-0">
+                <svg class="w-2 h-2 mr-1.5" fill="currentColor" viewBox="0 0 8 8">
+                  <circle cx="4" cy="4" r="3" />
+                </svg>
+                NCFF Priority
+              </span>
+              <div class="flex-1">
+                <p class="text-sm text-gray-700 dark:text-gray-300">
+                  <strong class="font-semibold">NCFF Teams:</strong>
+                </p>
+                <ul class="mt-1 list-disc list-inside text-sm text-gray-600 dark:text-gray-400">
+                  {priorities.ncffTeams.map(team => (
+                    <li>{team}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          )}
+
+          {/* Collaborative Priority */}
+          {priorities.isCollabPriority && priorities.collaboratives && priorities.collaboratives.length > 0 && (
+            <div class="flex items-start gap-3">
+              <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-300 flex-shrink-0">
+                <svg class="w-2 h-2 mr-1.5" fill="currentColor" viewBox="0 0 8 8">
+                  <circle cx="4" cy="4" r="3" />
+                </svg>
+                Collaborative Priority
+              </span>
+              <div class="flex-1">
+                <p class="text-sm text-gray-700 dark:text-gray-300">
+                  <strong class="font-semibold">Community Collaboratives:</strong>
+                </p>
+                <ul class="mt-1 list-disc list-inside text-sm text-gray-600 dark:text-gray-400">
+                  {priorities.collaboratives.map(collab => (
+                    <li>{collab}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          )}
+
+          {/* Partner Priority */}
+          {priorities.isPartnerPriority && priorities.partners && priorities.partners.length > 0 && (
+            <div class="flex items-start gap-3">
+              <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-rose-100 text-rose-800 dark:bg-rose-900 dark:text-rose-300 flex-shrink-0">
+                <svg class="w-2 h-2 mr-1.5" fill="currentColor" viewBox="0 0 8 8">
+                  <circle cx="4" cy="4" r="3" />
+                </svg>
+                Partner Priority
+              </span>
+              <div class="flex-1">
+                <p class="text-sm text-gray-700 dark:text-gray-300">
+                  <strong class="font-semibold">System Partners:</strong>
+                </p>
+                <ul class="mt-1 list-disc list-inside text-sm text-gray-600 dark:text-gray-400">
+                  {priorities.partners.map(partner => (
+                    <li>{partner}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    )}
+
+    <!-- Hierarchy Timeline -->
+    <div class="mb-8">
+      <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">
+        Hierarchy
+      </h2>
+      <ol class="relative border-s border-gray-200 dark:border-gray-700 ms-4">
+        {hierarchy.goal && (
+          <li class="mb-6 ms-6">
+            <span class="absolute flex items-center justify-center w-8 h-8 bg-blue-100 rounded-full -start-4 dark:bg-blue-900">
+              <svg class="w-2.5 h-2.5 text-blue-800 dark:text-blue-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
+              </svg>
+            </span>
+            <a href={`/statewide-plan/goals/${hierarchy.goal.goal_id}`} class="hover:underline">
+              <h3 class="flex items-start mb-1 text-base text-gray-900 dark:text-white">
+                <span class="font-semibold mr-2">Goal {hierarchy.goal.goal_number}:</span>
+                <span class="flex-1">{hierarchy.goal.goal_name}</span>
+              </h3>
+            </a>
+          </li>
+        )}
+        {hierarchy.objective && (
+          <li class="mb-6 ms-6">
+            <span class="absolute flex items-center justify-center w-8 h-8 bg-blue-100 rounded-full -start-4 dark:bg-blue-900">
+              <svg class="w-2.5 h-2.5 text-blue-800 dark:text-blue-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
+              </svg>
+            </span>
+            <h3 class="flex items-start mb-1 text-base text-gray-900 dark:text-white">
+              <span class="font-semibold mr-2">Objective {hierarchy.objective.objective_number}:</span>
+              <span class="flex-1">{hierarchy.objective.objective_name}</span>
+            </h3>
+          </li>
+        )}
+        {hierarchy.strategy && (
+          <li class="mb-0 ms-6">
+            <span class="absolute flex items-center justify-center w-8 h-8 bg-blue-100 rounded-full -start-4 dark:bg-blue-900">
+              <svg class="w-2.5 h-2.5 text-blue-800 dark:text-blue-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
+              </svg>
+            </span>
+            <h3 class="flex items-start mb-1 text-base text-gray-900 dark:text-white">
+              <span class="font-semibold mr-2">Strategy {hierarchy.strategy.strategy_number}:</span>
+              <span class="flex-1">{hierarchy.strategy.strategy_name}</span>
+            </h3>
+          </li>
+        )}
+      </ol>
+    </div>
+
+    <!-- Action Steps and Commitments Tabs -->
+    <div class="mb-8">
+      <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">
+        Action Steps and Commitments
+      </h2>
+
+      <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md">
+        <!-- Tab Headers -->
+        <div class="border-b border-gray-200 dark:border-gray-700">
+          <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" role="tablist">
+            <li class="mr-2" role="presentation">
+              <button
+                class="inline-block p-4 border-b-2 rounded-t-lg tab-button active"
+                id="nc-tab"
+                data-tabs-target="#nc-panel"
+                type="button"
+                role="tab"
+                aria-controls="nc-panel"
+                aria-selected="true"
+              >
+                NC Action Steps
+                <span class="ml-2 inline-flex items-center justify-center w-5 h-5 text-xs font-semibold text-blue-800 bg-blue-200 dark:bg-blue-900 dark:text-blue-200 rounded-full">
+                  {ncActionSteps.length}
+                </span>
+              </button>
+            </li>
+            <li class="mr-2" role="presentation">
+              <button
+                class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 dark:text-gray-400 tab-button"
+                id="community-tab"
+                data-tabs-target="#community-panel"
+                type="button"
+                role="tab"
+                aria-controls="community-panel"
+                aria-selected="false"
+              >
+                Community Action Steps
+                <span class="ml-2 inline-flex items-center justify-center w-5 h-5 text-xs font-semibold text-gray-800 bg-gray-200 dark:bg-gray-700 dark:text-gray-200 rounded-full">
+                  {communityActionSteps.length}
+                </span>
+              </button>
+            </li>
+            <li class="mr-2" role="presentation">
+              <button
+                class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 dark:text-gray-400 tab-button"
+                id="commitments-tab"
+                data-tabs-target="#commitments-panel"
+                type="button"
+                role="tab"
+                aria-controls="commitments-panel"
+                aria-selected="false"
+              >
+                Partner Commitments
+                <span class="ml-2 inline-flex items-center justify-center w-5 h-5 text-xs font-semibold text-gray-800 bg-gray-200 dark:bg-gray-700 dark:text-gray-200 rounded-full">
+                  {commitments.length}
+                </span>
+              </button>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Tab Panels -->
+        <div id="tabContent">
+          <!-- NC Action Steps Panel -->
+          <div class="tab-panel p-6" id="nc-panel" role="tabpanel" aria-labelledby="nc-tab">
+            {ncActionSteps.length > 0 ? (
+              <ActionStepTable actionSteps={ncActionSteps} />
+            ) : (
+              <div class="text-center py-8">
+                <p class="text-gray-500 dark:text-gray-400">No NC action steps for this strategy.</p>
+              </div>
+            )}
+          </div>
+
+          <!-- Community Action Steps Panel -->
+          <div class="tab-panel p-6 hidden" id="community-panel" role="tabpanel" aria-labelledby="community-tab">
+            {communityActionSteps.length > 0 ? (
+              <ActionStepTable actionSteps={communityActionSteps} />
+            ) : (
+              <div class="text-center py-8">
+                <p class="text-gray-500 dark:text-gray-400">No community action steps for this strategy.</p>
+              </div>
+            )}
+          </div>
+
+          <!-- Partner Commitments Panel -->
+          <div class="tab-panel p-6 hidden" id="commitments-panel" role="tabpanel" aria-labelledby="commitments-tab">
+            {commitments.length > 0 ? (
+              <CommitmentTable commitments={commitments} />
+            ) : (
+              <div class="text-center py-8">
+                <p class="text-gray-500 dark:text-gray-400">No partner commitments for this strategy.</p>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Back Button -->
+    <div class="mt-8">
+      <a
+        href="/statewide-plan/strategies"
+        class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-gray-800 dark:text-gray-200 dark:border-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-700"
+      >
+        <svg class="w-3.5 h-3.5 mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5H1m0 0 4 4M1 5l4-4"/>
+        </svg>
+        Back to All Strategies
+      </a>
+    </div>
+  </div>
+
+  <script>
+    // Tab functionality
+    document.addEventListener('DOMContentLoaded', () => {
+      const tabButtons = document.querySelectorAll('.tab-button');
+      const tabPanels = document.querySelectorAll('.tab-panel');
+
+      tabButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          const targetId = button.getAttribute('data-tabs-target');
+          const targetPanel = document.querySelector(targetId);
+
+          if (!targetPanel) return;
+
+          // Remove active state from all tabs
+          tabButtons.forEach(btn => {
+            btn.classList.remove('active', 'border-blue-600', 'text-blue-600', 'dark:text-blue-500', 'dark:border-blue-500');
+            btn.classList.add('border-transparent');
+            btn.setAttribute('aria-selected', 'false');
+          });
+
+          // Hide all panels
+          tabPanels.forEach(panel => {
+            panel.classList.add('hidden');
+          });
+
+          // Activate selected tab
+          button.classList.add('active', 'border-blue-600', 'text-blue-600', 'dark:text-blue-500', 'dark:border-blue-500');
+          button.classList.remove('border-transparent');
+          button.setAttribute('aria-selected', 'true');
+
+          // Show selected panel
+          targetPanel.classList.remove('hidden');
+        });
+      });
+
+      // Activate the first tab on load
+      const firstButton = tabButtons[0];
+      if (firstButton) {
+        firstButton.classList.add('border-blue-600', 'text-blue-600', 'dark:text-blue-500', 'dark:border-blue-500');
+        firstButton.classList.remove('border-transparent');
+      }
+    });
+  </script>
+  </div>
+</Layout>

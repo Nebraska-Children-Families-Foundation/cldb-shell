@@ -1,0 +1,80 @@
+---
+/**
+ * Goal Card Component
+ * Displays a goal with statistics and color coding
+ */
+
+import { getGoalColor, getGoalStatistics } from '../../utils/statewide-plan.js';
+
+interface Props {
+  goal: {
+    goal_id: string;
+    goal_number: number;
+    goal_name: string;
+  };
+}
+
+const { goal } = Astro.props;
+const color = getGoalColor(goal.goal_number);
+const stats = getGoalStatistics(goal.goal_id);
+---
+
+<div class={`block p-6 bg-white border ${color.border} border-l-4 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 transition-all`}>
+  <div class="mb-3">
+    <span class={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${color.bg} ${color.text}`}>
+      Goal {goal.goal_number}
+    </span>
+  </div>
+
+  <h5 class="mb-4 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+    {goal.goal_name}
+  </h5>
+
+  <div class="grid grid-cols-2 gap-4 mb-4 text-sm">
+    <div class="flex items-center">
+      <svg class="w-4 h-4 mr-2 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+      </svg>
+      <span class="text-gray-600 dark:text-gray-400">
+        <strong class="text-gray-900 dark:text-white">{stats.objectives}</strong> Objectives
+      </span>
+    </div>
+
+    <div class="flex items-center">
+      <svg class="w-4 h-4 mr-2 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+      </svg>
+      <span class="text-gray-600 dark:text-gray-400">
+        <strong class="text-gray-900 dark:text-white">{stats.strategies}</strong> Strategies
+      </span>
+    </div>
+
+    <div class="flex items-center">
+      <svg class="w-4 h-4 mr-2 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+      </svg>
+      <span class="text-gray-600 dark:text-gray-400">
+        <strong class="text-gray-900 dark:text-white">{stats.actionSteps}</strong> Action Steps
+      </span>
+    </div>
+
+    <div class="flex items-center">
+      <svg class="w-4 h-4 mr-2 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+      <span class="text-gray-600 dark:text-gray-400">
+        <strong class="text-gray-900 dark:text-white">{stats.commitments}</strong> Commitments
+      </span>
+    </div>
+  </div>
+
+  <a
+    href={`/statewide-plan/goals/${goal.goal_id}`}
+    class={`inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white ${color.bg.replace('100', '700')} rounded-lg hover:${color.bg.replace('100', '800')} focus:ring-4 focus:outline-none focus:ring-${color.badge}-300 dark:${color.bg.replace('100', '600')} dark:hover:${color.bg.replace('100', '700')} dark:focus:ring-${color.badge}-800`}
+  >
+    View Details
+    <svg class="w-3.5 h-3.5 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+    </svg>
+  </a>
+</div>

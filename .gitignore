@@ -25,3 +25,8 @@ pnpm-debug.log*
 
 # playwright mcp artifacts
 .playwright-mcp/
+
+# SQL Files
+.sql
+/info/statewide_plan_data.sql
+/info/statewide-plan-section-spec.md

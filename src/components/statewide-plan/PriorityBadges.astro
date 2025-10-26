@@ -1,0 +1,61 @@
+---
+/**
+ * Priority Badges Component
+ * Displays priority badges for NCFF, Collaborative, and Partner priorities
+ */
+
+interface Props {
+  priorities: {
+    isNcffPriority: boolean;
+    isCollabPriority: boolean;
+    isPartnerPriority: boolean;
+    ncffTeams?: string[];
+    collaboratives?: string[];
+    partners?: string[];
+  };
+  showTooltips?: boolean;
+}
+
+const { priorities, showTooltips = false } = Astro.props;
+---
+
+<div class="flex flex-wrap gap-2" data-priority-badges>
+  {priorities.isNcffPriority && (
+    <span
+      class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300"
+      title={showTooltips && priorities.ncffTeams ? `NCFF Teams: ${priorities.ncffTeams.join(', ')}` : 'NCFF Priority'}
+      data-priority="ncff"
+    >
+      <svg class="w-2 h-2 mr-1" fill="currentColor" viewBox="0 0 8 8">
+        <circle cx="4" cy="4" r="3" />
+      </svg>
+      NCFF Priority
+    </span>
+  )}
+
+  {priorities.isCollabPriority && (
+    <span
+      class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-300"
+      title={showTooltips && priorities.collaboratives ? `Collaboratives: ${priorities.collaboratives.join(', ')}` : 'Collaborative Priority'}
+      data-priority="collaborative"
+    >
+      <svg class="w-2 h-2 mr-1" fill="currentColor" viewBox="0 0 8 8">
+        <circle cx="4" cy="4" r="3" />
+      </svg>
+      Collaborative Priority
+    </span>
+  )}
+
+  {priorities.isPartnerPriority && (
+    <span
+      class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-rose-100 text-rose-800 dark:bg-rose-900 dark:text-rose-300"
+      title={showTooltips && priorities.partners ? `Partners: ${priorities.partners.join(', ')}` : 'Partner Priority'}
+      data-priority="partner"
+    >
+      <svg class="w-2 h-2 mr-1" fill="currentColor" viewBox="0 0 8 8">
+        <circle cx="4" cy="4" r="3" />
+      </svg>
+      Partner Priority
+    </span>
+  )}
+</div>

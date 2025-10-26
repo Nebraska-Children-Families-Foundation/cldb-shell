@@ -1,0 +1,104 @@
+[
+  {
+    "objective_id": "00786664-8737-4c65-bf33-544173bc06a7",
+    "objective_number": 1,
+    "objective_name": "Lived experience partners have power and voice in decision-making at all levels of program design and implementation of statewide well-being strategies.",
+    "related_goal_id": "6a3f7867-59f8-45a7-84e4-2f9593c60216"
+  },
+  {
+    "objective_id": "773f04da-d210-4d62-8a4c-c4bf7d52d1d0",
+    "objective_number": 2,
+    "objective_name": "System and community partners build capacity and knowledge through training, education, and best practices designed and informed by lived experience partners.",
+    "related_goal_id": "6a3f7867-59f8-45a7-84e4-2f9593c60216"
+  },
+  {
+    "objective_id": "28cf94f5-6234-4569-bd12-9c1502c7f58c",
+    "objective_number": 1,
+    "objective_name": "Families, parents, youth, and community members have the resources, support, skills, and capacity to co-create services and supports that directly impact them.",
+    "related_goal_id": "2cabbf0d-3376-47a3-88f0-3ab477c1017d"
+  },
+  {
+    "objective_id": "91a55d45-59b2-44a7-bea9-ed95265d78ac",
+    "objective_number": 2,
+    "objective_name": "Community collaboratives, system partners, and state agencies are responsive, communicate effectively, and share resources for shared accountability.",
+    "related_goal_id": "2cabbf0d-3376-47a3-88f0-3ab477c1017d"
+  },
+  {
+    "objective_id": "61739033-825a-479c-bfcc-7dbd1d73f1d6",
+    "objective_number": 3,
+    "objective_name": "State and federal systems partners work collaboratively with communities and lived experience partners to create policy and practice change for well-being.",
+    "related_goal_id": "2cabbf0d-3376-47a3-88f0-3ab477c1017d"
+  },
+  {
+    "objective_id": "c5b067dd-a42e-4beb-9c3f-e7daa728ee34",
+    "objective_number": 4,
+    "objective_name": "Schools, communities, and students/families work collaboratively to coordinate academic, social, and health services through strategic partnerships.",
+    "related_goal_id": "2cabbf0d-3376-47a3-88f0-3ab477c1017d"
+  },
+  {
+    "objective_id": "8e79e3d6-63eb-4c6b-96b8-f92c96217e0a",
+    "objective_number": 5,
+    "objective_name": "Build and support enough community-based prevention collaboratives and resources to support children, youth, and families in Nebraska.",
+    "related_goal_id": "2cabbf0d-3376-47a3-88f0-3ab477c1017d"
+  },
+  {
+    "objective_id": "75588364-e02c-40e8-a4f3-01a21d1a15b1",
+    "objective_number": 6,
+    "objective_name": "Community collaboratives, system partners, and lived experience partners will utilize data to drive decisions for well-being collaborative partnership.",
+    "related_goal_id": "2cabbf0d-3376-47a3-88f0-3ab477c1017d"
+  },
+  {
+    "objective_id": "2c17333d-8048-4090-8f35-c94d43c00daf",
+    "objective_number": 1,
+    "objective_name": "Children, youth, young adults, families, and communities have access to enough quality preschool, K-12, postsecondary and adult education, and career development services.",
+    "related_goal_id": "73257ed4-d3f5-4270-979b-62869804833f"
+  },
+  {
+    "objective_id": "4649feee-1787-435a-a1a5-cb9b190c4328",
+    "objective_number": 2,
+    "objective_name": "Youth and young adults and their families, and communities have access to enough developmentally appropriate and high-quality services and supports.",
+    "related_goal_id": "73257ed4-d3f5-4270-979b-62869804833f"
+  },
+  {
+    "objective_id": "3ac37a53-7ba8-4f66-a721-ee8ac44a4eee",
+    "objective_number": 3,
+    "objective_name": "Children, youth, young adults, families, and communities have access to enough quality early childhood services.",
+    "related_goal_id": "73257ed4-d3f5-4270-979b-62869804833f"
+  },
+  {
+    "objective_id": "709e7e46-ae52-4f01-a7be-8d240fddbd05",
+    "objective_number": 4,
+    "objective_name": "Children, youth, young adults, families, and communities have access to enough quality physical, mental, and behavioral health services.",
+    "related_goal_id": "73257ed4-d3f5-4270-979b-62869804833f"
+  },
+  {
+    "objective_id": "d4617929-e38f-4c67-9431-8b876ae94c00",
+    "objective_number": 5,
+    "objective_name": "Children, youth, young adults, families, and communities have access to enough opportunities for economic stability, concrete support, and to meet basic needs.",
+    "related_goal_id": "73257ed4-d3f5-4270-979b-62869804833f"
+  },
+  {
+    "objective_id": "3aa6bd0d-e543-456c-8586-865646ef8050",
+    "objective_number": 6,
+    "objective_name": "Community collaboratives, systems partners, and lived experience stakeholders implement community-based services using sustainable funding sources.",
+    "related_goal_id": "73257ed4-d3f5-4270-979b-62869804833f"
+  },
+  {
+    "objective_id": "5c856554-c4a9-40a9-8276-15ff4e817aba",
+    "objective_number": 1,
+    "objective_name": "The well-being workforce in Nebraska has the capacity, knowledge, and training to support children, youth, and families in a trauma-informed and sensitive way.",
+    "related_goal_id": "1eb44cfe-8c2f-4962-a602-5a32966c75f8"
+  },
+  {
+    "objective_id": "d7b68230-3a40-4337-83aa-ec23787d530d",
+    "objective_number": 2,
+    "objective_name": "The well-being workforce in Nebraska has the capacity, knowledge, and training to support children, youth, and families to build Protective and Promotive Factors.",
+    "related_goal_id": "1eb44cfe-8c2f-4962-a602-5a32966c75f8"
+  },
+  {
+    "objective_id": "f7d45ce0-d670-4df5-974c-c98024063dde",
+    "objective_number": 3,
+    "objective_name": "The well-being workforce in Nebraska has the technology and connectivity infrastructure required to best support children, youth, families, and community members into the future.",
+    "related_goal_id": "1eb44cfe-8c2f-4962-a602-5a32966c75f8"
+  }
+]
