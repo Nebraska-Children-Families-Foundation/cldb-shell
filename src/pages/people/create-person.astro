@@ -1,0 +1,415 @@
+---
+// src/pages/people/create-person.astro
+import People from "../../layouts/People.astro";
+---
+
+<People title="Create Person | Community Lens Database" activeSubnavItem="Create New Person">
+  <div class="max-w-4xl mx-auto">
+    <div class="flex justify-between items-center mb-6">
+      <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Create New Person</h1>
+      <a href="/people" class="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500 flex items-center">
+        <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+        </svg>
+        Back to People
+      </a>
+    </div>
+
+    <div class="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6 mb-6">
+      <!-- Name Information Section -->
+      <div class="mb-6 pb-6 border-b border-gray-200 dark:border-gray-700">
+        <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Name Information</h2>
+
+        <!-- Name Prefix/Title -->
+        <div class="mb-4">
+          <label for="name-prefix" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            Prefix/Title
+          </label>
+          <input type="text" id="name-prefix" maxlength="100"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Mrs, Mr, Dr, Gov, Sgt, etc.">
+          <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">For prefix or title such as Mrs, Mr, Dr, Gov, Sgt</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+          <!-- First Name -->
+          <div>
+            <label for="first-name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+              First Name <span class="text-red-500">*</span>
+            </label>
+            <input type="text" id="first-name" required maxlength="100"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="First name">
+          </div>
+
+          <!-- Middle Name -->
+          <div>
+            <label for="middle-name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+              Middle Name
+            </label>
+            <input type="text" id="middle-name" maxlength="100"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Middle name">
+          </div>
+
+          <!-- Last Name -->
+          <div>
+            <label for="last-name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+              Last Name <span class="text-red-500">*</span>
+            </label>
+            <input type="text" id="last-name" required maxlength="100"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Last name">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Name Suffix -->
+          <div>
+            <label for="name-suffix" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+              Suffix
+            </label>
+            <input type="text" id="name-suffix" maxlength="25"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Jr, Sr, III, etc.">
+          </div>
+
+          <!-- Preferred Name -->
+          <div>
+            <label for="preferred-name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+              Preferred Name
+            </label>
+            <input type="text" id="preferred-name" maxlength="100"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="e.g., Bob for Robert">
+            <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">For names such as Robert to Bob</p>
+          </div>
+        </div>
+
+        <!-- Pronouns -->
+        <div class="mb-4">
+          <label for="pronouns" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            Pronouns
+          </label>
+          <select id="pronouns"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <option value="">Select pronouns</option>
+            <option>He/Him</option>
+            <option>She/Her</option>
+            <option>They/Them</option>
+            <option>He/They</option>
+            <option>She/They</option>
+            <option>Other</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Contact Information Section -->
+      <div class="mb-6 pb-6 border-b border-gray-200 dark:border-gray-700">
+        <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Contact Information</h2>
+
+        <!-- Direct Email -->
+        <div class="mb-4">
+          <label for="direct-email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            Email Address <span class="text-red-500">*</span>
+          </label>
+          <input type="email" id="direct-email" required maxlength="255"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="email@example.com">
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Direct Phone -->
+          <div>
+            <label for="direct-phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+              Direct Phone
+            </label>
+            <input type="tel" id="direct-phone" maxlength="15"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="(402) 555-0123">
+          </div>
+
+          <!-- Cell Phone -->
+          <div>
+            <label for="cell-phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+              Cell Phone
+            </label>
+            <input type="tel" id="cell-phone" maxlength="15"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="(402) 555-0123">
+          </div>
+        </div>
+      </div>
+
+      <!-- Role and Employment Section -->
+      <div class="mb-6 pb-6 border-b border-gray-200 dark:border-gray-700">
+        <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Role and Employment</h2>
+
+        <!-- Person Role -->
+        <div class="mb-4">
+          <label for="person-role" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            Role
+          </label>
+          <select id="person-role"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <option value="">Select a role</option>
+            <option>Coordinator</option>
+            <option>Central Navigator</option>
+            <option>Program Director</option>
+            <option>Executive Director</option>
+            <option>Program Lead</option>
+            <option>CCP Coach</option>
+            <option>Staff</option>
+            <option>Other</option>
+          </select>
+        </div>
+
+        <!-- Employer -->
+        <div class="mb-4">
+          <label for="employer" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            Employer
+          </label>
+          <div class="flex gap-2">
+            <input type="text" id="employer" disabled
+              class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Select an organization">
+            <button type="button" id="select-employer"
+              class="px-3 py-2 text-sm font-medium text-blue-600 bg-white border border-blue-600 rounded-lg hover:bg-blue-50 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-gray-800 dark:text-blue-500 dark:border-blue-500 dark:hover:bg-gray-700 dark:focus:ring-blue-800"
+              data-modal-target="organization-search-modal" data-modal-toggle="organization-search-modal">
+              Select
+            </button>
+            <button type="button" id="create-employer"
+              class="px-3 py-2 text-sm font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              data-modal-target="create-organization-modal" data-modal-toggle="create-organization-modal">
+              Create New
+            </button>
+          </div>
+          <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Select an existing organization or create a new one</p>
+        </div>
+      </div>
+
+      <!-- Additional Information Section -->
+      <div class="mb-6 pb-6 border-b border-gray-200 dark:border-gray-700">
+        <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Additional Information</h2>
+
+        <!-- Address -->
+        <div class="mb-4">
+          <label for="person-address" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            Address
+          </label>
+          <div class="flex">
+            <input type="text" id="person-address" disabled
+              class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Select or enter address">
+            <button type="button" id="select-address"
+              class="ml-2 px-3 py-2 text-sm font-medium text-blue-600 bg-white border border-blue-600 rounded-lg hover:bg-blue-50 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-gray-800 dark:text-blue-500 dark:border-blue-500 dark:hover:bg-gray-700 dark:focus:ring-blue-800"
+              data-modal-target="address-modal" data-modal-toggle="address-modal">
+              Select
+            </button>
+          </div>
+        </div>
+
+        <!-- Language Spoken -->
+        <div class="mb-4">
+          <label for="language-spoken" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            Primary Language Spoken
+          </label>
+          <select id="language-spoken"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <option value="">Select a language</option>
+            <option>English</option>
+            <option>Spanish</option>
+            <option>Vietnamese</option>
+            <option>Arabic</option>
+            <option>Somali</option>
+            <option>Other</option>
+          </select>
+        </div>
+
+        <!-- Person Active Status -->
+        <div class="mb-4">
+          <div class="flex items-center">
+            <input id="person-active" type="checkbox" checked
+              class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+            <label for="person-active" class="ml-2 text-sm font-medium text-gray-900 dark:text-white">
+              Person is Currently Active
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Submit Buttons -->
+      <div class="flex justify-end space-x-4">
+        <button type="button"
+          class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700">
+          Save as Draft
+        </button>
+        <button type="submit"
+          class="px-4 py-2 text-sm font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+          Create Person
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Organization Search Modal -->
+  <div id="organization-search-modal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div class="relative w-full max-w-4xl max-h-full">
+      <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+        <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
+          <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+            Search Organizations
+          </h3>
+          <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="organization-search-modal">
+            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+            </svg>
+            <span class="sr-only">Close modal</span>
+          </button>
+        </div>
+
+        <div class="p-6 space-y-6">
+          <div class="mb-4">
+            <label for="search-organizations" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Search by name</label>
+            <div class="relative">
+              <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                </svg>
+              </div>
+              <input type="search" id="search-organizations" class="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search organizations...">
+            </div>
+          </div>
+
+          <div class="h-64 overflow-y-auto border border-gray-200 rounded-lg dark:border-gray-700">
+            <ul class="divide-y divide-gray-200 dark:divide-gray-700">
+              <li class="p-3 hover:bg-gray-100 dark:hover:bg-gray-600 cursor-pointer">
+                <div class="flex items-center space-x-4">
+                  <div class="flex-1 min-w-0">
+                    <p class="text-sm font-medium text-gray-900 truncate dark:text-white">Hastings YMCA</p>
+                    <p class="text-sm text-gray-500 truncate dark:text-gray-400">Hastings, NE</p>
+                  </div>
+                </div>
+              </li>
+              <li class="p-3 hover:bg-gray-100 dark:hover:bg-gray-600 cursor-pointer">
+                <div class="flex items-center space-x-4">
+                  <div class="flex-1 min-w-0">
+                    <p class="text-sm font-medium text-gray-900 truncate dark:text-white">Bridge Family Resource Network</p>
+                    <p class="text-sm text-gray-500 truncate dark:text-gray-400">Douglas County, NE</p>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+          <button data-modal-hide="organization-search-modal" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Select</button>
+          <button data-modal-hide="organization-search-modal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Create Organization Modal (Popup) -->
+  <div id="create-organization-modal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div class="relative w-full max-w-4xl max-h-full">
+      <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+        <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
+          <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+            Create New Organization
+          </h3>
+          <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="create-organization-modal">
+            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+            </svg>
+            <span class="sr-only">Close modal</span>
+          </button>
+        </div>
+
+        <div class="p-6 space-y-6 max-h-96 overflow-y-auto">
+          <!-- Organization Name -->
+          <div>
+            <label for="modal-org-name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+              Organization Name <span class="text-red-500">*</span>
+            </label>
+            <input type="text" id="modal-org-name" required
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Enter organization name">
+          </div>
+
+          <!-- Organization Description -->
+          <div>
+            <label for="modal-org-description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+              Organization Description
+            </label>
+            <textarea id="modal-org-description" rows="3"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Brief description"></textarea>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- Public Phone -->
+            <div>
+              <label for="modal-org-phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                Public Phone
+              </label>
+              <input type="tel" id="modal-org-phone"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="(402) 555-0123">
+            </div>
+
+            <!-- Public Email -->
+            <div>
+              <label for="modal-org-email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                Public Email
+              </label>
+              <input type="email" id="modal-org-email"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="contact@organization.org">
+            </div>
+          </div>
+        </div>
+
+        <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+          <button data-modal-hide="create-organization-modal" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Create and Select</button>
+          <button data-modal-hide="create-organization-modal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Address Modal (placeholder) -->
+  <div id="address-modal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div class="relative w-full max-w-2xl max-h-full">
+      <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+        <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
+          <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+            Select or Enter Address
+          </h3>
+          <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="address-modal">
+            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+            </svg>
+            <span class="sr-only">Close modal</span>
+          </button>
+        </div>
+
+        <div class="p-6 space-y-6">
+          <p class="text-sm text-gray-500 dark:text-gray-400">Address input functionality would be implemented here.</p>
+        </div>
+
+        <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+          <button data-modal-hide="address-modal" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
+          <button data-modal-hide="address-modal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript for form interactivity -->
+  <script>
+    // No additional JavaScript needed for basic functionality
+    // Flowbite handles modal toggling via data attributes
+  </script>
+</People>
