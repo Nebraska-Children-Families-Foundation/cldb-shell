@@ -1,0 +1,260 @@
+---
+/**
+ * Goal Detail Page
+ * Shows detailed information about a goal with objectives displayed in accordion format
+ */
+
+import DashboardLayout from '../../../layouts/DashboardLayout.astro';
+import PriorityBadges from '../../../components/statewide-plan/PriorityBadges.astro';
+import {
+  getAllGoals,
+  getGoalById,
+  getObjectivesByGoalId,
+  getStrategiesByObjectiveId,
+  getStrategyPriorities,
+  getStrategyStatistics,
+  getGoalColor
+} from '../../../utils/statewide-plan.js';
+
+export async function getStaticPaths() {
+  const goals = getAllGoals();
+
+  return goals.map(goal => ({
+    params: { id: goal.goal_id },
+    props: { goal }
+  }));
+}
+
+const { id } = Astro.params;
+const goal = getGoalById(id);
+
+if (!goal) {
+  return Astro.redirect('/404');
+}
+
+const objectives = getObjectivesByGoalId(id);
+const color = getGoalColor(goal.goal_number);
+
+// Get strategies for each objective
+const objectivesWithStrategies = objectives.map(objective => {
+  const strategies = getStrategiesByObjectiveId(objective.objective_id);
+  const strategiesWithData = strategies.map(strategy => ({
+    ...strategy,
+    priorities: getStrategyPriorities(strategy.strategy_id),
+    stats: getStrategyStatistics(strategy.strategy_id)
+  }));
+
+  return {
+    ...objective,
+    strategies: strategiesWithData
+  };
+});
+
+const pageTitle = `Goal ${goal.goal_number}: ${goal.goal_name}`;
+---
+
+<DashboardLayout>
+  <!-- Main Content Area -->
+  <div class="px-6 py-4">
+    <div>
+      <!-- Breadcrumb Navigation -->
+      <div class="mb-6">
+        <nav class="flex" aria-label="Breadcrumb">
+          <ol class="inline-flex items-center gap-2">
+            <li class="inline-flex items-center">
+              <a href="/statewide-plan/goals" class="inline-flex items-center gap-2 text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+                Back to Goals
+              </a>
+            </li>
+          </ol>
+        </nav>
+      </div>
+
+      <!-- Header -->
+      <div class="mb-8">
+        <div class="flex items-start justify-between mb-4">
+          <div>
+            <div class="flex items-center gap-3 mb-2">
+              <span class={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${color.bg} ${color.text}`}>
+                Goal {goal.goal_number}
+              </span>
+            </div>
+            <h1 class="text-3xl font-bold text-gray-900 dark:text-white">
+              {goal.goal_name}
+            </h1>
+          </div>
+        </div>
+
+        <p class="text-gray-600 dark:text-gray-400 mb-4">
+          This goal contains {objectives.length} objectives with their associated strategies, action steps, and commitments.
+        </p>
+      </div>
+
+      <!-- Objectives Accordion -->
+      <div id="accordion-objectives">
+        {objectivesWithStrategies.map((objective, objIndex) => (
+          <div class="mb-4">
+            <h2 id={`accordion-heading-${objIndex}`}>
+              <button
+                type="button"
+                class="flex items-center justify-between w-full p-5 font-medium text-left text-gray-900 bg-white border border-gray-200 rounded-lg hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700"
+                data-accordion-target={`#accordion-body-${objIndex}`}
+                aria-expanded="false"
+                aria-controls={`accordion-body-${objIndex}`}
+              >
+                <span class="flex items-center gap-3">
+                  <span class={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${color.bg} ${color.text}`}>
+                    Objective {objective.objective_number}
+                  </span>
+                  <span class="text-base font-semibold">{objective.objective_name}</span>
+                  <span class="text-sm text-gray-500 dark:text-gray-400">
+                    ({objective.strategies.length} strategies)
+                  </span>
+                </span>
+                <svg class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/>
+                </svg>
+              </button>
+            </h2>
+            <div
+              id={`accordion-body-${objIndex}`}
+              class="hidden"
+              aria-labelledby={`accordion-heading-${objIndex}`}
+            >
+              <div class="p-5 border border-t-0 border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900">
+                {objective.strategies.length === 0 ? (
+                  <p class="text-gray-500 dark:text-gray-400 italic">No strategies defined for this objective.</p>
+                ) : (
+                  <div class="space-y-4">
+                    {objective.strategies.map((strategy) => (
+                      <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4">
+                        <div class="flex items-start justify-between mb-3">
+                          <div class="flex-1">
+                            <div class="flex items-start gap-2 mb-2">
+                              <span class="text-sm font-semibold text-gray-600 dark:text-gray-400 whitespace-nowrap">
+                                {strategy.strategy_number}
+                              </span>
+                              <h3 class="text-base font-semibold text-gray-900 dark:text-white">
+                                {strategy.strategy_name}
+                              </h3>
+                            </div>
+
+                            {/* Priority Badges */}
+                            {(strategy.priorities.isNcffPriority || strategy.priorities.isCollabPriority || strategy.priorities.isPartnerPriority) && (
+                              <div class="flex flex-wrap gap-2 mb-3" data-priority-badges>
+                                {strategy.priorities.isNcffPriority && (
+                                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300" data-priority="ncff">
+                                    NCFF Priority
+                                  </span>
+                                )}
+                                {strategy.priorities.isCollabPriority && (
+                                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-300" data-priority="collaborative">
+                                    Collaborative Priority
+                                  </span>
+                                )}
+                                {strategy.priorities.isPartnerPriority && (
+                                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-rose-100 text-rose-800 dark:bg-rose-900 dark:text-rose-300" data-priority="partner">
+                                    Partner Priority
+                                  </span>
+                                )}
+                              </div>
+                            )}
+
+                            {/* Statistics */}
+                            <div class="flex flex-wrap gap-4 text-xs text-gray-600 dark:text-gray-400">
+                              <div class="flex items-center">
+                                <svg class="w-3.5 h-3.5 mr-1.5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                </svg>
+                                <strong class="text-gray-900 dark:text-white mr-1">{strategy.stats.actionSteps}</strong> Action Steps
+                              </div>
+
+                              <div class="flex items-center">
+                                <svg class="w-3.5 h-3.5 mr-1.5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                <strong class="text-gray-900 dark:text-white mr-1">{strategy.stats.commitments}</strong> Commitments
+                              </div>
+                            </div>
+                          </div>
+
+                          <a
+                            href={`/statewide-plan/strategies/${strategy.strategy_id}`}
+                            class="ml-4 inline-flex items-center px-3 py-2 text-sm font-medium text-blue-600 bg-blue-50 rounded-lg hover:bg-blue-100 dark:bg-blue-900 dark:text-blue-300 dark:hover:bg-blue-800"
+                          >
+                            View Details
+                            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                          </a>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Help Section */}
+      <div class="mt-8 p-6 bg-blue-50 dark:bg-gray-800 rounded-lg border border-blue-200 dark:border-gray-700">
+        <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-3">
+          About This Goal
+        </h2>
+        <p class="text-gray-700 dark:text-gray-300 mb-2">
+          This goal is organized into {objectives.length} objectives, each containing specific strategies
+          to achieve the desired outcomes. Strategies may be designated as priorities by NCFF teams,
+          Community Collaboratives, and/or System Partners.
+        </p>
+        <div class="mt-4">
+          <a
+            href="/statewide-plan/goals"
+            class="inline-flex items-center text-sm font-medium text-blue-600 hover:text-blue-800 dark:text-blue-500 dark:hover:text-blue-400"
+          >
+            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
+            View All Goals
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</DashboardLayout>
+
+<script>
+  // Flowbite accordion initialization
+  import 'flowbite';
+
+  // Initialize accordion on page load
+  document.addEventListener('DOMContentLoaded', () => {
+    const accordionButtons = document.querySelectorAll('[data-accordion-target]');
+
+    accordionButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const targetId = button.getAttribute('data-accordion-target');
+        const targetElement = document.querySelector(targetId);
+        const isExpanded = button.getAttribute('aria-expanded') === 'true';
+
+        // Toggle aria-expanded
+        button.setAttribute('aria-expanded', (!isExpanded).toString());
+
+        // Toggle visibility
+        if (targetElement) {
+          targetElement.classList.toggle('hidden');
+        }
+
+        // Rotate arrow icon
+        const icon = button.querySelector('svg');
+        if (icon) {
+          icon.classList.toggle('rotate-180');
+        }
+      });
+    });
+  });
+</script>

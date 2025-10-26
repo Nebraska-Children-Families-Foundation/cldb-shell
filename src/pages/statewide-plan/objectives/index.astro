@@ -1,0 +1,247 @@
+---
+/**
+ * All Objectives View
+ * Displays all 17 objectives with filtering by goal and search
+ */
+
+import DashboardLayout from '../../../layouts/DashboardLayout.astro';
+import ObjectiveCard from '../../../components/statewide-plan/ObjectiveCard.astro';
+import { getAllObjectives, getAllGoals } from '../../../utils/statewide-plan.js';
+
+const objectives = getAllObjectives();
+const goals = getAllGoals();
+---
+
+<DashboardLayout>
+  <!-- Main Content Area -->
+  <div class="px-6 py-4">
+    <div>
+      <!-- Page Header -->
+      <div class="mb-6">
+        <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+          Objectives
+        </h1>
+        <p class="text-lg text-gray-600 dark:text-gray-400">
+          Explore all {objectives.length} objectives across the four goals
+        </p>
+      </div>
+
+      <!-- Navigation Pills -->
+      <div class="mb-6 border-b border-gray-200 dark:border-gray-700">
+        <ul class="flex flex-wrap -mb-px text-sm font-medium text-center">
+          <li class="mr-2">
+            <a href="/statewide-plan/goals" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg text-gray-500 hover:text-gray-600 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300">
+              Goals
+            </a>
+          </li>
+          <li class="mr-2">
+            <a href="/statewide-plan/objectives" class="inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg active dark:text-blue-500 dark:border-blue-500">
+              Objectives
+            </a>
+          </li>
+          <li class="mr-2">
+            <a href="/statewide-plan/strategies" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg text-gray-500 hover:text-gray-600 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300">
+              Strategies
+            </a>
+          </li>
+          <li class="mr-2">
+            <a href="/statewide-plan/action-steps" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg text-gray-500 hover:text-gray-600 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300">
+              Action Steps
+            </a>
+          </li>
+          <li class="mr-2">
+            <a href="/statewide-plan/commitments" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg text-gray-500 hover:text-gray-600 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300">
+              Commitments
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Filters Section -->
+      <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-6 border border-gray-200 dark:border-gray-700">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-lg font-semibold text-gray-900 dark:text-white">
+            Filter Objectives
+          </h2>
+          <button
+            type="button"
+            id="clearFilters"
+            class="text-sm text-blue-700 hover:text-blue-800 dark:text-blue-500 dark:hover:text-blue-400 font-medium"
+          >
+            Clear All Filters
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Search by Name -->
+          <div>
+            <label for="searchInput" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+              Search by Name
+            </label>
+            <input
+              type="text"
+              id="searchInput"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Search objectives..."
+            />
+          </div>
+
+          <!-- Filter by Goal -->
+          <div>
+            <label for="goalFilter" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+              Filter by Goal
+            </label>
+            <select
+              id="goalFilter"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            >
+              <option value="">All Goals</option>
+              {goals.map(goal => (
+                <option value={goal.goal_id}>
+                  Goal {goal.goal_number}: {goal.goal_name}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+
+        <!-- Results Count -->
+        <div class="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+          <p class="text-sm text-gray-600 dark:text-gray-400">
+            Showing <strong id="resultsCount" class="text-gray-900 dark:text-white">{objectives.length}</strong> of {objectives.length} objectives
+          </p>
+        </div>
+      </div>
+
+      <!-- Objectives Grid -->
+      <div id="objectivesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {objectives.map(objective => (
+          <div class="objective-card"
+            data-objective-id={objective.objective_id}
+            data-goal-id={objective.related_goal_id}
+          >
+            <ObjectiveCard objective={objective} />
+          </div>
+        ))}
+      </div>
+
+      <!-- No Results Message -->
+      <div id="noResults" class="hidden text-center py-12">
+        <svg class="mx-auto h-12 w-12 text-gray-400 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <h3 class="mt-2 text-sm font-medium text-gray-900 dark:text-white">No objectives found</h3>
+        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Try adjusting your filters or search term.</p>
+        <div class="mt-6">
+          <button
+            type="button"
+            id="noResultsClear"
+            class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          >
+            Clear all filters
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</DashboardLayout>
+
+<script>
+  // Flowbite initialization
+  import 'flowbite';
+
+  // Initialize filtering
+  let allObjectives: Array<{
+    element: HTMLElement;
+    objectiveId: string;
+    goalId: string;
+  }> = [];
+
+  // Get all objective data from the DOM
+  document.addEventListener('DOMContentLoaded', () => {
+    const objectiveCards = document.querySelectorAll('.objective-card');
+    allObjectives = Array.from(objectiveCards).map(card => ({
+      element: card as HTMLElement,
+      objectiveId: (card as HTMLElement).dataset.objectiveId || '',
+      goalId: (card as HTMLElement).dataset.goalId || ''
+    }));
+
+    // Set up filter event listeners
+    const searchInput = document.getElementById('searchInput');
+    const goalFilter = document.getElementById('goalFilter');
+    const clearFilters = document.getElementById('clearFilters');
+    const noResultsClear = document.getElementById('noResultsClear');
+
+    searchInput?.addEventListener('input', applyFilters);
+    goalFilter?.addEventListener('change', applyFilters);
+    clearFilters?.addEventListener('click', resetFilters);
+    noResultsClear?.addEventListener('click', resetFilters);
+
+    // Initial state
+    applyFilters();
+  });
+
+  function applyFilters() {
+    const searchInput = document.getElementById('searchInput') as HTMLInputElement;
+    const goalFilter = document.getElementById('goalFilter') as HTMLSelectElement;
+    const objectivesGrid = document.getElementById('objectivesGrid');
+    const noResults = document.getElementById('noResults');
+    const resultsCount = document.getElementById('resultsCount');
+
+    const searchTerm = searchInput?.value.toLowerCase() || '';
+    const selectedGoalId = goalFilter?.value || '';
+
+    let visibleCount = 0;
+
+    allObjectives.forEach(({ element, goalId }) => {
+      let visible = true;
+
+      // Filter by goal
+      if (selectedGoalId && goalId !== selectedGoalId) {
+        visible = false;
+      }
+
+      // Filter by search term (search in objective name and number)
+      if (searchTerm) {
+        const objectiveName = element.textContent?.toLowerCase() || '';
+        if (!objectiveName.includes(searchTerm)) {
+          visible = false;
+        }
+      }
+
+      // Show/hide the element
+      if (visible) {
+        element.style.display = 'block';
+        visibleCount++;
+      } else {
+        element.style.display = 'none';
+      }
+    });
+
+    // Update results count
+    if (resultsCount) {
+      resultsCount.textContent = visibleCount.toString();
+    }
+
+    // Show/hide no results message
+    if (objectivesGrid && noResults) {
+      if (visibleCount === 0) {
+        objectivesGrid.style.display = 'none';
+        noResults.classList.remove('hidden');
+      } else {
+        objectivesGrid.style.display = 'grid';
+        noResults.classList.add('hidden');
+      }
+    }
+  }
+
+  function resetFilters() {
+    const searchInput = document.getElementById('searchInput') as HTMLInputElement;
+    const goalFilter = document.getElementById('goalFilter') as HTMLSelectElement;
+
+    if (searchInput) searchInput.value = '';
+    if (goalFilter) goalFilter.value = '';
+
+    applyFilters();
+  }
+</script>
