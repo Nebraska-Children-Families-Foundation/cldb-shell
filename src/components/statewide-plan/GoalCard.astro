@@ -70,7 +70,10 @@ const stats = getGoalStatistics(goal.goal_id);
 
   <a
     href={`/statewide-plan/goals/${goal.goal_id}`}
-    class={`inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white ${color.bg.replace('100', '700')} rounded-lg hover:${color.bg.replace('100', '800')} focus:ring-4 focus:outline-none focus:ring-${color.badge}-300 dark:${color.bg.replace('100', '600')} dark:hover:${color.bg.replace('100', '700')} dark:focus:ring-${color.badge}-800`}
+    class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg focus:ring-4 focus:outline-none transition-colors"
+    style="background-color: #9DCE70;"
+    onmouseover="this.style.backgroundColor='#8BC05F'"
+    onmouseout="this.style.backgroundColor='#9DCE70'"
   >
     View Details
     <svg class="w-3.5 h-3.5 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
