@@ -1,0 +1,119 @@
+---
+/**
+ * Action Step Table Component
+ * Displays action steps in a Flowbite table format
+ */
+
+import { getGoalById, getObjectiveById, getStrategyById, formatCompletionDate } from '../../utils/statewide-plan.js';
+
+interface Props {
+  actionSteps: any[];
+  showHierarchy?: boolean;
+  compact?: boolean;
+}
+
+const { actionSteps, showHierarchy = true, compact = false } = Astro.props;
+---
+
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+  <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+      <tr>
+        <th scope="col" class="px-6 py-3">Activity Number</th>
+        <th scope="col" class="px-6 py-3">Activity Name</th>
+        {showHierarchy && (
+          <>
+            <th scope="col" class="px-4 py-3">Strategy</th>
+            <th scope="col" class="px-4 py-3">Objective</th>
+            <th scope="col" class="px-4 py-3">Goal</th>
+          </>
+        )}
+        <th scope="col" class="px-4 py-3">Lead</th>
+        <th scope="col" class="px-4 py-3">Type</th>
+        <th scope="col" class="px-4 py-3">Status</th>
+        <th scope="col" class="px-4 py-3">Due</th>
+        <th scope="col" class="px-4 py-3">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {actionSteps.length === 0 ? (
+        <tr class="bg-white dark:bg-gray-800">
+          <td colspan={showHierarchy ? "10" : "7"} class="px-6 py-8 text-center text-gray-500 dark:text-gray-400">
+            No action steps found
+          </td>
+        </tr>
+      ) : (
+        actionSteps.map(step => {
+          const strategy = getStrategyById(step.related_strategy_id);
+          const objective = getObjectiveById(step.related_objective_id);
+          const goal = getGoalById(step.related_goal_id);
+
+          return (
+            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+              <td class="px-6 py-4 font-medium text-gray-900 dark:text-white">
+                {step.activity_number || '-'}
+              </td>
+              <td class="px-6 py-4">
+                <div class="flex items-start">
+                  <span class={compact ? 'line-clamp-2' : ''}>{step.activity_name}</span>
+                  {step.source_type === 'NC Staff' && step.activity_priority && (
+                    <span class="ml-2 inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-red-100 text-red-800">
+                      Priority
+                    </span>
+                  )}
+                </div>
+              </td>
+              {showHierarchy && (
+                <>
+                  <td class="px-4 py-4 text-xs">
+                    {strategy ? strategy.strategy_number : '-'}
+                  </td>
+                  <td class="px-4 py-4 text-xs">
+                    {objective ? `Obj ${objective.objective_number}` : '-'}
+                  </td>
+                  <td class="px-4 py-4 text-xs">
+                    {goal ? `Goal ${goal.goal_number}` : '-'}
+                  </td>
+                </>
+              )}
+              <td class="px-4 py-4 text-xs">
+                {step.activity_lead || '-'}
+              </td>
+              <td class="px-4 py-4">
+                <span class={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
+                  step.source_type === 'NC Staff'
+                    ? 'bg-blue-100 text-blue-800'
+                    : 'bg-green-100 text-green-800'
+                }`}>
+                  {step.source_type}
+                </span>
+              </td>
+              <td class="px-4 py-4">
+                <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300">
+                  {step.activity_status || 'Not set'}
+                </span>
+              </td>
+              <td class="px-4 py-4 text-xs whitespace-nowrap">
+                {formatCompletionDate(step.completedby_quarter, step.completedby_year)}
+              </td>
+              <td class="px-4 py-4">
+                <a
+                  href={`/statewide-plan/action-steps/${step.activity_id}`}
+                  class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                >
+                  View
+                </a>
+              </td>
+            </tr>
+          );
+        })
+      )}
+    </tbody>
+  </table>
+</div>
+
+{actionSteps.length > 0 && (
+  <div class="mt-4 text-sm text-gray-700 dark:text-gray-400">
+    Showing {actionSteps.length} action step{actionSteps.length !== 1 ? 's' : ''}
+  </div>
+)}

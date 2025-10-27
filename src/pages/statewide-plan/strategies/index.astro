@@ -1,0 +1,353 @@
+---
+/**
+ * All Strategies View
+ * Displays all 40 strategies with filtering capabilities
+ */
+
+import DashboardLayout from '../../../layouts/DashboardLayout.astro';
+import StrategyCard from '../../../components/statewide-plan/StrategyCard.astro';
+import { getAllStrategies, getAllGoals, getAllObjectives } from '../../../utils/statewide-plan.js';
+
+const strategies = getAllStrategies();
+const goals = getAllGoals();
+const objectives = getAllObjectives();
+---
+
+<DashboardLayout>
+  <div class="px-6 py-4">
+    <!-- Header -->
+    <div class="mb-6">
+      <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+        All Strategies
+      </h1>
+      <p class="text-gray-600 dark:text-gray-400">
+        Browse and filter all {strategies.length} strategies in the Nebraska Statewide Plan for Community Well-Being
+      </p>
+    </div>
+
+    <!-- Navigation Pills -->
+    <div class="mb-6 border-b border-gray-200 dark:border-gray-700">
+      <ul class="flex flex-wrap -mb-px text-sm font-medium text-center">
+        <li class="mr-2">
+          <a href="/statewide-plan/goals" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg text-gray-500 hover:text-gray-600 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300">
+            Goals
+          </a>
+        </li>
+        <li class="mr-2">
+          <a href="/statewide-plan/objectives" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg text-gray-500 hover:text-gray-600 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300">
+            Objectives
+          </a>
+        </li>
+        <li class="mr-2">
+          <a href="/statewide-plan/strategies" class="inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg active dark:text-blue-500 dark:border-blue-500">
+            Strategies
+          </a>
+        </li>
+        <li class="mr-2">
+          <a href="/statewide-plan/action-steps" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg text-gray-500 hover:text-gray-600 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300">
+            Action Steps
+          </a>
+        </li>
+        <li class="mr-2">
+          <a href="/statewide-plan/commitments" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg text-gray-500 hover:text-gray-600 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300">
+            Commitments
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Filters Section -->
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-6">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-lg font-semibold text-gray-900 dark:text-white">
+          Filter Strategies
+        </h2>
+        <button
+          type="button"
+          id="clearFilters"
+          class="text-sm text-blue-700 hover:text-blue-800 dark:text-blue-500 dark:hover:text-blue-400 font-medium"
+        >
+          Clear All Filters
+        </button>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <!-- Search by Name -->
+        <div>
+          <label for="searchInput" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            Search by Name
+          </label>
+          <input
+            type="text"
+            id="searchInput"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Search strategies..."
+          />
+        </div>
+
+        <!-- Filter by Goal -->
+        <div>
+          <label for="goalFilter" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            Filter by Goal
+          </label>
+          <select
+            id="goalFilter"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          >
+            <option value="">All Goals</option>
+            {goals.map(goal => (
+              <option value={goal.goal_id}>
+                Goal {goal.goal_number}: {goal.goal_name}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <!-- Filter by Objective -->
+        <div>
+          <label for="objectiveFilter" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            Filter by Objective
+          </label>
+          <select
+            id="objectiveFilter"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          >
+            <option value="">All Objectives</option>
+            {objectives.map(objective => (
+              <option value={objective.objective_id} data-goal-id={objective.related_goal_id}>
+                Objective {objective.objective_number}: {objective.objective_name}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <!-- Filter by Priority Type -->
+        <div>
+          <label for="priorityFilter" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            Filter by Priority
+          </label>
+          <select
+            id="priorityFilter"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          >
+            <option value="">All Strategies</option>
+            <option value="any">Any Priority</option>
+            <option value="ncff">NCFF Priority</option>
+            <option value="collaborative">Collaborative Priority</option>
+            <option value="partner">Partner Priority</option>
+            <option value="none">No Priority</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Results Count -->
+      <div class="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+        <p class="text-sm text-gray-600 dark:text-gray-400">
+          Showing <strong id="resultsCount" class="text-gray-900 dark:text-white">{strategies.length}</strong> of {strategies.length} strategies
+        </p>
+      </div>
+    </div>
+
+    <!-- Strategies Grid -->
+    <div id="strategiesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {strategies.map(strategy => (
+        <div class="strategy-card"
+          data-strategy-id={strategy.strategy_id}
+          data-goal-id={strategy.related_goal_id}
+          data-objective-id={strategy.related_objective_id}
+        >
+          <StrategyCard strategy={strategy} />
+        </div>
+      ))}
+    </div>
+
+    <!-- No Results Message -->
+    <div id="noResults" class="hidden text-center py-12">
+      <svg class="mx-auto h-12 w-12 text-gray-400 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+      <h3 class="mt-2 text-sm font-medium text-gray-900 dark:text-white">No strategies found</h3>
+      <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Try adjusting your filters or search term.</p>
+      <div class="mt-6">
+        <button
+          type="button"
+          id="noResultsClear"
+          class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        >
+          Clear all filters
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    import { filterStrategies } from '../../../utils/statewide-plan.js';
+
+    // Initialize filtering
+    let allStrategies = [];
+
+    // Get all strategy data from the DOM
+    document.addEventListener('DOMContentLoaded', () => {
+      const strategyCards = document.querySelectorAll('.strategy-card');
+      allStrategies = Array.from(strategyCards).map(card => ({
+        element: card,
+        strategyId: card.dataset.strategyId,
+        goalId: card.dataset.goalId,
+        objectiveId: card.dataset.objectiveId
+      }));
+
+      // Set up filter event listeners
+      const searchInput = document.getElementById('searchInput');
+      const goalFilter = document.getElementById('goalFilter');
+      const objectiveFilter = document.getElementById('objectiveFilter');
+      const priorityFilter = document.getElementById('priorityFilter');
+      const clearFilters = document.getElementById('clearFilters');
+      const noResultsClear = document.getElementById('noResultsClear');
+
+      searchInput?.addEventListener('input', applyFilters);
+      goalFilter?.addEventListener('change', handleGoalChange);
+      objectiveFilter?.addEventListener('change', applyFilters);
+      priorityFilter?.addEventListener('change', applyFilters);
+      clearFilters?.addEventListener('click', resetFilters);
+      noResultsClear?.addEventListener('click', resetFilters);
+
+      // Initial state
+      applyFilters();
+    });
+
+    function handleGoalChange() {
+      const goalFilter = document.getElementById('goalFilter') as HTMLSelectElement;
+      const objectiveFilter = document.getElementById('objectiveFilter') as HTMLSelectElement;
+      const selectedGoalId = goalFilter?.value;
+
+      // Update objective options based on selected goal
+      if (objectiveFilter) {
+        const options = Array.from(objectiveFilter.options);
+        options.forEach(option => {
+          if (option.value === '') {
+            option.style.display = 'block';
+          } else {
+            const optionGoalId = option.dataset.goalId;
+            if (selectedGoalId === '' || optionGoalId === selectedGoalId) {
+              option.style.display = 'block';
+            } else {
+              option.style.display = 'none';
+            }
+          }
+        });
+
+        // Reset objective filter if current selection is now hidden
+        const currentOption = objectiveFilter.options[objectiveFilter.selectedIndex];
+        if (currentOption && currentOption.style.display === 'none') {
+          objectiveFilter.value = '';
+        }
+      }
+
+      applyFilters();
+    }
+
+    function applyFilters() {
+      const searchInput = document.getElementById('searchInput') as HTMLInputElement;
+      const goalFilter = document.getElementById('goalFilter') as HTMLSelectElement;
+      const objectiveFilter = document.getElementById('objectiveFilter') as HTMLSelectElement;
+      const priorityFilter = document.getElementById('priorityFilter') as HTMLSelectElement;
+      const strategiesGrid = document.getElementById('strategiesGrid');
+      const noResults = document.getElementById('noResults');
+      const resultsCount = document.getElementById('resultsCount');
+
+      const searchTerm = searchInput?.value.toLowerCase() || '';
+      const selectedGoalId = goalFilter?.value || '';
+      const selectedObjectiveId = objectiveFilter?.value || '';
+      const selectedPriority = priorityFilter?.value || '';
+
+      let visibleCount = 0;
+
+      allStrategies.forEach(({ element, goalId, objectiveId }) => {
+        let visible = true;
+
+        // Filter by goal
+        if (selectedGoalId && goalId !== selectedGoalId) {
+          visible = false;
+        }
+
+        // Filter by objective
+        if (selectedObjectiveId && objectiveId !== selectedObjectiveId) {
+          visible = false;
+        }
+
+        // Filter by search term (search in strategy name and number)
+        if (searchTerm) {
+          const strategyName = element.textContent?.toLowerCase() || '';
+          if (!strategyName.includes(searchTerm)) {
+            visible = false;
+          }
+        }
+
+        // Filter by priority type (handled by checking priority badges in the card)
+        if (selectedPriority) {
+          const hasPriorityBadges = element.querySelector('[data-priority-badges]');
+          const hasNcffBadge = element.querySelector('[data-priority="ncff"]');
+          const hasCollabBadge = element.querySelector('[data-priority="collaborative"]');
+          const hasPartnerBadge = element.querySelector('[data-priority="partner"]');
+
+          if (selectedPriority === 'any' && !hasPriorityBadges) {
+            visible = false;
+          } else if (selectedPriority === 'ncff' && !hasNcffBadge) {
+            visible = false;
+          } else if (selectedPriority === 'collaborative' && !hasCollabBadge) {
+            visible = false;
+          } else if (selectedPriority === 'partner' && !hasPartnerBadge) {
+            visible = false;
+          } else if (selectedPriority === 'none' && hasPriorityBadges) {
+            visible = false;
+          }
+        }
+
+        // Show/hide the element
+        if (visible) {
+          element.style.display = 'block';
+          visibleCount++;
+        } else {
+          element.style.display = 'none';
+        }
+      });
+
+      // Update results count
+      if (resultsCount) {
+        resultsCount.textContent = visibleCount.toString();
+      }
+
+      // Show/hide no results message
+      if (strategiesGrid && noResults) {
+        if (visibleCount === 0) {
+          strategiesGrid.style.display = 'none';
+          noResults.classList.remove('hidden');
+        } else {
+          strategiesGrid.style.display = 'grid';
+          noResults.classList.add('hidden');
+        }
+      }
+    }
+
+    function resetFilters() {
+      const searchInput = document.getElementById('searchInput') as HTMLInputElement;
+      const goalFilter = document.getElementById('goalFilter') as HTMLSelectElement;
+      const objectiveFilter = document.getElementById('objectiveFilter') as HTMLSelectElement;
+      const priorityFilter = document.getElementById('priorityFilter') as HTMLSelectElement;
+
+      if (searchInput) searchInput.value = '';
+      if (goalFilter) goalFilter.value = '';
+      if (objectiveFilter) {
+        // Reset objective options visibility
+        const options = Array.from(objectiveFilter.options);
+        options.forEach(option => {
+          option.style.display = 'block';
+        });
+        objectiveFilter.value = '';
+      }
+      if (priorityFilter) priorityFilter.value = '';
+
+      applyFilters();
+    }
+  </script>
+</DashboardLayout>

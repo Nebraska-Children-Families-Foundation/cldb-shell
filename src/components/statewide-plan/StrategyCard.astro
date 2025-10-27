@@ -1,0 +1,82 @@
+---
+/**
+ * Strategy Card Component
+ * Displays a strategy with hierarchy info, priority badges, and statistics
+ */
+
+import { getGoalColor, getStrategyStatistics, getStrategyPriorities, getGoalById, getObjectiveById } from '../../utils/statewide-plan.js';
+import PriorityBadges from './PriorityBadges.astro';
+
+interface Props {
+  strategy: {
+    strategy_id: string;
+    strategy_number: string;
+    strategy_name: string;
+    related_goal_id: string;
+    related_objective_id: string;
+  };
+}
+
+const { strategy } = Astro.props;
+const goal = getGoalById(strategy.related_goal_id);
+const objective = getObjectiveById(strategy.related_objective_id);
+const stats = getStrategyStatistics(strategy.strategy_id);
+const priorities = getStrategyPriorities(strategy.strategy_id);
+const color = goal ? getGoalColor(goal.goal_number) : getGoalColor(1);
+---
+
+<div class="block p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 transition-all">
+  <div class="flex items-start justify-between mb-3">
+    <span class="text-sm font-semibold text-gray-700 dark:text-gray-300">
+      {strategy.strategy_number}
+    </span>
+    {goal && (
+      <span class={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${color.bg} ${color.text}`}>
+        Goal {goal.goal_number}
+      </span>
+    )}
+  </div>
+
+  <h5 class="mb-3 text-lg font-bold tracking-tight text-gray-900 dark:text-white line-clamp-3">
+    {strategy.strategy_name}
+  </h5>
+
+  {objective && (
+    <p class="mb-3 text-xs text-gray-600 dark:text-gray-400">
+      <span class="font-medium">Objective {objective.objective_number}:</span> {objective.objective_name}
+    </p>
+  )}
+
+  {/* Priority Badges */}
+  {(priorities.isNcffPriority || priorities.isCollabPriority || priorities.isPartnerPriority) && (
+    <div class="mb-3">
+      <PriorityBadges priorities={priorities} />
+    </div>
+  )}
+
+  <div class="flex gap-4 mb-4 text-xs text-gray-600 dark:text-gray-400">
+    <div class="flex items-center">
+      <svg class="w-3.5 h-3.5 mr-1.5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+      </svg>
+      <strong class="text-gray-900 dark:text-white mr-1">{stats.actionSteps}</strong> Action Steps
+    </div>
+
+    <div class="flex items-center">
+      <svg class="w-3.5 h-3.5 mr-1.5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+      <strong class="text-gray-900 dark:text-white mr-1">{stats.commitments}</strong> Commitments
+    </div>
+  </div>
+
+  <a
+    href={`/statewide-plan/strategies/${strategy.strategy_id}`}
+    class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+  >
+    View Details
+    <svg class="w-3.5 h-3.5 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+    </svg>
+  </a>
+</div>

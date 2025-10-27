@@ -1,0 +1,72 @@
+---
+/**
+ * Objective Card Component
+ * Displays an objective with parent goal info and statistics
+ */
+
+import { getGoalColor, getObjectiveStatistics, getGoalById } from '../../utils/statewide-plan.js';
+
+interface Props {
+  objective: {
+    objective_id: string;
+    objective_number: number;
+    objective_name: string;
+    related_goal_id: string;
+  };
+}
+
+const { objective } = Astro.props;
+const goal = getGoalById(objective.related_goal_id);
+const stats = getObjectiveStatistics(objective.objective_id);
+const color = goal ? getGoalColor(goal.goal_number) : getGoalColor(1);
+---
+
+<div class="block p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 transition-all">
+  <div class="flex items-center justify-between mb-3">
+    <span class="text-sm font-medium text-gray-600 dark:text-gray-400">
+      Objective {objective.objective_number}
+    </span>
+    {goal && (
+      <span class={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${color.bg} ${color.text}`}>
+        Goal {goal.goal_number}
+      </span>
+    )}
+  </div>
+
+  <h5 class="mb-4 text-lg font-bold tracking-tight text-gray-900 dark:text-white line-clamp-3">
+    {objective.objective_name}
+  </h5>
+
+  <div class="flex flex-wrap gap-3 mb-4 text-xs text-gray-600 dark:text-gray-400">
+    <div class="flex items-center">
+      <svg class="w-3.5 h-3.5 mr-1.5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+      </svg>
+      <strong class="text-gray-900 dark:text-white mr-1">{stats.strategies}</strong> Strategies
+    </div>
+
+    <div class="flex items-center">
+      <svg class="w-3.5 h-3.5 mr-1.5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+      </svg>
+      <strong class="text-gray-900 dark:text-white mr-1">{stats.actionSteps}</strong> Action Steps
+    </div>
+
+    <div class="flex items-center">
+      <svg class="w-3.5 h-3.5 mr-1.5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+      <strong class="text-gray-900 dark:text-white mr-1">{stats.commitments}</strong> Commitments
+    </div>
+  </div>
+
+  <a
+    href={`/statewide-plan/objectives/${objective.objective_id}`}
+    class="inline-flex items-center text-sm font-medium text-blue-600 hover:text-blue-800 dark:text-blue-500 dark:hover:text-blue-400"
+  >
+    View Details
+    <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+    </svg>
+  </a>
+</div>

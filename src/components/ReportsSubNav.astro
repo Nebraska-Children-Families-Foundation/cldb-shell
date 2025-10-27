@@ -1,0 +1,44 @@
+---
+// src/components/ReportsSubNav.astro
+
+// Use Astro.url to determine current path
+const currentPath = Astro.url.pathname;
+
+// Define navigation items with their paths and labels
+const navItems = [
+  { path: "/reports", label: "Report Home" },
+  { path: "/reports/create-report", label: "Create New Report" },
+  { path: "/reports/my-reports", label: "View My Reports" }
+];
+
+// Determine which item is active based on the current path
+function isActive(itemPath) {
+  // For the home item, check for exact match to avoid matching subpaths
+  if (itemPath === "/reports") {
+    return currentPath === "/reports" || currentPath === "/reports/";
+  }
+  // For other items, check if current path starts with the item path
+  return currentPath.startsWith(itemPath);
+}
+---
+
+<div class="reports-subnav bg-gray-700 border-b border-gray-600 px-4 py-2 fixed left-0 right-0 z-40">
+  <div class="container mx-auto flex justify-center items-center h-full">
+    <ul class="flex flex-wrap space-x-8">
+      {navItems.map(item => (
+        <li>
+          <a
+            href={item.path}
+            class={`inline-block py-2 px-3 text-white border-b-2 ${
+              isActive(item.path) 
+                ? 'border-white font-medium' 
+                : 'border-transparent hover:border-gray-300'
+            } transition-all duration-200`}
+          >
+            {item.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</div>

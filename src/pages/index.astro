@@ -1,13 +1,416 @@
 ---
-import Containers from '../components/Containers.astro';
-import Layout from '../layouts/Layout.astro';
-import Dashboard from '../layouts/Dashboard.astro';
-import Map from "../components/Map.astro";
+import DashboardLayout from "../layouts/DashboardLayout.astro";
+import LeafletMap from '../components/LeafletMap.vue';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+// Nebraska Community Collaboratives location data
+const locationData = [
+  {
+    name: "Better Together Collaborative",
+    type: "Collaborative",
+    lat: 40.6781,
+    lng: -95.8593,
+    address: "Nebraska City, NE"
+  },
+  {
+    name: "Bridge Family Resource Connector Network",
+    type: "Collaborative",
+    lat: 41.2565,
+    lng: -95.9345,
+    address: "Omaha, NE"
+  },
+  {
+    name: "Buffalo County Wellbeing Collaborative",
+    type: "Collaborative",
+    lat: 40.6993,
+    lng: -99.0812,
+    address: "Kearney, NE"
+  },
+  {
+    name: "Community and Family Partnership",
+    type: "Collaborative",
+    lat: 41.4305,
+    lng: -97.3571,
+    address: "Columbus, NE"
+  },
+  {
+    name: "Community Impact Network of Adams, Clay, Webster, Nuckolls",
+    type: "Collaborative",
+    lat: 40.5862,
+    lng: -98.3889,
+    address: "Hastings, NE"
+  },
+  {
+    name: "Dawson County Family Partners",
+    type: "Collaborative",
+    lat: 40.7777,
+    lng: -99.7415,
+    address: "Lexington, NE"
+  },
+  {
+    name: "Families 1st Partnership",
+    type: "Collaborative",
+    lat: 41.1403,
+    lng: -100.7601,
+    address: "North Platte, NE"
+  },
+  {
+    name: "Four Counties Collaborative",
+    type: "Collaborative",
+    lat: 40.3888,
+    lng: -95.8421,
+    address: "Auburn, NE"
+  },
+  {
+    name: "Fremont Family Coalition",
+    type: "Collaborative",
+    lat: 41.4350,
+    lng: -96.4867,
+    address: "Fremont, NE"
+  },
+  {
+    name: "Growing Community Connections",
+    type: "Collaborative",
+    lat: 42.4649,
+    lng: -96.4132,
+    address: "South Sioux City, NE"
+  },
+  {
+    name: "Hall County Community Collaborative",
+    type: "Collaborative",
+    lat: 40.9264,
+    lng: -98.3420,
+    address: "Grand Island, NE"
+  },
+  {
+    name: "Lancaster Connected",
+    type: "Collaborative",
+    lat: 40.8136,
+    lng: -96.7026,
+    address: "Lincoln, NE"
+  },
+  {
+    name: "Lift Up Sarpy",
+    type: "Collaborative",
+    lat: 41.1619,
+    lng: -95.9343,
+    address: "Bellevue, NE"
+  },
+  {
+    name: "Norfolk Family Coalition",
+    type: "Collaborative",
+    lat: 42.0283,
+    lng: -97.4172,
+    address: "Norfolk, NE"
+  },
+  {
+    name: "Panhandle Partnership",
+    type: "Collaborative",
+    lat: 41.8672,
+    lng: -103.6614,
+    address: "Scottsbluff, NE"
+  },
+  {
+    name: "Sandhills Community Collaborative",
+    type: "Collaborative",
+    lat: 41.4043,
+    lng: -99.6424,
+    address: "Broken Bow, NE"
+  },
+  {
+    name: "Saunders County Active Community Team",
+    type: "Collaborative",
+    lat: 41.2156,
+    lng: -96.6208,
+    address: "Wahoo, NE"
+  },
+  {
+    name: "Valentine Children and Families Coalition",
+    type: "Collaborative",
+    lat: 42.8729,
+    lng: -100.5515,
+    address: "Valentine, NE"
+  },
+  {
+    name: "York County Community Coalition",
+    type: "Collaborative",
+    lat: 40.8666,
+    lng: -97.5958,
+    address: "York, NE"
+  },
+  {
+    name: "Building Courageous Families",
+    type: "Collaborative",
+    lat: 42.2377,
+    lng: -96.4718,
+    address: "Winnebago, NE"
+  },
+  {
+    name: "Omaha Tribe of Nebraska",
+    type: "Collaborative",
+    lat: 42.1142,
+    lng: -96.3568,
+    address: "Macy, NE"
+  },
+  {
+    name: "Society of Care Santee-Sioux Nation",
+    type: "Collaborative",
+    lat: 42.8306,
+    lng: -97.8584,
+    address: "Santee, NE"
+  }
+];
 ---
 
-<Dashboard>
-	<Containers />
-</Dashboard>
+<DashboardLayout>
+  <main>
+    <div class="p-4">
+
+      <!-- Map Component with position adjustments -->
+      <div class="w-full h-[600px] bg-gray-900 border border-gray-700 rounded-lg overflow-hidden relative z-10">
+        <LeafletMap client:only="vue" locations={locationData} />
+      </div>
+
+      <!-- Collaboratives Cards -->
+      <div class="mt-4 p-6 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg">
+        <div class="flex justify-between items-center mb-6">
+          <h3 class="text-2xl font-bold text-gray-900 dark:text-white">Community Collaboratives</h3>
+          <span class="text-sm text-gray-500 dark:text-gray-400">{locationData.length} collaboratives</span>
+        </div>
+
+        <!-- Card Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+
+          <!-- Better Together Collaborative -->
+          <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-5 hover:shadow-lg transition-shadow">
+            <div class="flex justify-between items-start mb-3">
+              <h4 class="text-lg font-semibold text-gray-900 dark:text-white">Better Together Collaborative</h4>
+            </div>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300">
+                Otoe
+              </span>
+            </div>
+            <div class="space-y-3 text-sm">
+              <div class="flex items-start">
+                <svg class="w-5 h-5 text-gray-500 dark:text-gray-400 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path>
+                </svg>
+                <div>
+                  <p class="font-medium text-gray-900 dark:text-white">Coordinator</p>
+                  <p class="text-gray-700 dark:text-gray-300">Lisa Chaney</p>
+                  <a href="tel:402-713-5270" class="text-blue-600 dark:text-blue-400 hover:underline">402-713-5270</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bridge Family Resource Connector Network -->
+          <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-5 hover:shadow-lg transition-shadow">
+            <div class="flex justify-between items-start mb-3">
+              <h4 class="text-lg font-semibold text-gray-900 dark:text-white">Bridge Family Resource Connector Network</h4>
+            </div>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300">
+                Douglas
+              </span>
+            </div>
+            <div class="space-y-3 text-sm">
+              <div class="flex items-start">
+                <svg class="w-5 h-5 text-gray-500 dark:text-gray-400 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path>
+                </svg>
+                <div>
+                  <p class="font-medium text-gray-900 dark:text-white">Coordinator</p>
+                  <p class="text-gray-700 dark:text-gray-300">Marian Fey</p>
+                  <p class="text-gray-600 dark:text-gray-400 text-xs">Executive Director</p>
+                </div>
+              </div>
+              <div class="flex items-start">
+                <svg class="w-5 h-5 text-blue-500 dark:text-blue-400 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path>
+                </svg>
+                <div>
+                  <p class="font-medium text-gray-900 dark:text-white">Central Navigator</p>
+                  <p class="text-gray-700 dark:text-gray-300">Nikia Gunn-Abdulai</p>
+                  <a href="tel:531-301-3021" class="text-blue-600 dark:text-blue-400 hover:underline">531-301-3021</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Buffalo County Wellbeing Collaborative -->
+          <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-5 hover:shadow-lg transition-shadow">
+            <div class="flex justify-between items-start mb-3">
+              <h4 class="text-lg font-semibold text-gray-900 dark:text-white">Buffalo County Wellbeing Collaborative</h4>
+            </div>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300">
+                Buffalo
+              </span>
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300">
+                <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M7 2a2 2 0 00-2 2v12a2 2 0 002 2h6a2 2 0 002-2V4a2 2 0 00-2-2H7zm3 14a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path>
+                </svg>
+                Bilingual
+              </span>
+            </div>
+            <div class="space-y-3 text-sm">
+              <div class="flex items-start">
+                <svg class="w-5 h-5 text-gray-500 dark:text-gray-400 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path>
+                </svg>
+                <div>
+                  <p class="font-medium text-gray-900 dark:text-white">Coordinator</p>
+                  <p class="text-gray-700 dark:text-gray-300">Tana Miller</p>
+                  <a href="tel:308-865-2284" class="text-blue-600 dark:text-blue-400 hover:underline">308-865-2284</a>
+                </div>
+              </div>
+              <div class="flex items-start">
+                <svg class="w-5 h-5 text-blue-500 dark:text-blue-400 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path>
+                </svg>
+                <div>
+                  <p class="font-medium text-gray-900 dark:text-white">Central Navigator</p>
+                  <p class="text-gray-700 dark:text-gray-300">Wanda Fedorchik</p>
+                  <a href="tel:308-865-2284" class="text-blue-600 dark:text-blue-400 hover:underline">308-865-2284</a>
+                </div>
+              </div>
+              <div class="flex items-start">
+                <svg class="w-5 h-5 text-green-500 dark:text-green-400 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M7 2a2 2 0 00-2 2v12a2 2 0 002 2h6a2 2 0 002-2V4a2 2 0 00-2-2H7zm3 14a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path>
+                </svg>
+                <div>
+                  <p class="font-medium text-gray-900 dark:text-white">Bilingual Contact</p>
+                  <p class="text-gray-700 dark:text-gray-300">Martha Marfileno</p>
+                  <a href="tel:308-865-2284" class="text-blue-600 dark:text-blue-400 hover:underline">308-865-2284</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Community and Family Partnership -->
+          <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-5 hover:shadow-lg transition-shadow">
+            <div class="flex justify-between items-start mb-3">
+              <h4 class="text-lg font-semibold text-gray-900 dark:text-white">Community and Family Partnership</h4>
+            </div>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300">
+                Boone
+              </span>
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300">
+                Colfax
+              </span>
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300">
+                Nance
+              </span>
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300">
+                Platte
+              </span>
+            </div>
+            <div class="space-y-3 text-sm">
+              <div class="flex items-start">
+                <svg class="w-5 h-5 text-gray-500 dark:text-gray-400 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path>
+                </svg>
+                <div>
+                  <p class="font-medium text-gray-900 dark:text-white">Coordinator</p>
+                  <p class="text-gray-700 dark:text-gray-300">Roberta Miksch</p>
+                  <a href="tel:402-809-3297" class="text-blue-600 dark:text-blue-400 hover:underline">402-809-3297</a>
+                </div>
+              </div>
+              <div class="flex items-start">
+                <svg class="w-5 h-5 text-blue-500 dark:text-blue-400 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path>
+                </svg>
+                <div>
+                  <p class="font-medium text-gray-900 dark:text-white">Central Navigator</p>
+                  <p class="text-gray-700 dark:text-gray-300">Tammy Bichlmeier</p>
+                  <a href="tel:402-366-5615" class="text-blue-600 dark:text-blue-400 hover:underline">402-366-5615</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Lancaster Connected -->
+          <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-5 hover:shadow-lg transition-shadow">
+            <div class="flex justify-between items-start mb-3">
+              <h4 class="text-lg font-semibold text-gray-900 dark:text-white">Lancaster Connected</h4>
+            </div>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300">
+                Lancaster
+              </span>
+            </div>
+            <div class="space-y-3 text-sm">
+              <div class="flex items-start">
+                <svg class="w-5 h-5 text-gray-500 dark:text-gray-400 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path>
+                </svg>
+                <div>
+                  <p class="font-medium text-gray-900 dark:text-white">Coordinator</p>
+                  <p class="text-gray-700 dark:text-gray-300">Kristen Derr</p>
+                  <a href="tel:402-441-6070" class="text-blue-600 dark:text-blue-400 hover:underline">402-441-6070</a>
+                </div>
+              </div>
+              <div class="flex items-start">
+                <svg class="w-5 h-5 text-blue-500 dark:text-blue-400 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path>
+                </svg>
+                <div>
+                  <p class="font-medium text-gray-900 dark:text-white">Central Navigator</p>
+                  <p class="text-gray-700 dark:text-gray-300">Stephanie Morales</p>
+                  <a href="tel:402-434-5437" class="text-blue-600 dark:text-blue-400 hover:underline">402-434-5437</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Panhandle Partnership -->
+          <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-5 hover:shadow-lg transition-shadow">
+            <div class="flex justify-between items-start mb-3">
+              <h4 class="text-lg font-semibold text-gray-900 dark:text-white">Panhandle Partnership</h4>
+            </div>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300">
+                11 Counties
+              </span>
+            </div>
+            <div class="space-y-3 text-sm">
+              <div class="flex items-start">
+                <svg class="w-5 h-5 text-gray-500 dark:text-gray-400 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path>
+                </svg>
+                <div>
+                  <p class="font-medium text-gray-900 dark:text-white">Coordinator</p>
+                  <p class="text-gray-700 dark:text-gray-300">Faith Mills</p>
+                  <a href="tel:308-262-5940" class="text-blue-600 dark:text-blue-400 hover:underline">308-262-5940</a>
+                </div>
+              </div>
+              <div class="flex items-start">
+                <svg class="w-5 h-5 text-blue-500 dark:text-blue-400 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path>
+                </svg>
+                <div>
+                  <p class="font-medium text-gray-900 dark:text-white">Central Navigator</p>
+                  <p class="text-gray-700 dark:text-gray-300">Carmen Trevino</p>
+                  <a href="tel:308-633-3236" class="text-blue-600 dark:text-blue-400 hover:underline">308-633-3236</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- View All Button -->
+        <div class="mt-6 text-center">
+          <a href="#" class="inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-primary-700 rounded-lg hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+            View All Collaboratives
+            <svg class="w-3.5 h-3.5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </main>
+</DashboardLayout>

@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "name": "Lincoln Community Collaborative",
+    "community": "Lincoln",
+    "coordinates": [40.8136, -96.7026]
+  },
+  {
+    "id": 2,
+    "name": "North Platte Collaborative",
+    "community": "North Platte",
+    "coordinates": [41.1403, -100.7601]
+  },
+  {
+    "id": 3,
+    "name": "Omaha Community Network",
+    "community": "Omaha",
+    "coordinates": [41.2565, -95.9345]
+  }
+]

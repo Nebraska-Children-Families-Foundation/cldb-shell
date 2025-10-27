@@ -1,0 +1,49 @@
+---
+/**
+ * Hierarchy Timeline Component
+ * Displays vertical timeline showing the hierarchy path
+ */
+
+interface TimelineItem {
+  number: string | number;
+  name: string;
+  href?: string;
+  color?: string;
+}
+
+interface Props {
+  items: TimelineItem[];
+}
+
+const { items } = Astro.props;
+---
+
+<ol class="relative border-s border-gray-200 dark:border-gray-700 ms-4">
+  {items.map((item, index) => {
+    const colorClasses = item.color || 'blue';
+    const isLast = index === items.length - 1;
+
+    return (
+      <li class={`mb-6 ${isLast ? 'mb-0' : ''} ms-6`}>
+        <span class={`absolute flex items-center justify-center w-8 h-8 bg-${colorClasses}-100 rounded-full -start-4 dark:bg-${colorClasses}-900`}>
+          <svg class={`w-2.5 h-2.5 text-${colorClasses}-800 dark:text-${colorClasses}-300`} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
+          </svg>
+        </span>
+        {item.href ? (
+          <a href={item.href} class="hover:underline">
+            <h3 class="flex items-start mb-1 text-base text-gray-900 dark:text-white">
+              {item.number && <span class="font-semibold mr-2">{item.number}:</span>}
+              <span class="flex-1">{item.name}</span>
+            </h3>
+          </a>
+        ) : (
+          <h3 class="flex items-start mb-1 text-base text-gray-900 dark:text-white">
+            {item.number && <span class="font-semibold mr-2">{item.number}:</span>}
+            <span class="flex-1">{item.name}</span>
+          </h3>
+        )}
+      </li>
+    );
+  })}
+</ol>

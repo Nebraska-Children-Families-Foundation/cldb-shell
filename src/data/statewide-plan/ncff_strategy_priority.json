@@ -1,0 +1,260 @@
+[
+  {
+    "id": 1,
+    "is_priority": false,
+    "ncff_team_id": "c91eab88-9b7a-4e8a-9feb-eaa1740dfca1",
+    "strategy_id": "d79217af-afec-4b57-9632-c260fec036e8"
+  },
+  {
+    "id": 2,
+    "is_priority": false,
+    "ncff_team_id": "c91eab88-9b7a-4e8a-9feb-eaa1740dfca1",
+    "strategy_id": "b0ffbd10-260b-4b29-b015-25a4f028fd94"
+  },
+  {
+    "id": 3,
+    "is_priority": false,
+    "ncff_team_id": "1bbcc939-a188-487f-8f97-a3d97b780513",
+    "strategy_id": "eadb3e70-00fb-4857-b24c-5fd2d820383a"
+  },
+  {
+    "id": 4,
+    "is_priority": false,
+    "ncff_team_id": "5910dbb3-bca9-4a16-b5bc-5965f2da8aa9",
+    "strategy_id": "eadb3e70-00fb-4857-b24c-5fd2d820383a"
+  },
+  {
+    "id": 5,
+    "is_priority": false,
+    "ncff_team_id": "26630d1c-e8e5-41ef-b0c6-c8441bf08eaa",
+    "strategy_id": "ec550c34-06f8-4594-bda3-4e1d70896ab9"
+  },
+  {
+    "id": 6,
+    "is_priority": false,
+    "ncff_team_id": "1bbcc939-a188-487f-8f97-a3d97b780513",
+    "strategy_id": "ec550c34-06f8-4594-bda3-4e1d70896ab9"
+  },
+  {
+    "id": 7,
+    "is_priority": false,
+    "ncff_team_id": "5910dbb3-bca9-4a16-b5bc-5965f2da8aa9",
+    "strategy_id": "ec550c34-06f8-4594-bda3-4e1d70896ab9"
+  },
+  {
+    "id": 8,
+    "is_priority": false,
+    "ncff_team_id": "c91eab88-9b7a-4e8a-9feb-eaa1740dfca1",
+    "strategy_id": "187a6aa5-4879-49ef-a560-971bbee2a16e"
+  },
+  {
+    "id": 9,
+    "is_priority": false,
+    "ncff_team_id": "02bec9e1-e263-46ad-8a29-46e47158cfde",
+    "strategy_id": "c1c69d12-e517-4962-bd0c-e96c9e106a94"
+  },
+  {
+    "id": 10,
+    "is_priority": false,
+    "ncff_team_id": "521ab9ca-91ad-41ed-b1c4-dc52673d125b",
+    "strategy_id": "c1c69d12-e517-4962-bd0c-e96c9e106a94"
+  },
+  {
+    "id": 11,
+    "is_priority": false,
+    "ncff_team_id": "bd410a76-e8a4-41d0-9613-173e7a3191cb",
+    "strategy_id": "2d73a25e-e645-4823-8c34-ef772fc29bdb"
+  },
+  {
+    "id": 12,
+    "is_priority": false,
+    "ncff_team_id": "02bec9e1-e263-46ad-8a29-46e47158cfde",
+    "strategy_id": "2d73a25e-e645-4823-8c34-ef772fc29bdb"
+  },
+  {
+    "id": 13,
+    "is_priority": false,
+    "ncff_team_id": "521ab9ca-91ad-41ed-b1c4-dc52673d125b",
+    "strategy_id": "2d73a25e-e645-4823-8c34-ef772fc29bdb"
+  },
+  {
+    "id": 14,
+    "is_priority": false,
+    "ncff_team_id": "02bec9e1-e263-46ad-8a29-46e47158cfde",
+    "strategy_id": "0c61d2e8-e86f-4fe0-aeb1-53f7ff23a5fc"
+  },
+  {
+    "id": 15,
+    "is_priority": false,
+    "ncff_team_id": "bd410a76-e8a4-41d0-9613-173e7a3191cb",
+    "strategy_id": "0c61d2e8-e86f-4fe0-aeb1-53f7ff23a5fc"
+  },
+  {
+    "id": 16,
+    "is_priority": false,
+    "ncff_team_id": "dbb494d0-4aa6-430a-af29-c3798a711ed6",
+    "strategy_id": "0c61d2e8-e86f-4fe0-aeb1-53f7ff23a5fc"
+  },
+  {
+    "id": 17,
+    "is_priority": false,
+    "ncff_team_id": "1160014b-8f7f-491e-9e53-2b62e6dd0895",
+    "strategy_id": "fd4fe88f-1007-4f4e-bbc0-3b6c358fccfc"
+  },
+  {
+    "id": 18,
+    "is_priority": false,
+    "ncff_team_id": "02bec9e1-e263-46ad-8a29-46e47158cfde",
+    "strategy_id": "9ec17fa7-6ca6-4ab0-b1d1-a4f666ba3cf5"
+  },
+  {
+    "id": 19,
+    "is_priority": false,
+    "ncff_team_id": "6d023dfe-c272-49e4-96cf-f69f4bd8d6de",
+    "strategy_id": "9ec17fa7-6ca6-4ab0-b1d1-a4f666ba3cf5"
+  },
+  {
+    "id": 20,
+    "is_priority": false,
+    "ncff_team_id": "521ab9ca-91ad-41ed-b1c4-dc52673d125b",
+    "strategy_id": "9ec17fa7-6ca6-4ab0-b1d1-a4f666ba3cf5"
+  },
+  {
+    "id": 21,
+    "is_priority": false,
+    "ncff_team_id": "02bec9e1-e263-46ad-8a29-46e47158cfde",
+    "strategy_id": "6bc3e6f3-1737-42ff-8aff-a97598a45030"
+  },
+  {
+    "id": 22,
+    "is_priority": false,
+    "ncff_team_id": "2e4057be-a599-434d-ba10-cc7e92310cba",
+    "strategy_id": "6bc3e6f3-1737-42ff-8aff-a97598a45030"
+  },
+  {
+    "id": 23,
+    "is_priority": false,
+    "ncff_team_id": "03727fbf-fd79-4b61-81b1-4ccb1309cbe7",
+    "strategy_id": "6bc3e6f3-1737-42ff-8aff-a97598a45030"
+  },
+  {
+    "id": 24,
+    "is_priority": false,
+    "ncff_team_id": "02bec9e1-e263-46ad-8a29-46e47158cfde",
+    "strategy_id": "621c734b-0ba7-4061-af37-a63ac72a75a0"
+  },
+  {
+    "id": 25,
+    "is_priority": false,
+    "ncff_team_id": "26630d1c-e8e5-41ef-b0c6-c8441bf08eaa",
+    "strategy_id": "621c734b-0ba7-4061-af37-a63ac72a75a0"
+  },
+  {
+    "id": 26,
+    "is_priority": false,
+    "ncff_team_id": "02bec9e1-e263-46ad-8a29-46e47158cfde",
+    "strategy_id": "07f316db-6db2-47a2-8ceb-3b660821aaa7"
+  },
+  {
+    "id": 27,
+    "is_priority": false,
+    "ncff_team_id": "492a2080-8913-4eab-9f5b-8370d288f763",
+    "strategy_id": "07f316db-6db2-47a2-8ceb-3b660821aaa7"
+  },
+  {
+    "id": 28,
+    "is_priority": false,
+    "ncff_team_id": "63fcbdb4-9d4d-4955-b30a-4813e5e5f3a6",
+    "strategy_id": "07f316db-6db2-47a2-8ceb-3b660821aaa7"
+  },
+  {
+    "id": 29,
+    "is_priority": false,
+    "ncff_team_id": "e9601f19-54b1-4b22-ae59-868d272d562a",
+    "strategy_id": "07f316db-6db2-47a2-8ceb-3b660821aaa7"
+  },
+  {
+    "id": 30,
+    "is_priority": false,
+    "ncff_team_id": "02bec9e1-e263-46ad-8a29-46e47158cfde",
+    "strategy_id": "da4f7410-64b4-420a-9bf4-8072a4ce6d0b"
+  },
+  {
+    "id": 31,
+    "is_priority": false,
+    "ncff_team_id": "63fcbdb4-9d4d-4955-b30a-4813e5e5f3a6",
+    "strategy_id": "da4f7410-64b4-420a-9bf4-8072a4ce6d0b"
+  },
+  {
+    "id": 32,
+    "is_priority": false,
+    "ncff_team_id": "63fcbdb4-9d4d-4955-b30a-4813e5e5f3a6",
+    "strategy_id": "89bd0fd3-911d-4f6e-bce2-2f511e272567"
+  },
+  {
+    "id": 35,
+    "is_priority": false,
+    "ncff_team_id": "1bbcc939-a188-487f-8f97-a3d97b780513",
+    "strategy_id": "3a98e1a8-c196-4eb9-a25f-c433cf2d1efb"
+  },
+  {
+    "id": 36,
+    "is_priority": false,
+    "ncff_team_id": "1bbcc939-a188-487f-8f97-a3d97b780513",
+    "strategy_id": "1e3da942-3bbe-4aaf-9517-446b3b9b2148"
+  },
+  {
+    "id": 37,
+    "is_priority": false,
+    "ncff_team_id": "1bbcc939-a188-487f-8f97-a3d97b780513",
+    "strategy_id": "2be08770-c36d-42c1-98b4-8597e8289b1e"
+  },
+  {
+    "id": 38,
+    "is_priority": false,
+    "ncff_team_id": "1bbcc939-a188-487f-8f97-a3d97b780513",
+    "strategy_id": "fc4f515c-6738-4f95-98c3-9146a27301e6"
+  },
+  {
+    "id": 39,
+    "is_priority": false,
+    "ncff_team_id": "6d023dfe-c272-49e4-96cf-f69f4bd8d6de",
+    "strategy_id": "ceb421fc-aeff-44d6-b6fb-b56e1a598b01"
+  },
+  {
+    "id": 40,
+    "is_priority": false,
+    "ncff_team_id": "e9601f19-54b1-4b22-ae59-868d272d562a",
+    "strategy_id": "18cb919c-125f-491e-b553-44a446b0c27a"
+  },
+  {
+    "id": 41,
+    "is_priority": false,
+    "ncff_team_id": "9bf65a4b-9189-4969-ac78-85942b3e3156",
+    "strategy_id": "18cb919c-125f-491e-b553-44a446b0c27a"
+  },
+  {
+    "id": 42,
+    "is_priority": false,
+    "ncff_team_id": "e9601f19-54b1-4b22-ae59-868d272d562a",
+    "strategy_id": "c7ba7446-e8f7-4e61-b48a-496c95d6ce99"
+  },
+  {
+    "id": 43,
+    "is_priority": false,
+    "ncff_team_id": "9bf65a4b-9189-4969-ac78-85942b3e3156",
+    "strategy_id": "c7ba7446-e8f7-4e61-b48a-496c95d6ce99"
+  },
+  {
+    "id": 44,
+    "is_priority": false,
+    "ncff_team_id": "26630d1c-e8e5-41ef-b0c6-c8441bf08eaa",
+    "strategy_id": "891ae15e-f45f-4cc1-b6b3-1efc3358fd04"
+  },
+  {
+    "id": 45,
+    "is_priority": false,
+    "ncff_team_id": "26630d1c-e8e5-41ef-b0c6-c8441bf08eaa",
+    "strategy_id": "6bb34a6b-a3c9-4103-a9e5-4100c9fd621e"
+  }
+]

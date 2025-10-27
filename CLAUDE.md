@@ -91,6 +91,7 @@ find_tasks(filter_by="project", filter_value="proj-123")
 # Project Context
 - This project is called 'CLDB Shell'
 - The Archon Project ID is b47ea07c-6fb0-4866-8e1c-00d9efb71dfc
+- UI structure and style guide can be found in the `/docs/` directory.
 
 ## Purpose
 The purpose of this project is to create a static mockup using Astro that mimics what the frontend of the Community Lens Database (CLDB) will look like. This mockup will be shown to executives to get buy-in for the full build out of the CLDB interface.

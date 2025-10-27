@@ -1,0 +1,197 @@
+---
+// src/components/CollaborativeDashboardFilters.astro
+
+// Date filter options from the image
+const dateFilterOptions = [
+  "Today",
+  "Yesterday",
+  "Previous week",
+  "Previous 7 days",
+  "Previous 30 days",
+  "Previous month",
+  "Previous 3 months",
+  "Previous 12 months",
+  "Fixed date range...",
+  "Relative date range...",
+  "Exclude..."
+];
+
+// Collaborative names from collaboratives.md
+const collaborativeOptions = [
+  "Better Together Collaborative",
+  "Bridge Family Resource Connector Network",
+  "Buffalo County Wellbeing Collaborative",
+  "Community and Family Partnership",
+  "Community Impact Network of Adams, Clay, Webster, Nuckolls",
+  "Dawson County Family Partners",
+  "Families 1st Partnership",
+  "Fremont Family Coalition",
+  "Growing Community Connections",
+  "Hall County Community Collaborative (H3C)",
+  "Holt Boyd Community Connections",
+  "Lancaster Connected",
+  "Lift Up Sarpy",
+  "Norfolk Family Coalition",
+  "Panhandle Partnership",
+  "Project Everlast",
+  "Saunders County Active Community Team (ACT)",
+  "Southeast Nebraska Collaborative",
+  "Valentine Children and Families Coalition",
+  "York County Community Coalition",
+  "Building Courageous Families",
+  "Omaha Tribe of Nebraska",
+  "Society of Care Western Nebraska",
+  "Society of Care Santee-Sioux Nation"
+].sort();
+---
+
+<!-- Filter Bar -->
+<div class="mb-4 flex items-center justify-between bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
+  <!-- Left: Search Bar -->
+  <div class="flex-1 max-w-md">
+    <div class="relative">
+      <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+        </svg>
+      </div>
+      <input
+        type="search"
+        id="metricSearch"
+        class="block w-full p-2.5 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-white focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        placeholder="Find a metric"
+      />
+    </div>
+  </div>
+
+  <!-- Right: Filters -->
+  <div class="flex items-center gap-3">
+    <!-- Date Filter -->
+    <div>
+      <button
+        id="dateFilterButton"
+        data-dropdown-toggle="dateFilterDropdown"
+        class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700 inline-flex items-center gap-2"
+        type="button"
+      >
+        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1v3m5-3v3m5-3v3M1 7h18M5 11h10M2 3h16a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z"/>
+        </svg>
+        <span id="dateFilterText">Date Filters</span>
+        <svg class="w-2.5 h-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+        </svg>
+      </button>
+      <!-- Dropdown menu -->
+      <div id="dateFilterDropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-56 dark:bg-gray-700 max-h-96 overflow-y-auto">
+        <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dateFilterButton">
+          <li>
+            <a href="#" class="date-filter-option block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" data-filter-value="">
+              All Time
+            </a>
+          </li>
+          {dateFilterOptions.map(option => (
+            <li>
+              <a href="#" class="date-filter-option block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" data-filter-value={option}>
+                {option}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+
+    <!-- Collaborative Filter -->
+    <div>
+      <button
+        id="collaborativeFilterButton"
+        data-dropdown-toggle="collaborativeFilterDropdown"
+        class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700 inline-flex items-center gap-2"
+        type="button"
+      >
+        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+          <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"/>
+        </svg>
+        <span id="collaborativeFilterText">Collaborative</span>
+        <svg class="w-2.5 h-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+        </svg>
+      </button>
+      <!-- Dropdown menu -->
+      <div id="collaborativeFilterDropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-80 dark:bg-gray-700 max-h-96 overflow-y-auto">
+        <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="collaborativeFilterButton">
+          <li>
+            <a href="#" class="collaborative-filter-option block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" data-filter-value="">
+              All Collaboratives
+            </a>
+          </li>
+          {collaborativeOptions.map(option => (
+            <li>
+              <a href="#" class="collaborative-filter-option block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" data-filter-value={option}>
+                {option}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Filter state
+  const dashboardFilters = {
+    search: '',
+    date: '',
+    collaborative: ''
+  };
+
+  // Search functionality
+  const searchInput = document.getElementById('metricSearch');
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      dashboardFilters.search = e.target.value.toLowerCase();
+      // Note: The actual filtering logic will be implemented per page
+      // This dispatches a custom event that pages can listen to
+      window.dispatchEvent(new CustomEvent('dashboardFiltersChanged', { detail: dashboardFilters }));
+    });
+  }
+
+  // Date filter options
+  const dateFilterOptions = document.querySelectorAll('.date-filter-option');
+  dateFilterOptions.forEach(option => {
+    option.addEventListener('click', (e) => {
+      e.preventDefault();
+      const filterValue = option.getAttribute('data-filter-value');
+      dashboardFilters.date = filterValue;
+
+      // Update button text
+      const buttonText = document.getElementById('dateFilterText');
+      if (buttonText) {
+        buttonText.textContent = filterValue || 'Date Filters';
+      }
+
+      // Dispatch event
+      window.dispatchEvent(new CustomEvent('dashboardFiltersChanged', { detail: dashboardFilters }));
+    });
+  });
+
+  // Collaborative filter options
+  const collaborativeFilterOptions = document.querySelectorAll('.collaborative-filter-option');
+  collaborativeFilterOptions.forEach(option => {
+    option.addEventListener('click', (e) => {
+      e.preventDefault();
+      const filterValue = option.getAttribute('data-filter-value');
+      dashboardFilters.collaborative = filterValue;
+
+      // Update button text
+      const buttonText = document.getElementById('collaborativeFilterText');
+      if (buttonText) {
+        buttonText.textContent = filterValue || 'Collaborative';
+      }
+
+      // Dispatch event
+      window.dispatchEvent(new CustomEvent('dashboardFiltersChanged', { detail: dashboardFilters }));
+    });
+  });
+</script>

@@ -1,0 +1,499 @@
+---
+import DashboardLayout from "../../layouts/DashboardLayout.astro";
+
+// Organization data extracted from collaboratives.md
+const organizationsData = [
+  {
+    name: "Better Together Collaborative",
+    type: "Community Collaborative",
+    counties: "Otoe",
+    phone: "833-383-0280",
+    email: "partners4oc@gmail.com",
+    website: "",
+    isCollab: true
+  },
+  {
+    name: "Bridge Family Resource Connector Network",
+    type: "Community Collaborative",
+    counties: "Douglas",
+    phone: "833-383-0280",
+    email: "nikia@bridgefamilynetwork.org",
+    website: "",
+    isCollab: true
+  },
+  {
+    name: "Buffalo County Wellbeing Collaborative",
+    type: "Community Collaborative",
+    counties: "Buffalo",
+    phone: "308-865-2284",
+    email: "wfedorchik@bcchp.org",
+    website: "",
+    isCollab: true
+  },
+  {
+    name: "Community and Family Partnership",
+    type: "Community Collaborative",
+    counties: "Boone, Colfax, Nance, Platte",
+    phone: "402-615-0099",
+    email: "tbichlmeier@columbusunitedway.com",
+    website: "",
+    isCollab: true
+  },
+  {
+    name: "Community Impact Network of Adams, Clay, Webster, Nuckolls",
+    type: "Community Collaborative",
+    counties: "Adams, Clay, Nuckolls, Webster",
+    phone: "402-461-8418",
+    email: "navigator@unitedwayscne.org",
+    website: "",
+    isCollab: true
+  },
+  {
+    name: "Dawson County Family Partners",
+    type: "Community Collaborative",
+    counties: "Dawson",
+    phone: "308-784-2804",
+    email: "cfcozad@cozadtel.net",
+    website: "",
+    isCollab: true
+  },
+  {
+    name: "Families 1st Partnership",
+    type: "Community Collaborative",
+    counties: "Arthur, Keith, Lincoln, Perkins, Blaine, Custer, Garfield, Greeley, Loup, Sherman, Valley, Wheeler",
+    phone: "833-383-0280",
+    email: "info@fam-1st.org",
+    website: "",
+    isCollab: true
+  },
+  {
+    name: "Fremont Family Coalition",
+    type: "Community Collaborative",
+    counties: "Dodge, Washington",
+    phone: "402-721-4157",
+    email: "referrals@fremontunitedway.org",
+    website: "",
+    isCollab: true
+  },
+  {
+    name: "Growing Community Connections",
+    type: "Community Collaborative",
+    counties: "Dakota",
+    phone: "712-535-9096",
+    email: "kramos@siouxlandship.org",
+    website: "",
+    isCollab: true
+  },
+  {
+    name: "Hall County Community Collaborative (H3C)",
+    type: "Community Collaborative",
+    counties: "Franklin, Hall, Hamilton, Harlan, Howard, Kearney, Merrick, Phelps",
+    phone: "308-385-5175",
+    email: "douderkirk@cdhd.ne.gov",
+    website: "",
+    isCollab: true
+  },
+  {
+    name: "Holt Boyd Community Connections",
+    type: "Community Collaborative",
+    counties: "Holt, Boyd",
+    phone: "402-336-2406",
+    email: "nancy@ncdhd.ne.gov",
+    website: "",
+    isCollab: true
+  },
+  {
+    name: "Lancaster Connected",
+    type: "Community Collaborative",
+    counties: "Lancaster",
+    phone: "833-383-0280",
+    email: "smorales@uwmidlands.org",
+    website: "",
+    isCollab: true
+  },
+  {
+    name: "Lift Up Sarpy",
+    type: "Community Collaborative",
+    counties: "Sarpy",
+    phone: "402-293-3842",
+    email: "ewarnell@liftupsarpycounty.org",
+    website: "",
+    isCollab: true
+  },
+  {
+    name: "Norfolk Family Coalition",
+    type: "Community Collaborative",
+    counties: "Madison, Pierce, Stanton, Wayne",
+    phone: "833-383-0280",
+    email: "centralnavigator@norfolkfamilycoalition.org",
+    website: "",
+    isCollab: true
+  },
+  {
+    name: "Panhandle Partnership",
+    type: "Community Collaborative",
+    counties: "Banner, Box Butte, Cheyenne, Dawes, Deuel, Garden, Kimball, Morrill, Scotts Bluff, Sheridan, Sioux",
+    phone: "308-635-3089",
+    email: "ctrevino@capwn.org",
+    website: "",
+    isCollab: true
+  },
+  {
+    name: "Project Everlast",
+    type: "Community Collaborative",
+    counties: "Lancaster",
+    phone: "402-580-9247",
+    email: "ldrake@hublincoln.org",
+    website: "",
+    isCollab: true
+  },
+  {
+    name: "Saunders County Active Community Team (ACT)",
+    type: "Community Collaborative",
+    counties: "Saunders",
+    phone: "402-443-8107",
+    email: "apelan@saunderscounty.ne.gov",
+    website: "",
+    isCollab: true
+  },
+  {
+    name: "Southeast Nebraska Collaborative",
+    type: "Community Collaborative",
+    counties: "Butler, Cass, Fillmore, Gage, Jefferson, Otoe, Polk, Saline, Seward, Thayer, York",
+    phone: "402-395-4440",
+    email: "collena@sncollaborative.org",
+    website: "",
+    isCollab: true
+  },
+  {
+    name: "Valentine Children and Families Coalition",
+    type: "Community Collaborative",
+    counties: "Cherry",
+    phone: "833-383-0280",
+    email: "vcfcoalition@gmail.com",
+    website: "",
+    isCollab: true
+  },
+  {
+    name: "York County Community Coalition",
+    type: "Community Collaborative",
+    counties: "York",
+    phone: "833-383-0280",
+    email: "info@yc3york.com",
+    website: "",
+    isCollab: true
+  },
+  {
+    name: "Building Courageous Families",
+    type: "Tribal/Indigenous Community Prevention",
+    counties: "Thurston",
+    phone: "402-257-5586",
+    email: "angie.walker@winnebagotribe.com",
+    website: "",
+    isCollab: true,
+    tribalAffiliation: "Winnebago Tribe of Nebraska"
+  },
+  {
+    name: "Omaha Tribe of Nebraska",
+    type: "Tribal/Indigenous Community Prevention",
+    counties: "Thurston",
+    phone: "402-837-5331",
+    email: "joe.fleming@theomahatribe.com",
+    website: "",
+    isCollab: true,
+    tribalAffiliation: "Omaha Tribe of Nebraska"
+  },
+  {
+    name: "Society of Care Western Nebraska",
+    type: "Tribal/Indigenous Community Prevention",
+    counties: "Panhandle/Western NE",
+    phone: "308-458-7795",
+    email: "wahohpiluta@yahoo.com",
+    website: "",
+    isCollab: true,
+    tribalAffiliation: "Native American outreach"
+  },
+  {
+    name: "Society of Care Santee-Sioux Nation",
+    type: "Tribal/Indigenous Community Prevention",
+    counties: "Knox",
+    phone: "402-857-2741",
+    email: "dlapointe@societyofcare.org",
+    website: "",
+    isCollab: true,
+    tribalAffiliation: "Santee Sioux Nation"
+  }
+];
+
+// Get unique values for filters
+const types = [...new Set(organizationsData.map(o => o.type))].sort();
+const counties = [...new Set(organizationsData.flatMap(o => o.counties.split(', ')))].sort();
+---
+
+<DashboardLayout>
+  <main>
+    <div class="p-4">
+      <!-- Command Bar with Filters and Views -->
+      <div class="mb-4 flex items-center justify-between bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
+        <!-- Left: Filters -->
+        <div class="flex items-center gap-4">
+          <!-- Type Filter -->
+          <div>
+            <button id="typeDropdownButton" data-dropdown-toggle="typeDropdown" class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700 inline-flex items-center" type="button">
+              <span id="typeButtonText">Organization Type</span>
+              <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+              </svg>
+            </button>
+            <!-- Dropdown menu -->
+            <div id="typeDropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-72 dark:bg-gray-700">
+              <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="typeDropdownButton">
+                <li><a href="#" class="filter-option block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" data-filter-type="type" data-filter-value="">All Types</a></li>
+                {types.map(type => (
+                  <li><a href="#" class="filter-option block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" data-filter-type="type" data-filter-value={type}>{type}</a></li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          <!-- County Filter -->
+          <div>
+            <button id="countyDropdownButton" data-dropdown-toggle="countyDropdown" class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700 inline-flex items-center" type="button">
+              <span id="countyButtonText">County</span>
+              <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+              </svg>
+            </button>
+            <!-- Dropdown menu -->
+            <div id="countyDropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 max-h-60 overflow-y-auto">
+              <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="countyDropdownButton">
+                <li><a href="#" class="filter-option block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" data-filter-type="county" data-filter-value="">All Counties</a></li>
+                {counties.map(county => (
+                  <li><a href="#" class="filter-option block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" data-filter-type="county" data-filter-value={county}>{county}</a></li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          <!-- Collaborative Filter -->
+          <div>
+            <button id="collabDropdownButton" data-dropdown-toggle="collabDropdown" class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700 inline-flex items-center" type="button">
+              <span id="collabButtonText">Collaborative Status</span>
+              <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+              </svg>
+            </button>
+            <!-- Dropdown menu -->
+            <div id="collabDropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-52 dark:bg-gray-700">
+              <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="collabDropdownButton">
+                <li><a href="#" class="filter-option block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" data-filter-type="isCollab" data-filter-value="">All Organizations</a></li>
+                <li><a href="#" class="filter-option block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" data-filter-type="isCollab" data-filter-value="true">Collaboratives Only</a></li>
+                <li><a href="#" class="filter-option block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" data-filter-type="isCollab" data-filter-value="false">Non-Collaboratives</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Clear Filters Button -->
+          <button id="clearFiltersBtn" type="button" class="text-gray-700 bg-gray-100 border border-gray-300 focus:outline-none hover:bg-gray-200 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-gray-600 dark:text-gray-200 dark:border-gray-500 dark:hover:bg-gray-500 dark:focus:ring-gray-700 inline-flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+            Clear Filters
+          </button>
+        </div>
+
+        <!-- Right: View Toggles -->
+        <div class="flex items-center gap-2">
+          <button type="button" class="p-2 text-gray-500 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700" title="Card View">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M5 3a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2H5Zm0 12a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2v-2a2 2 0 0 0-2-2H5Zm10 0a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2v-2a2 2 0 0 0-2-2h-4Zm0-12a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-4Z"/>
+            </svg>
+          </button>
+          <button type="button" class="p-2 text-gray-900 bg-gray-100 rounded-lg dark:text-white dark:bg-gray-700" title="Table View">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M5 3a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2H5Zm1.293 3.707a1 1 0 0 1 1.414 0l2 2a1 1 0 0 1 0 1.414l-2 2a1 1 0 0 1-1.414-1.414L7.586 9.5 6.293 8.207a1 1 0 0 1 0-1.414ZM13 9a1 1 0 1 0 0 2h5a1 1 0 1 0 0-2h-5Zm0 4a1 1 0 1 0 0 2h5a1 1 0 1 0 0-2h-5Z" clip-rule="evenodd"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Organizations Table -->
+      <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+            <thead class="bg-gray-50 dark:bg-gray-700">
+              <tr>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                  Organization Name
+                </th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                  Type
+                </th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                  Counties Served
+                </th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                  Phone
+                </th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                  Email
+                </th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                  Collaborative
+                </th>
+              </tr>
+            </thead>
+            <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700" id="organizationsTableBody">
+              {organizationsData.map((org) => (
+                <tr class="org-row hover:bg-gray-50 dark:hover:bg-gray-700" data-type={org.type} data-counties={org.counties} data-is-collab={org.isCollab}>
+                  <td class="px-6 py-4 text-sm font-medium text-gray-900 dark:text-white">
+                    {org.name}
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
+                    {org.type}
+                  </td>
+                  <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">
+                    {org.counties}
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
+                    {org.phone || ''}
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
+                    {org.email ? (
+                      <a href={`mailto:${org.email}`} class="text-blue-600 dark:text-blue-400 hover:underline">
+                        {org.email}
+                      </a>
+                    ) : ''}
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
+                    {org.isCollab ? (
+                      <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
+                        Yes
+                      </span>
+                    ) : (
+                      <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300">
+                        No
+                      </span>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Stats Summary -->
+      <div class="mt-4 text-sm text-gray-500 dark:text-gray-400">
+        Showing <span id="orgCount">{organizationsData.length}</span> organizations
+      </div>
+    </div>
+  </main>
+</DashboardLayout>
+
+<script>
+  // Filter state
+  const filters = {
+    type: '',
+    county: '',
+    isCollab: ''
+  };
+
+  // Get all filter options
+  const filterOptions = document.querySelectorAll('.filter-option');
+
+  // Add click handlers to all filter options
+  filterOptions.forEach(option => {
+    option.addEventListener('click', (e) => {
+      e.preventDefault();
+
+      const filterType = option.getAttribute('data-filter-type');
+      const filterValue = option.getAttribute('data-filter-value');
+
+      // Update filter state
+      filters[filterType] = filterValue;
+
+      // Update button text
+      updateButtonText(filterType, option.textContent);
+
+      // Apply filters
+      applyFilters();
+    });
+  });
+
+  // Clear Filters button handler
+  const clearFiltersBtn = document.getElementById('clearFiltersBtn');
+  if (clearFiltersBtn) {
+    clearFiltersBtn.addEventListener('click', () => {
+      // Reset all filters
+      filters.type = '';
+      filters.county = '';
+      filters.isCollab = '';
+
+      // Reset button texts
+      document.getElementById('typeButtonText').textContent = 'Organization Type';
+      document.getElementById('countyButtonText').textContent = 'County';
+      document.getElementById('collabButtonText').textContent = 'Collaborative Status';
+
+      // Apply filters (which will show all rows)
+      applyFilters();
+    });
+  }
+
+  function updateButtonText(filterType, text) {
+    const buttonTextMap = {
+      'type': 'typeButtonText',
+      'county': 'countyButtonText',
+      'isCollab': 'collabButtonText'
+    };
+
+    const buttonTextElement = document.getElementById(buttonTextMap[filterType]);
+    if (buttonTextElement) {
+      buttonTextElement.textContent = text.trim();
+    }
+  }
+
+  function applyFilters() {
+    const rows = document.querySelectorAll('.org-row');
+    let visibleCount = 0;
+
+    rows.forEach(row => {
+      let shouldShow = true;
+
+      // Check type filter
+      if (filters.type && row.getAttribute('data-type') !== filters.type) {
+        shouldShow = false;
+      }
+
+      // Check county filter - handle multiple counties
+      if (filters.county) {
+        const rowCounties = row.getAttribute('data-counties');
+        if (!rowCounties.includes(filters.county)) {
+          shouldShow = false;
+        }
+      }
+
+      // Check collaborative filter
+      if (filters.isCollab) {
+        const rowIsCollab = row.getAttribute('data-is-collab');
+        if (rowIsCollab !== filters.isCollab) {
+          shouldShow = false;
+        }
+      }
+
+      // Show or hide row
+      if (shouldShow) {
+        row.style.display = '';
+        visibleCount++;
+      } else {
+        row.style.display = 'none';
+      }
+    });
+
+    // Update count
+    const countElement = document.getElementById('orgCount');
+    if (countElement) {
+      countElement.textContent = visibleCount.toString();
+    }
+  }
+</script>

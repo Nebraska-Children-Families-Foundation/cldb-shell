@@ -1,0 +1,111 @@
+---
+/**
+ * Statewide Plan - Goals Overview
+ * Displays all 4 goals with statistics
+ */
+
+import DashboardLayout from '../../../layouts/DashboardLayout.astro';
+import GoalCard from '../../../components/statewide-plan/GoalCard.astro';
+import { getAllGoals } from '../../../utils/statewide-plan.js';
+
+const goals = getAllGoals();
+---
+
+<DashboardLayout>
+  <!-- Main Content Area -->
+  <div class="px-6 py-4">
+    <div>
+      <!-- Page Header -->
+      <div class="mb-6">
+        <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+          Nebraska Statewide Plan for Community Well-Being
+        </h1>
+        <p class="text-lg text-gray-600 dark:text-gray-400">
+          Explore the four core goals driving Nebraska's community well-being initiatives
+        </p>
+      </div>
+
+      <!-- Navigation Pills -->
+      <div class="mb-6 border-b border-gray-200 dark:border-gray-700">
+        <ul class="flex flex-wrap -mb-px text-sm font-medium text-center">
+          <li class="mr-2">
+            <a href="/statewide-plan/goals" class="inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg active dark:text-blue-500 dark:border-blue-500">
+              Goals
+            </a>
+          </li>
+          <li class="mr-2">
+            <a href="/statewide-plan/objectives" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg text-gray-500 hover:text-gray-600 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300">
+              Objectives
+            </a>
+          </li>
+          <li class="mr-2">
+            <a href="/statewide-plan/strategies" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg text-gray-500 hover:text-gray-600 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300">
+              Strategies
+            </a>
+          </li>
+          <li class="mr-2">
+            <a href="/statewide-plan/action-steps" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg text-gray-500 hover:text-gray-600 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300">
+              Action Steps
+            </a>
+          </li>
+          <li class="mr-2">
+            <a href="/statewide-plan/commitments" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg text-gray-500 hover:text-gray-600 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300">
+              Commitments
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Goals Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {goals.map(goal => (
+          <GoalCard goal={goal} />
+        ))}
+      </div>
+
+      <!-- About Section -->
+      <div class="mt-8 p-6 bg-blue-50 dark:bg-gray-800 rounded-lg border border-blue-200 dark:border-gray-700">
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+          Bring Up Nebraska's Statewide Plan for Community Well-Being
+        </h2>
+        <p class="text-gray-700 dark:text-gray-300 mb-6 font-semibold">
+          Nebraska will have the most robust Community Well-Being prevention model in the nation by 2025.
+        </p>
+
+        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">
+          Nebraska's Goals
+        </h3>
+        <p class="text-gray-700 dark:text-gray-300 mb-2 font-semibold">By 2025, we will...</p>
+        <ol class="list-decimal list-inside text-gray-700 dark:text-gray-300 mb-6 space-y-2">
+          <li>Improve authentic collaboration between lived experience partners, system partners, local school districts, and community collaboratives and community members.</li>
+          <li>Increase community collaborative infrastructure that leads to equitable well-being outcomes.</li>
+          <li>Improve services and supports that build Protective and Promotive Factors in children, youth, families, and communities, including:
+            <ul class="list-disc list-inside ml-6 mt-2 space-y-1">
+              <li>Education, postsecondary education, and career services and support for children, youth, families, and communities hosted both inside and outside of the traditional school day.</li>
+              <li>Supports and services for youth/young adults and young parents/families.</li>
+              <li>Access to and increased capacity of early childhood services in communities.</li>
+              <li>Access to and increased capacity of physical and behavioral health services in communities.</li>
+              <li>Access to economic stability and concrete support for children, youth, families, and communities.</li>
+            </ul>
+          </li>
+          <li>Strengthen the well-being workforce in Nebraska.</li>
+        </ol>
+
+        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">
+          Population-Level Result Areas of Thriving
+        </h3>
+        <p class="text-gray-700 dark:text-gray-300 mb-2 italic text-sm">(strategic-level indicators of thriving):</p>
+        <ul class="list-disc list-inside text-gray-700 dark:text-gray-300 space-y-2">
+          <li><strong>Children, Youth, and Families are safe and healthy:</strong> this result will have a set of indicators focused on the promotive and protective factors; physical, mental, emotional health and wellness; children's lived experiences with a focus on understanding and prevention of abuse and neglect</li>
+          <li><strong>Children, Youth, and Families are ready for and successful in educational and career opportunities:</strong> this result will have a set of indicators focused on readiness and success as children grow from infancy through early adulthood regarding their education and their career pathways; also included here are readiness and success with regard to job opportunities for those supporting their families.</li>
+          <li><strong>Children, Youth, and Families experience economic stability:</strong> this result will have indicators focused on access to and affordability of key resources such as housing, food, clothing, and other basic needs. The availability of jobs that pay a living wage is part of this area as well.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</DashboardLayout>
+
+<script>
+  // Flowbite initialization
+  import 'flowbite';
+</script>

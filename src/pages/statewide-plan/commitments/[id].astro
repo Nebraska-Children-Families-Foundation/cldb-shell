@@ -1,0 +1,314 @@
+---
+/**
+ * Commitment Detail Page
+ * Shows detailed information about a single system partner commitment
+ */
+
+import DashboardLayout from '../../../layouts/DashboardLayout.astro';
+import HierarchyTimeline from '../../../components/statewide-plan/HierarchyTimeline.astro';
+import {
+  getAllCommitments,
+  getCommitmentById,
+  getHierarchyForCommitment,
+  getSystemPartnerById,
+  getPreviousNextCommitmentInStrategy,
+  formatCompletionDate
+} from '../../../utils/statewide-plan.js';
+
+export async function getStaticPaths() {
+  const commitments = getAllCommitments();
+
+  return commitments.map(commitment => ({
+    params: { id: commitment.commitment_id },
+    props: { commitment: commitment }
+  }));
+}
+
+const { id } = Astro.params;
+const commitment = getCommitmentById(id);
+
+if (!commitment) {
+  return Astro.redirect('/404');
+}
+
+const hierarchy = getHierarchyForCommitment(id);
+const { goal, objective, strategy } = hierarchy;
+
+// Get system partner organization name if applicable
+let organizationName = null;
+if (commitment.related_systempartner_id) {
+  const partner = getSystemPartnerById(commitment.related_systempartner_id);
+  organizationName = partner ? partner.system_partner_name : null;
+}
+
+// Get previous/next navigation
+const { previous, next } = strategy ? getPreviousNextCommitmentInStrategy(id, strategy.strategy_id) : { previous: null, next: null };
+
+const pageTitle = commitment.commitment_name || 'Commitment';
+
+// Build timeline items for hierarchy visualization
+const timelineItems = [];
+if (goal) {
+  timelineItems.push({
+    number: `Goal ${goal.goal_number}`,
+    name: goal.goal_name,
+    href: `/statewide-plan/goals/${goal.goal_id}`,
+    color: 'blue'
+  });
+}
+if (objective) {
+  timelineItems.push({
+    number: `Objective ${objective.objective_number}`,
+    name: objective.objective_name,
+    color: 'blue'
+  });
+}
+if (strategy) {
+  timelineItems.push({
+    number: strategy.strategy_number,
+    name: strategy.strategy_name,
+    href: `/statewide-plan/strategies/${strategy.strategy_id}`,
+    color: 'blue'
+  });
+}
+timelineItems.push({
+  number: commitment.commitment_number || 'Commitment',
+  name: commitment.commitment_name || 'Unnamed Commitment',
+  color: 'red'
+});
+---
+
+<DashboardLayout>
+  <div class="px-6 py-4">
+    <!-- Breadcrumb Navigation -->
+    <div class="mb-6">
+      <nav class="flex mb-4" aria-label="Breadcrumb">
+        <ol class="inline-flex items-center space-x-1 md:space-x-3">
+          <li class="inline-flex items-center">
+            <a href="/statewide-plan" class="inline-flex items-center gap-2 text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
+              <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                <path d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z"/>
+              </svg>
+              Statewide Plan
+            </a>
+          </li>
+          {goal && (
+            <li class="inline-flex items-center">
+              <svg class="w-3 h-3 text-gray-400 mx-1 dark:text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+              </svg>
+              <a href={`/statewide-plan/goals/${goal.goal_id}`} class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
+                Goal {goal.goal_number}
+              </a>
+            </li>
+          )}
+          {objective && (
+            <li class="inline-flex items-center">
+              <svg class="w-3 h-3 text-gray-400 mx-1 dark:text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+              </svg>
+              <a href={`/statewide-plan/goals/${goal.goal_id}`} class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
+                Objective {objective.objective_number}
+              </a>
+            </li>
+          )}
+          {strategy && (
+            <li class="inline-flex items-center">
+              <svg class="w-3 h-3 text-gray-400 mx-1 dark:text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+              </svg>
+              <a href={`/statewide-plan/strategies/${strategy.strategy_id}`} class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
+                Strategy {strategy.strategy_number}
+              </a>
+            </li>
+          )}
+          <li aria-current="page">
+            <div class="flex items-center">
+              <svg class="w-3 h-3 text-gray-400 mx-1 dark:text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+              </svg>
+              <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">Commitment</span>
+            </div>
+          </li>
+        </ol>
+      </nav>
+    </div>
+
+    <!-- Header -->
+    <div class="mb-8">
+      <div class="flex items-start justify-between flex-wrap gap-4">
+        <div class="flex-1">
+          {commitment.commitment_number && (
+            <span class="text-sm font-semibold text-gray-600 dark:text-gray-400 mb-2 block">
+              {commitment.commitment_number}
+            </span>
+          )}
+          <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+            {commitment.commitment_name || 'Unnamed Commitment'}
+          </h1>
+
+          <!-- Badges -->
+          <div class="flex flex-wrap gap-2 mb-4">
+            <!-- Type Badge -->
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300">
+              System Partner Commitment
+            </span>
+
+            <!-- Status Badge -->
+            {commitment.commitment_status && (
+              <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300">
+                {commitment.commitment_status}
+              </span>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Commitment Details Section -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+      <!-- Details Card -->
+      <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+        <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">
+          Details
+        </h2>
+        {commitment.commitment_details ? (
+          <div class="prose dark:prose-invert max-w-none">
+            <p class="text-gray-700 dark:text-gray-300 whitespace-pre-wrap">
+              {commitment.commitment_details}
+            </p>
+          </div>
+        ) : (
+          <p class="text-gray-500 dark:text-gray-400 italic">No details provided.</p>
+        )}
+      </div>
+
+      <!-- Partner Information Card -->
+      <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+        <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">
+          Partner Information
+        </h2>
+        <dl class="space-y-3">
+          <div>
+            <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Lead</dt>
+            <dd class="mt-1 text-sm text-gray-900 dark:text-white">
+              {commitment.commitment_lead || 'Not assigned'}
+            </dd>
+          </div>
+          {organizationName && (
+            <div>
+              <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">
+                System Partner Organization
+              </dt>
+              <dd class="mt-1 text-sm text-gray-900 dark:text-white">
+                {organizationName}
+              </dd>
+            </div>
+          )}
+        </dl>
+      </div>
+
+      <!-- Timeline Card -->
+      <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+        <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">
+          Timeline
+        </h2>
+        <dl class="space-y-3">
+          <div>
+            <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Status</dt>
+            <dd class="mt-1">
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-sm font-medium bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300">
+                {commitment.commitment_status || 'Not set'}
+              </span>
+            </dd>
+          </div>
+          <div>
+            <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Target Completion</dt>
+            <dd class="mt-1 text-sm text-gray-900 dark:text-white">
+              {formatCompletionDate(commitment.completedby_quarter, commitment.completedby_year)}
+            </dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+
+    <!-- Hierarchy Visualization (Full Width) -->
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-8">
+      <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">
+        Hierarchy
+      </h2>
+      <HierarchyTimeline items={timelineItems} />
+    </div>
+
+    <!-- Navigation Buttons -->
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 border-t border-gray-200 dark:border-gray-700">
+      <!-- Previous Button -->
+      <div class="w-full sm:w-auto">
+        {previous ? (
+          <a
+            href={`/statewide-plan/commitments/${previous.commitment_id}`}
+            class="inline-flex items-center justify-center w-full sm:w-auto px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-gray-800 dark:text-gray-200 dark:border-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-700"
+          >
+            <svg class="w-3.5 h-3.5 mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5H1m0 0 4 4M1 5l4-4"/>
+            </svg>
+            <span class="max-w-xs truncate">Previous: {previous.commitment_name}</span>
+          </a>
+        ) : (
+          <button
+            disabled
+            class="inline-flex items-center justify-center w-full sm:w-auto px-4 py-2 text-sm font-medium text-gray-400 bg-gray-100 border border-gray-300 rounded-lg cursor-not-allowed dark:bg-gray-700 dark:text-gray-500 dark:border-gray-600"
+          >
+            <svg class="w-3.5 h-3.5 mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5H1m0 0 4 4M1 5l4-4"/>
+            </svg>
+            No Previous
+          </button>
+        )}
+      </div>
+
+      <!-- Back to Strategy / All Commitments -->
+      <div class="flex gap-2">
+        {strategy && (
+          <a
+            href={`/statewide-plan/strategies/${strategy.strategy_id}`}
+            class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-gray-800 dark:text-gray-200 dark:border-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-700"
+          >
+            Back to Strategy
+          </a>
+        )}
+        <a
+          href="/statewide-plan/commitments"
+          class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-gray-800 dark:text-gray-200 dark:border-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-700"
+        >
+          All Commitments
+        </a>
+      </div>
+
+      <!-- Next Button -->
+      <div class="w-full sm:w-auto">
+        {next ? (
+          <a
+            href={`/statewide-plan/commitments/${next.commitment_id}`}
+            class="inline-flex items-center justify-center w-full sm:w-auto px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-gray-800 dark:text-gray-200 dark:border-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-700"
+          >
+            <span class="max-w-xs truncate">Next: {next.commitment_name}</span>
+            <svg class="w-3.5 h-3.5 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+            </svg>
+          </a>
+        ) : (
+          <button
+            disabled
+            class="inline-flex items-center justify-center w-full sm:w-auto px-4 py-2 text-sm font-medium text-gray-400 bg-gray-100 border border-gray-300 rounded-lg cursor-not-allowed dark:bg-gray-700 dark:text-gray-500 dark:border-gray-600"
+          >
+            No Next
+            <svg class="w-3.5 h-3.5 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+            </svg>
+          </button>
+        )}
+      </div>
+    </div>
+  </div>
+</DashboardLayout>

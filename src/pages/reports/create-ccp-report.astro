@@ -1,0 +1,767 @@
+---
+// src/pages/reports/create-ccp-report.astro
+import Reports from "../../layouts/Reports.astro";
+---
+
+<Reports title="Create CCP Report | Community Lens Database" activeSubnavItem="Create New Report">
+  <div class="max-w-4xl mx-auto">
+    <div class="flex justify-between items-center mb-6">
+      <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Create Child Care Partnership Report</h1>
+      <a href="/reports/create-report" class="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500 flex items-center">
+        <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+        </svg>
+        Back to Report Selection
+      </a>
+    </div>
+
+    <div class="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6 mb-6">
+      <div class="mb-6 pb-6 border-b border-gray-200 dark:border-gray-700">
+        <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">General Information</h2>
+        <p class="text-gray-600 dark:text-gray-400 mb-4">
+          Fields with <span class="text-blue-600 dark:text-blue-500 font-medium">Change</span> buttons are pre-filled based on your program data. Click the button to modify if needed.
+        </p>
+
+        <!-- Report Date -->
+        <div class="mb-4">
+          <label for="report-date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            Report Data
+          </label>
+          <div class="relative max-w-xs">
+            <input type="month" id="report-date" name="report-date"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              value="2025-04">
+          </div>
+          <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Please select the month and year for this report.</p>
+        </div>
+
+        <!-- School District -->
+        <div class="mb-4">
+          <label for="school-district" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            School District of Childcare Partnership Program
+          </label>
+          <div class="flex">
+            <select id="school-district" disabled
+              class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+              <option selected>Hastings</option>
+              <option>Auburn</option>
+              <option>Chadron</option>
+              <option>Fall City</option>
+              <option>Gering</option>
+              <option>Grand Island</option>
+              <option>Kearney</option>
+              <option>Sidney</option>
+              <option>York</option>
+            </select>
+            <button type="button" id="change-district"
+              class="ml-2 px-3 py-2 text-sm font-medium text-blue-600 bg-white border border-blue-600 rounded-lg hover:bg-blue-50 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-gray-800 dark:text-blue-500 dark:border-blue-500 dark:hover:bg-gray-700 dark:focus:ring-blue-800">
+              Change
+            </button>
+          </div>
+        </div>
+
+        <!-- Program Coordinator -->
+        <div class="mb-4">
+          <label for="coordinator-name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            Childcare Partnership Program Coordinator Name
+          </label>
+          <div class="flex">
+            <input type="text" id="coordinator-name" disabled
+              class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              value="John Smith">
+            <button type="button" id="change-coordinator"
+              class="ml-2 px-3 py-2 text-sm font-medium text-blue-600 bg-white border border-blue-600 rounded-lg hover:bg-blue-50 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-gray-800 dark:text-blue-500 dark:border-blue-500 dark:hover:bg-gray-700 dark:focus:ring-blue-800"
+              data-modal-target="people-search-modal" data-modal-toggle="people-search-modal">
+              Change
+            </button>
+          </div>
+        </div>
+
+        <!-- Coach Name -->
+        <div class="mb-4">
+          <label for="coach-name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            Childcare Partnership Coach Name
+          </label>
+          <div class="flex">
+            <input type="text" id="coach-name" disabled
+              class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              value="Susan Doe">
+            <button type="button" id="change-coach"
+              class="ml-2 px-3 py-2 text-sm font-medium text-blue-600 bg-white border border-blue-600 rounded-lg hover:bg-blue-50 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-gray-800 dark:text-blue-500 dark:border-blue-500 dark:hover:bg-gray-700 dark:focus:ring-blue-800"
+              data-modal-target="people-search-modal" data-modal-toggle="people-search-modal">
+              Change
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Program Details Section -->
+      <div class="mb-6 pb-6 border-b border-gray-200 dark:border-gray-700">
+        <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Program Details</h2>
+
+        <!-- Program Name -->
+        <div class="mb-4">
+          <label for="program-name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            Name of Childcare Program
+          </label>
+          <div class="flex">
+            <input type="text" id="program-name" disabled
+              class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              value="Hastings YMCA">
+            <button type="button" id="change-program"
+              class="ml-2 px-3 py-2 text-sm font-medium text-blue-600 bg-white border border-blue-600 rounded-lg hover:bg-blue-50 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-gray-800 dark:text-blue-500 dark:border-blue-500 dark:hover:bg-gray-700 dark:focus:ring-blue-800">
+              Change
+            </button>
+          </div>
+        </div>
+
+        <!-- License Number -->
+        <div class="mb-4">
+          <label for="license-number" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            License Number
+          </label>
+          <div class="flex">
+            <input type="text" id="license-number" disabled
+              class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              value="CC-2748392-HAS">
+            <button type="button" id="change-license"
+              class="ml-2 px-3 py-2 text-sm font-medium text-blue-600 bg-white border border-blue-600 rounded-lg hover:bg-blue-50 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-gray-800 dark:text-blue-500 dark:border-blue-500 dark:hover:bg-gray-700 dark:focus:ring-blue-800"
+              data-modal-target="program-details-modal" data-modal-toggle="program-details-modal">
+              Change
+            </button>
+          </div>
+        </div>
+
+        <!-- License Type -->
+        <div class="mb-4">
+          <label for="license-type" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            License Type
+          </label>
+          <div class="flex">
+            <select id="license-type" disabled
+              class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+              <option selected>Center</option>
+              <option>FCCHI</option>
+              <option>FCCHII</option>
+            </select>
+            <button type="button" id="change-license-type"
+              class="ml-2 px-3 py-2 text-sm font-medium text-blue-600 bg-white border border-blue-600 rounded-lg hover:bg-blue-50 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-gray-800 dark:text-blue-500 dark:border-blue-500 dark:hover:bg-gray-700 dark:focus:ring-blue-800">
+              Change
+            </button>
+          </div>
+        </div>
+
+        <!-- Referral Network -->
+        <div class="mb-4">
+          <label for="referral-network" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            Childcare Program has an active profile on the Nebraska Childcare Referral Network
+          </label>
+          <div class="flex">
+            <select id="referral-network" disabled
+              class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+              <option selected>Yes</option>
+              <option>No</option>
+            </select>
+            <button type="button" id="change-referral"
+              class="ml-2 px-3 py-2 text-sm font-medium text-blue-600 bg-white border border-blue-600 rounded-lg hover:bg-blue-50 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-gray-800 dark:text-blue-500 dark:border-blue-500 dark:hover:bg-gray-700 dark:focus:ring-blue-800"
+              data-modal-target="program-details-modal" data-modal-toggle="program-details-modal">
+              Change
+            </button>
+          </div>
+        </div>
+
+        <!-- Lead Designee -->
+        <div class="mb-4">
+          <label for="lead-designee" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            Name of Program Lead Designee
+          </label>
+          <div class="flex">
+            <input type="text" id="lead-designee" disabled
+              class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              value="Amy Enenne">
+            <button type="button" id="change-lead"
+              class="ml-2 px-3 py-2 text-sm font-medium text-blue-600 bg-white border border-blue-600 rounded-lg hover:bg-blue-50 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-gray-800 dark:text-blue-500 dark:border-blue-500 dark:hover:bg-gray-700 dark:focus:ring-blue-800"
+              data-modal-target="people-search-modal" data-modal-toggle="people-search-modal">
+              Change
+            </button>
+          </div>
+        </div>
+
+        <!-- Teachers Being Coached Section -->
+        <div class="mb-6">
+          <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            Name of Teachers Being Coached by CCP
+          </label>
+
+          <div id="teachers-container">
+            <div class="flex flex-wrap gap-4 mb-3 teacher-row">
+              <div>
+                <label for="teacher-first-1" class="block mb-1 text-xs text-gray-600 dark:text-gray-400">First Name</label>
+                <input type="text" id="teacher-first-1"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+              </div>
+              <div>
+                <label for="teacher-last-1" class="block mb-1 text-xs text-gray-600 dark:text-gray-400">Last Name</label>
+                <input type="text" id="teacher-last-1"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+              </div>
+              <div class="flex items-end pb-3">
+                <div class="flex items-center">
+                  <input id="new-teacher-1" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                  <label for="new-teacher-1" class="ml-2 text-sm text-gray-900 dark:text-white">New Teacher</label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button type="button" id="add-teacher"
+            class="text-blue-600 hover:text-blue-800 dark:text-blue-500 dark:hover:text-blue-400 font-medium text-sm inline-flex items-center">
+            <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path>
+            </svg>
+            Add New Teacher
+          </button>
+        </div>
+      </div>
+
+      <!-- Program Status Section -->
+      <div class="mb-6 pb-6 border-b border-gray-200 dark:border-gray-700">
+        <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Program Status and Quality</h2>
+
+        <!-- DHHS Status -->
+        <div class="mb-4">
+          <label for="dhhs-status" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            Current DHHS Child Care Licensing Status
+          </label>
+          <div class="flex">
+            <select id="dhhs-status" disabled
+              class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+              <option selected>Active</option>
+              <option>Provisional</option>
+              <option>Other</option>
+            </select>
+            <button type="button" id="change-dhhs"
+              class="ml-2 px-3 py-2 text-sm font-medium text-blue-600 bg-white border border-blue-600 rounded-lg hover:bg-blue-50 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-gray-800 dark:text-blue-500 dark:border-blue-500 dark:hover:bg-gray-700 dark:focus:ring-blue-800"
+              data-modal-target="program-details-modal" data-modal-toggle="program-details-modal">
+              Change
+            </button>
+          </div>
+          <div id="other-description" class="mt-2 hidden">
+            <label for="dhhs-other" class="block mb-1 text-sm text-gray-600 dark:text-gray-400">Please describe</label>
+            <input type="text" id="dhhs-other"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          </div>
+        </div>
+
+        <!-- Partnership Date -->
+        <div class="mb-4">
+          <label for="partnership-date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            Date Enter Formal Partnership
+          </label>
+          <div class="flex">
+            <input type="text" id="partnership-date" disabled
+              class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              value="02/04/2019">
+            <button type="button" id="change-partnership"
+              class="ml-2 px-3 py-2 text-sm font-medium text-blue-600 bg-white border border-blue-600 rounded-lg hover:bg-blue-50 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-gray-800 dark:text-blue-500 dark:border-blue-500 dark:hover:bg-gray-700 dark:focus:ring-blue-800"
+              data-modal-target="program-details-modal" data-modal-toggle="program-details-modal">
+              Change
+            </button>
+          </div>
+        </div>
+
+        <!-- Step Up Rating -->
+        <div class="mb-4">
+          <label for="step-up-rating" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            Step Up to Quality Rating
+          </label>
+          <div class="flex">
+            <select id="step-up-rating" disabled
+              class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option selected>4</option>
+              <option>5</option>
+            </select>
+            <button type="button" id="change-step-up"
+              class="ml-2 px-3 py-2 text-sm font-medium text-blue-600 bg-white border border-blue-600 rounded-lg hover:bg-blue-50 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-gray-800 dark:text-blue-500 dark:border-blue-500 dark:hover:bg-gray-700 dark:focus:ring-blue-800"
+              data-modal-target="program-details-modal" data-modal-toggle="program-details-modal">
+              Change
+            </button>
+          </div>
+        </div>
+
+        <!-- Step Up Coach -->
+        <div class="mb-4">
+          <label for="step-up-coach" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            Step up to Quality Coach
+          </label>
+          <div class="flex">
+            <select id="step-up-coach" disabled
+              class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+              <option>Yes</option>
+              <option selected>No</option>
+            </select>
+            <button type="button" id="change-step-coach"
+              class="ml-2 px-3 py-2 text-sm font-medium text-blue-600 bg-white border border-blue-600 rounded-lg hover:bg-blue-50 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-gray-800 dark:text-blue-500 dark:border-blue-500 dark:hover:bg-gray-700 dark:focus:ring-blue-800"
+              data-modal-target="program-details-modal" data-modal-toggle="program-details-modal">
+              Change
+            </button>
+          </div>
+          <div id="step-up-coach-name" class="mt-2 hidden">
+            <label for="step-coach-name" class="block mb-1 text-sm text-gray-600 dark:text-gray-400">Coach Name</label>
+            <input type="text" id="step-coach-name"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          </div>
+        </div>
+
+        <!-- Rooted in Relationships Coach -->
+        <div class="mb-4">
+          <label for="rooted-coach" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            Program has a Rooted in Relationships Coach
+          </label>
+          <div class="flex">
+            <select id="rooted-coach" disabled
+              class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+              <option>Yes</option>
+              <option selected>No</option>
+            </select>
+            <button type="button" id="change-rooted"
+              class="ml-2 px-3 py-2 text-sm font-medium text-blue-600 bg-white border border-blue-600 rounded-lg hover:bg-blue-50 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-gray-800 dark:text-blue-500 dark:border-blue-500 dark:hover:bg-gray-700 dark:focus:ring-blue-800"
+              data-modal-target="program-details-modal" data-modal-toggle="program-details-modal">
+              Change
+            </button>
+          </div>
+          <div id="rooted-coach-name" class="mt-2 hidden">
+            <label for="rooted-name" class="block mb-1 text-sm text-gray-600 dark:text-gray-400">Coach Name</label>
+            <input type="text" id="rooted-name"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          </div>
+        </div>
+
+        <!-- Rating Window -->
+        <div class="mb-4">
+          <label for="rating-window" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            Enter Rating Window
+          </label>
+          <input type="text" id="rating-window"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+        </div>
+      </div>
+
+      <!-- Enrollment Data Section -->
+      <div class="mb-6">
+        <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Enrollment Data</h2>
+
+        <!-- Total Infants and Toddlers -->
+        <div class="mb-4">
+          <label for="total-infants" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            Enter Total Number of Infants and Toddlers
+          </label>
+          <input type="number" id="total-infants"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+        </div>
+
+        <!-- Total Groups -->
+        <div class="mb-4">
+          <label for="total-groups" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            Enter Total Groups of Infants and Toddlers
+          </label>
+          <input type="number" id="total-groups"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+        </div>
+
+        <!-- Subsidy -->
+        <div class="mb-4">
+          <label for="total-subsidy" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            Enter Total Number of Infants and Toddlers Receiving Child Care Subsidy
+          </label>
+          <input type="number" id="total-subsidy"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+        </div>
+
+        <!-- Risk Factors Section -->
+        <div class="mb-6">
+          <label class="block mb-3 text-sm font-medium text-gray-900 dark:text-white">
+            Enter the Total Number of Infants and Toddlers with the following Risk Factors
+          </label>
+
+          <div class="space-y-3 pl-3 border-l-2 border-gray-200 dark:border-gray-700">
+            <!-- Risk Factor 1 -->
+            <div>
+              <label for="risk-language" class="block mb-1 text-sm text-gray-700 dark:text-gray-300">
+                Primarily speak/hear a language other than English in their home
+              </label>
+              <input type="number" id="risk-language"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            </div>
+
+            <!-- Risk Factor 2 -->
+            <div>
+              <label for="risk-subsidy" class="block mb-1 text-sm text-gray-700 dark:text-gray-300">
+                Quality for child care subsidy or meet the USDA Food Program's free/reduced lunch income qualification
+              </label>
+              <input type="number" id="risk-subsidy"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            </div>
+
+            <!-- Risk Factor 3 -->
+            <div>
+              <label for="risk-teenage" class="block mb-1 text-sm text-gray-700 dark:text-gray-300">
+                Born to a Teenage Parent (younger than 20 years of age)
+              </label>
+              <input type="number" id="risk-teenage"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            </div>
+
+            <!-- Risk Factor 4 -->
+            <div>
+              <label for="risk-education" class="block mb-1 text-sm text-gray-700 dark:text-gray-300">
+                Have a parent who has not completed high school or a GED
+              </label>
+              <input type="number" id="risk-education"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            </div>
+
+            <!-- Risk Factor 5 -->
+            <div>
+              <label for="risk-premature" class="block mb-1 text-sm text-gray-700 dark:text-gray-300">
+                Born premature (&lt;37 weeks)
+              </label>
+              <input type="number" id="risk-premature"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Submit Buttons -->
+      <div class="flex justify-end space-x-4">
+        <button type="button"
+          class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700">
+          Save as Draft
+        </button>
+        <button type="submit"
+          class="px-4 py-2 text-sm font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+          Submit Report
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- People Search Modal -->
+  <div id="people-search-modal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div class="relative w-full max-w-4xl max-h-full">
+      <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+        <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
+          <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+            Search People
+          </h3>
+          <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="people-search-modal">
+            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+            </svg>
+            <span class="sr-only">Close modal</span>
+          </button>
+        </div>
+
+        <div class="p-6 space-y-6">
+          <div class="mb-4">
+            <label for="search-people" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Search by name</label>
+            <div class="relative">
+              <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                </svg>
+              </div>
+              <input type="search" id="search-people" class="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search people...">
+            </div>
+          </div>
+
+          <div class="h-64 overflow-y-auto border border-gray-200 rounded-lg dark:border-gray-700">
+            <ul class="divide-y divide-gray-200 dark:divide-gray-700">
+              <li class="p-3 hover:bg-gray-100 dark:hover:bg-gray-600 cursor-pointer">
+                <div class="flex items-center space-x-4">
+                  <div class="flex-shrink-0">
+                    <img class="w-8 h-8 rounded-full" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/michael-gough.png" alt="Person image">
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <p class="text-sm font-medium text-gray-900 truncate dark:text-white">John Smith</p>
+                    <p class="text-sm text-gray-500 truncate dark:text-gray-400">Program Coordinator</p>
+                  </div>
+                </div>
+              </li>
+              <li class="p-3 hover:bg-gray-100 dark:hover:bg-gray-600 cursor-pointer">
+                <div class="flex items-center space-x-4">
+                  <div class="flex-shrink-0">
+                    <img class="w-8 h-8 rounded-full" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/bonnie-green.png" alt="Person image">
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <p class="text-sm font-medium text-gray-900 truncate dark:text-white">Susan Doe</p>
+                    <p class="text-sm text-gray-500 truncate dark:text-gray-400">CCP Coach</p>
+                  </div>
+                </div>
+              </li>
+              <li class="p-3 hover:bg-gray-100 dark:hover:bg-gray-600 cursor-pointer">
+                <div class="flex items-center space-x-4">
+                  <div class="flex-shrink-0">
+                    <img class="w-8 h-8 rounded-full" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png" alt="Person image">
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <p class="text-sm font-medium text-gray-900 truncate dark:text-white">Amy Enenne</p>
+                    <p class="text-sm text-gray-500 truncate dark:text-gray-400">Program Lead</p>
+                  </div>
+                </div>
+              </li>
+              <li class="p-3 hover:bg-gray-100 dark:hover:bg-gray-600 cursor-pointer">
+                <div class="flex items-center space-x-4">
+                  <div class="flex-shrink-0">
+                    <img class="w-8 h-8 rounded-full" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/joseph-mcfall.png" alt="Person image">
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <p class="text-sm font-medium text-gray-900 truncate dark:text-white">Robert Johnson</p>
+                    <p class="text-sm text-gray-500 truncate dark:text-gray-400">Staff</p>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="pt-4 border-t border-gray-200 dark:border-gray-600">
+            <button type="button" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+              <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path>
+              </svg>
+              Add New Person
+            </button>
+          </div>
+        </div>
+
+        <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+          <button data-modal-hide="people-search-modal" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Select</button>
+          <button data-modal-hide="people-search-modal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Program Details Modal -->
+  <div id="program-details-modal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div class="relative w-full max-w-4xl max-h-full">
+      <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+        <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
+          <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+            Program Details
+          </h3>
+          <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="program-details-modal">
+            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+            </svg>
+            <span class="sr-only">Close modal</span>
+          </button>
+        </div>
+
+        <div class="p-6 space-y-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Program Name -->
+            <div>
+              <label for="modal-program-name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Program Name</label>
+              <input type="text" id="modal-program-name" value="Hastings YMCA" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            </div>
+
+            <!-- License Number -->
+            <div>
+              <label for="modal-license-number" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">License Number</label>
+              <input type="text" id="modal-license-number" value="CC-2748392-HAS" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            </div>
+
+            <!-- License Type -->
+            <div>
+              <label for="modal-license-type" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">License Type</label>
+              <select id="modal-license-type" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <option selected>Center</option>
+                <option>FCCHI</option>
+                <option>FCCHII</option>
+              </select>
+            </div>
+
+            <!-- DHHS Status -->
+            <div>
+              <label for="modal-dhhs-status" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">DHHS Licensing Status</label>
+              <select id="modal-dhhs-status" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <option selected>Active</option>
+                <option>Provisional</option>
+                <option>Other</option>
+              </select>
+            </div>
+
+            <!-- Partnership Date -->
+            <div>
+              <label for="modal-partnership-date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Partnership Date</label>
+              <input type="date" id="modal-partnership-date" value="2019-02-04" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            </div>
+
+            <!-- Nebraska Childcare Referral Network -->
+            <div>
+              <label for="modal-referral-network" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nebraska Childcare Referral Network</label>
+              <select id="modal-referral-network" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <option selected>Yes</option>
+                <option>No</option>
+              </select>
+            </div>
+
+            <!-- Step Up Rating -->
+            <div>
+              <label for="modal-step-up-rating" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Step Up to Quality Rating</label>
+              <select id="modal-step-up-rating" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option selected>4</option>
+                <option>5</option>
+              </select>
+            </div>
+
+            <!-- Step Up Coach -->
+            <div>
+              <label for="modal-step-up-coach" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Step Up to Quality Coach</label>
+              <select id="modal-step-up-coach" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <option>Yes</option>
+                <option selected>No</option>
+              </select>
+            </div>
+
+            <!-- Step Up Coach Name (conditionally shown) -->
+            <div id="modal-step-coach-name-container" class="hidden">
+              <label for="modal-step-coach-name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Step Up Coach Name</label>
+              <input type="text" id="modal-step-coach-name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            </div>
+
+            <!-- Rooted Coach -->
+            <div>
+              <label for="modal-rooted-coach" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Rooted in Relationships Coach</label>
+              <select id="modal-rooted-coach" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <option>Yes</option>
+                <option selected>No</option>
+              </select>
+            </div>
+
+            <!-- Rooted Coach Name (conditionally shown) -->
+            <div id="modal-rooted-name-container" class="hidden">
+              <label for="modal-rooted-name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Rooted Coach Name</label>
+              <input type="text" id="modal-rooted-name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            </div>
+          </div>
+        </div>
+
+        <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+          <button data-modal-hide="program-details-modal" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save Changes</button>
+          <button data-modal-hide="program-details-modal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript for form interactivity -->
+  <script>
+    // Enable fields when "Change" buttons are clicked
+    document.addEventListener('DOMContentLoaded', function() {
+      // School District change button
+      document.getElementById('change-district').addEventListener('click', function() {
+        const districtSelect = document.getElementById('school-district');
+        districtSelect.disabled = false;
+        districtSelect.classList.remove('bg-gray-100');
+        districtSelect.classList.add('bg-gray-50');
+        districtSelect.focus();
+      });
+
+      // License Type change button
+      document.getElementById('change-license-type').addEventListener('click', function() {
+        const licenseTypeSelect = document.getElementById('license-type');
+        licenseTypeSelect.disabled = false;
+        licenseTypeSelect.classList.remove('bg-gray-100');
+        licenseTypeSelect.classList.add('bg-gray-50');
+        licenseTypeSelect.focus();
+      });
+
+      // Add teacher button
+      let teacherCount = 1;
+      document.getElementById('add-teacher').addEventListener('click', function() {
+        teacherCount++;
+        const teachersContainer = document.getElementById('teachers-container');
+        const teacherRow = document.createElement('div');
+        teacherRow.className = 'flex flex-wrap gap-4 mb-3 teacher-row';
+        teacherRow.innerHTML = `
+          <div>
+            <label for="teacher-first-${teacherCount}" class="block mb-1 text-xs text-gray-600 dark:text-gray-400">First Name</label>
+            <input type="text" id="teacher-first-${teacherCount}" 
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          </div>
+          <div>
+            <label for="teacher-last-${teacherCount}" class="block mb-1 text-xs text-gray-600 dark:text-gray-400">Last Name</label>
+            <input type="text" id="teacher-last-${teacherCount}" 
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          </div>
+          <div class="flex items-end pb-3">
+            <div class="flex items-center">
+              <input id="new-teacher-${teacherCount}" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+              <label for="new-teacher-${teacherCount}" class="ml-2 text-sm text-gray-900 dark:text-white">New Teacher</label>
+            </div>
+          </div>
+        `;
+        teachersContainer.appendChild(teacherRow);
+      });
+
+      // DHHS status "Other" option handling
+      document.getElementById('dhhs-status').addEventListener('change', function() {
+        const otherDescription = document.getElementById('other-description');
+        if (this.value === 'Other') {
+          otherDescription.classList.remove('hidden');
+        } else {
+          otherDescription.classList.add('hidden');
+        }
+      });
+
+      // Step Up Quality Coach "Yes" option handling
+      document.getElementById('step-up-coach').addEventListener('change', function() {
+        const coachNameField = document.getElementById('step-up-coach-name');
+        if (this.value === 'Yes') {
+          coachNameField.classList.remove('hidden');
+        } else {
+          coachNameField.classList.add('hidden');
+        }
+      });
+
+      // Rooted Coach "Yes" option handling
+      document.getElementById('rooted-coach').addEventListener('change', function() {
+        const rootedNameField = document.getElementById('rooted-coach-name');
+        if (this.value === 'Yes') {
+          rootedNameField.classList.remove('hidden');
+        } else {
+          rootedNameField.classList.add('hidden');
+        }
+      });
+
+      // Modal handling for Step Up Coach
+      document.getElementById('modal-step-up-coach').addEventListener('change', function() {
+        const coachNameContainer = document.getElementById('modal-step-coach-name-container');
+        if (this.value === 'Yes') {
+          coachNameContainer.classList.remove('hidden');
+        } else {
+          coachNameContainer.classList.add('hidden');
+        }
+      });
+
+      // Modal handling for Rooted Coach
+      document.getElementById('modal-rooted-coach').addEventListener('change', function() {
+        const rootedNameContainer = document.getElementById('modal-rooted-name-container');
+        if (this.value === 'Yes') {
+          rootedNameContainer.classList.remove('hidden');
+        } else {
+          rootedNameContainer.classList.add('hidden');
+        }
+      });
+    });
+  </script>
+</Reports>
