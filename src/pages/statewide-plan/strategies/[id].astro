@@ -4,7 +4,7 @@
  * Shows detailed information about a strategy including hierarchy, priorities, and related action steps/commitments
  */
 
-import Layout from '../../../layouts/Layout.astro';
+import DashboardLayout from '../../../layouts/DashboardLayout.astro';
 import ActionStepTable from '../../../components/statewide-plan/ActionStepTable.astro';
 import CommitmentTable from '../../../components/statewide-plan/CommitmentTable.astro';
 import {
@@ -46,9 +46,8 @@ const commitments = getCommitmentsByStrategyId(id);
 const pageTitle = `${strategy.strategy_number}: ${strategy.strategy_name}`;
 ---
 
-<Layout title={pageTitle}>
-  <div class="min-h-screen bg-white dark:bg-gray-900">
-  <div class="container mx-auto px-4 py-8">
+<DashboardLayout>
+  <div class="px-6 py-4">
     <!-- Breadcrumb Navigation -->
     <div class="mb-6">
       <nav class="flex mb-4" aria-label="Breadcrumb">
@@ -76,9 +75,9 @@ const pageTitle = `${strategy.strategy_number}: ${strategy.strategy_name}`;
               <svg class="w-3 h-3 text-gray-400 mx-1 dark:text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
               </svg>
-              <span class="inline-flex items-center text-sm font-medium text-gray-700 dark:text-gray-400">
+              <a href={`/statewide-plan/goals/${hierarchy.goal.goal_id}`} class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
                 Objective {hierarchy.objective.objective_number}
-              </span>
+              </a>
             </li>
           )}
           <li aria-current="page">
@@ -391,4 +390,4 @@ const pageTitle = `${strategy.strategy_number}: ${strategy.strategy_name}`;
     });
   </script>
   </div>
-</Layout>
+</DashboardLayout>

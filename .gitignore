@@ -30,3 +30,4 @@ pnpm-debug.log*
 .sql
 /info/statewide_plan_data.sql
 /info/statewide-plan-section-spec.md
+/src/data/statewide-plan/
