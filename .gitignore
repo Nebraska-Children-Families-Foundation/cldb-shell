@@ -23,7 +23,8 @@ pnpm-debug.log*
 # jetbrains setting folder
 .idea/
 
-# playwright mcp artifacts
+# MCP server artifacts
+.claude/
 .playwright-mcp/
 
 # SQL Files
