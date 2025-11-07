@@ -8,14 +8,10 @@
 
 		<!-- Theme initialization script - must run before page renders -->
 		<script is:inline>
-			// Immediately set theme to prevent FOUC (Flash of Unstyled Content)
+			// Force dark mode always
 			(function() {
-				const storedTheme = localStorage.getItem("theme");
-				const prefersDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
-
-				if (storedTheme === "dark" || (!storedTheme && prefersDarkMode)) {
-					document.documentElement.classList.add("dark");
-				}
+				document.documentElement.classList.add("dark");
+				localStorage.setItem("theme", "dark");
 			})();
 		</script>
 
